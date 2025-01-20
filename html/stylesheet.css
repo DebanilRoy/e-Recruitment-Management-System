@@ -1,0 +1,144 @@
+.dm-serif-text-regular {
+    font-family: "DM Serif Text", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: "DM Serif Text", serif;
+    font-weight: 400;
+    font-style: normal;
+    overflow-x: hidden;
+    height: auto;
+}
+
+.header {
+    height: 15vh;
+    width: calc(100vw - 325px);
+    float: right;
+    padding: 5px;
+}
+
+.headerHeading {
+    width: fit-content;
+}
+
+.profileCircle {
+    width: 40px;
+    height: 40px;
+    margin-top: 15px;
+}
+
+#loginBox {
+    border-radius: 12px;
+    background-color: #D9D9D9;
+    width: 75%;    
+}
+
+#loginTypeBox {
+    width: 80%;
+}
+
+.regFormDiv {
+    width: fit-content;
+}
+
+.regFormText {
+    width: 23vw;
+}
+
+.mainDiv {
+    width: 85vw;
+    margin: auto;
+}
+
+.regSubmit {
+    border-color: rgb(222, 226, 230);
+    margin-top: 25px;
+}
+
+
+.sideBarOpen {
+    position: fixed;
+    top: 0;
+    width: 300px;
+    height: 99vh;
+  
+}
+
+.sidebarCollapsed {
+    width: 90px;
+}
+
+.navBarDiv {
+    padding: 5px;
+}
+
+.navBarButtonDiv {
+    height: 103px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.navLinkHeader {
+    font-size: 25px;
+    height: 65px;
+}
+
+.navLinkButton {
+    font-size: 18px;
+    height: 65px;   
+}
+
+.bodyDiv {
+    width: calc(100vw - 325px);
+    float: right;
+}
+
+.card {
+    width: 330px;
+    margin-right: 5px;
+}
+
+.card-link {
+    width: 140px;
+    font-size: 12.5px;
+}
+
+.applyCard {
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+.cancelCard {
+    font-size: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-top: 150px;
+    width: fit-content;
+}
+
+.applicationsDiv {
+    width: calc(100vw - 325px - 450px);
+}
+
+.applicationStatusDiv {
+
+    width: 430px;
+    height: 99vh;
+    float: right;
+    padding: 5px;
+}
+
+.StatusCard {
+    width: 100%;
+}
+
+.appointmentsDiv {
+    width: 100%;
+}
+
+.offerCardOption {
+    width: 100%;
+}
