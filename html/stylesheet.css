@@ -1,15 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
 
-.dm-serif-text-regular {
-    font-family: "DM Serif Text", serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-/*  <uniquifier>: Use a unique and descriptive class name
-    <weight>: Use a value from 300 to 900
-*/
-
 .red-hat-display-0 {
     font-family: "Red Hat Display", serif;
     font-optical-sizing: auto;
@@ -17,21 +7,26 @@
     font-style: normal;
 }
 
+html {
+    height: auto;
+}
+
 body {
+    height: auto;
     font-family: "Red Hat Display", serif;
     font-weight: 700;
     font-style: normal;
     overflow-x: hidden;
     height: auto;
-    color: rgb(0, 9, 87);
+    color: black;
+    background: rgb(0,130,255);
+    background: linear-gradient(53deg, rgba(0,130,255,0.4) 20%, rgba(255,255,255,1) 50%, rgba(0,130,255,0.4) 85%);
+    background-attachment: fixed;
 }
 
 .header {
     height: 70px;
     width: calc(100vw - 350px);
-    position: absolute;
-    left: 325px;
-    top: 5px;
     padding-top: 5px;
     border-bottom: solid 1px;
     border-color: rgb(16, 54, 116);
@@ -42,7 +37,7 @@ body {
     width: fit-content;
     float: left;
     color: rgb(16, 54, 116);
-    text-shadow: 2px 2px 4px rgb(243, 164, 164);
+    text-shadow: 2px 2px 4px rgb(0, 130, 255);
 }
 
 .profileCircle {
@@ -69,8 +64,8 @@ body {
 
 .regFormText {
     width: 23vw;
-    border: solid 1.5px !important;
-    border-color: #2660ac !important;
+    border: solid 2px !important;
+    
 }
 
 .mainDiv {
@@ -85,12 +80,13 @@ body {
 
 
 .sideBarOpen {
-    position: fixed;
-    top: 0;
+    position: sticky;
+    top: 8px;
+    vertical-align: top;
     width: 300px;
     height: 98vh;
     background-color: white;
-    box-shadow: 0px 0px 25px rgb(232, 184, 184);
+    box-shadow: 0px 0px 5px white;
 }
 
 .sidebarCollapsed {
@@ -100,16 +96,17 @@ body {
 .sideBarCloseButton {
     padding: 5px;
     margin-top: 5px;
+    margin-left: 235px;
 }
 
 .navBarDiv {
+    display: inline-block;
+    width: 95%;
     padding: 5px;
-    position: absolute;
-    top: 65px;
 }
 
 .navLinkHeader {
-    background-color: rgba(38, 96, 172, 0.9);
+    background-color: rgb(38, 96, 172);
     color: white;
     font-size: 18px;
     font-weight: 750;
@@ -131,13 +128,14 @@ body {
 
 .bodyDiv {
     width: calc(100vw - 350px);
-    position: absolute;
-    top: 80px;
-    left: 325px;
+    min-height: 604px;
+    background-color: white;
 }
 
 .bodyHeadingDiv {
-    box-shadow: 1px 1px 4px rgb(177, 110, 110);
+    box-shadow: 0px 0px 10px white;
+    background-color: rgb(38, 96, 172);
+    color: white;
 }
 
 .bodyHeading {
@@ -203,11 +201,6 @@ body {
     width: 25vw;
 }
 
-table {
-    font-size: 18px;
-    overflow-x: scroll;
-}
-
 .subResAppltnID {
     width: 15%;
 }
@@ -236,6 +229,7 @@ td.subResTdInput {
 
 .rankSearchBar {
     width: 15vw;
+    border: solid 1px;
 }
 
 .verifyApplCheckbox {
@@ -289,18 +283,21 @@ td.subResTdInput {
 }
 
 table.tableSendAppointment {
+    border-radius: 4px;
     display: block;
-    overflow-x: auto !important;
+    overflow-x: auto;
     white-space: nowrap;
-    border-color: rgb(33, 53, 85);
-    --bs-table-bg: rgb(87, 123, 193) !important;
-    --bs-table-striped-bg: rgb(52, 76, 183) !important;
+    --bs-table-border-color: black;
+    --bs-table-bg: rgba(0,130,255,0.25); 
 }
 
-thead {
-    --bs-table-bg: grey;
+thead, td, tr {
+    border: solid 1.75px;    
+    font-weight: 700;
 }
 
-th.rank {
-    color: white;
+.buttonSendAppointment {
+    color: rgb(38, 96, 172);
+    font-weight: 700;
+    border: solid 2px black;
 }
