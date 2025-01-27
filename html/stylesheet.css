@@ -1,32 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
+
 .dm-serif-text-regular {
     font-family: "DM Serif Text", serif;
     font-weight: 400;
     font-style: normal;
 }
 
+/*  <uniquifier>: Use a unique and descriptive class name
+    <weight>: Use a value from 300 to 900
+*/
+
+.red-hat-display-0 {
+  font-family: "Red Hat Display", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
-    font-family: "DM Serif Text", serif;
-    font-weight: 400;
+    font-family: "Red Hat Display", serif;
+    font-weight: 650;
     font-style: normal;
     overflow-x: hidden;
     height: auto;
+    color: rgb(38, 96, 172);
 }
 
 .header {
-    height: 15vh;
-    width: calc(100vw - 325px);
-    float: right;
-    padding: 5px;
+    height: 70px;
+    width: calc(100vw - 350px);
+    position: absolute;
+    left: 325px;
+    top: 5px;
+    padding-top: 5px;
+    border-bottom: solid 1px;
+    border-color: rgb(16, 54, 116);
 }
 
 .headerHeading {
+    font-weight: 900;
     width: fit-content;
+    float: left;
+    color: rgb(16, 54, 116);
+    text-shadow: 2px 2px rgb(243, 164, 164);
 }
 
 .profileCircle {
-    width: 40px;
-    height: 40px;
-    margin-top: 15px;
+    width: 55px;
+    height: 55px;
+    float: right;
+    
+    border-radius: 55px;
 }
 
 #loginBox {
@@ -59,39 +83,64 @@ body {
 
 
 .sideBarOpen {
-    position: fixed;
+    position: fixed; 
     top: 0;
     width: 300px;
-    height: 99vh;
-  
+    height: 680px;
+    background-color: white;
+    box-shadow: 0px 0px 25px rgb(232, 184, 184);
 }
 
 .sidebarCollapsed {
     width: 90px;
 }
 
-.navBarDiv {
+.sideBarCloseButton {
     padding: 5px;
+    margin-top: 5px;
 }
 
-.navBarButtonDiv {
-    height: 103px;
-    border-radius: 4px 4px 0px 0px;
+.navBarDiv {
+    padding: 5px;
+    position: absolute;
+    top: 65px;
 }
 
 .navLinkHeader {
-    font-size: 25px;
-    height: 65px;
+    background-color: rgb(237, 248, 246);
+    color: rgb(33, 53, 85);
+    font-size: 18px;
+    font-weight: 750;
+    height: 55px;
+    vertical-align: middle;
+    clear: both;
 }
 
 .navLinkButton {
-    font-size: 18px;
-    height: 65px;   
+    color: rgb(38, 96, 172);
+    width: 90%;
+    float: right;
+    margin-right: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    height: 55px;
+       
 }
 
 .bodyDiv {
-    width: calc(100vw - 325px);
-    float: right;
+    width: calc(100vw - 350px);
+    position: absolute;
+    top: 80px;
+    left: 325px;
+}
+
+.bodyHeadingDiv {
+    box-shadow: 1px 1px 4px rgb(177, 110, 110);
+}
+
+.bodyHeading {
+    font-size: 26px;
+    font-weight: 780;
 }
 
 .card {
@@ -141,4 +190,91 @@ body {
 
 .offerCardOption {
     width: 100%;
+}
+
+.submitResultLabel {
+    vertical-align: top;
+    width: 20vw;
+}
+
+.resultSearchBar {
+    width: 25vw;
+}
+
+table {
+    font-size: 18px;
+    overflow-x: scroll;
+}
+
+.subResAppltnID {
+    width: 15%;
+}
+
+.subResApplntName {
+    width: 20%;
+}
+
+.subResApplntID {
+    width: 15%;
+}
+
+.subResDob {
+    width: 12%;
+}
+
+td.subResTdInput {
+    padding:1px;
+}
+
+
+.rankListUpdate {
+    width: 10vw;
+    font-size: 15px;
+}
+
+.rankSearchBar {
+    width: 15vw;
+}
+
+.verifyApplCheckbox {
+    width: 2%;
+}
+
+.rank {
+    width: 10%;
+}
+
+.verifyAppLabelDiv {
+    width: 50%
+}
+
+.applDetailDiv {
+    vertical-align: top;
+}
+.verifyApplLabel {
+    width: 30%;
+}
+
+.checkbox {
+    margin-top: 20px;
+}
+
+.verifyApplInfoCol2 {
+    translate: 60px 0; 
+}
+
+.appntLetterUpload {
+    display: block;
+    font-size: 14px;
+    width: 95%;
+}
+
+.appointment {
+    width: 17%;
+}
+
+table {
+    display: block;
+    overflow-x: auto !important;
+    white-space: nowrap;
 }
