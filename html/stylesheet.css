@@ -11,19 +11,19 @@
 */
 
 .red-hat-display-0 {
-  font-family: "Red Hat Display", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Red Hat Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 body {
     font-family: "Red Hat Display", serif;
-    font-weight: 650;
+    font-weight: 700;
     font-style: normal;
     overflow-x: hidden;
     height: auto;
-    color: rgb(38, 96, 172);
+    color: rgb(0, 9, 87);
 }
 
 .header {
@@ -42,21 +42,21 @@ body {
     width: fit-content;
     float: left;
     color: rgb(16, 54, 116);
-    text-shadow: 2px 2px rgb(243, 164, 164);
+    text-shadow: 2px 2px 4px rgb(243, 164, 164);
 }
 
 .profileCircle {
     width: 55px;
     height: 55px;
     float: right;
-    
+
     border-radius: 55px;
 }
 
 #loginBox {
     border-radius: 12px;
     background-color: #D9D9D9;
-    width: 75%;    
+    width: 75%;
 }
 
 #loginTypeBox {
@@ -69,6 +69,8 @@ body {
 
 .regFormText {
     width: 23vw;
+    border: solid 1.5px !important;
+    border-color: #2660ac !important;
 }
 
 .mainDiv {
@@ -83,10 +85,10 @@ body {
 
 
 .sideBarOpen {
-    position: fixed; 
+    position: fixed;
     top: 0;
     width: 300px;
-    height: 680px;
+    height: 98vh;
     background-color: white;
     box-shadow: 0px 0px 25px rgb(232, 184, 184);
 }
@@ -107,8 +109,8 @@ body {
 }
 
 .navLinkHeader {
-    background-color: rgb(237, 248, 246);
-    color: rgb(33, 53, 85);
+    background-color: rgba(38, 96, 172, 0.9);
+    color: white;
     font-size: 18px;
     font-weight: 750;
     height: 55px;
@@ -124,7 +126,7 @@ body {
     font-size: 16px;
     font-weight: 700;
     height: 55px;
-       
+    border-bottom-color: rgb(0, 9, 87) !important;
 }
 
 .bodyDiv {
@@ -223,7 +225,7 @@ table {
 }
 
 td.subResTdInput {
-    padding:1px;
+    padding: 1px;
 }
 
 
@@ -245,14 +247,27 @@ td.subResTdInput {
 }
 
 .verifyAppLabelDiv {
-    width: 50%
+    width: 50%;
+}
+
+.verifyApplLabel {
+    width: 30%;
 }
 
 .applDetailDiv {
     vertical-align: top;
 }
+
 .verifyApplLabel {
     width: 30%;
+}
+
+.sendAppointDiv {
+    width: 100%;
+}
+
+.sendAppointLabelDiv {
+    width: 20%;
 }
 
 .checkbox {
@@ -260,7 +275,7 @@ td.subResTdInput {
 }
 
 .verifyApplInfoCol2 {
-    translate: 60px 0; 
+    translate: 60px 0;
 }
 
 .appntLetterUpload {
@@ -273,8 +288,19 @@ td.subResTdInput {
     width: 17%;
 }
 
-table {
+table.tableSendAppointment {
     display: block;
     overflow-x: auto !important;
     white-space: nowrap;
+    border-color: rgb(33, 53, 85);
+    --bs-table-bg: rgb(87, 123, 193) !important;
+    --bs-table-striped-bg: rgb(52, 76, 183) !important;
+}
+
+thead {
+    --bs-table-bg: grey;
+}
+
+th.rank {
+    color: white;
 }
