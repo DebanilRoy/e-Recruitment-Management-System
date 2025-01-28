@@ -17,10 +17,9 @@ body {
     font-weight: 700;
     font-style: normal;
     overflow-x: hidden;
-    height: auto;
-    color: black;
-    background: rgb(0,130,255);
-    background: linear-gradient(53deg, rgba(0,130,255,0.4) 20%, rgba(255,255,255,1) 50%, rgba(0,130,255,0.4) 85%);
+    color: rgb(38, 96, 172);
+    background: rgb(0, 130, 255);
+    background: linear-gradient(53deg, rgba(0, 130, 255, 0.4) 20%, rgba(255, 255, 255, 1) 50%, rgba(0, 130, 255, 0.4) 85%);
     background-attachment: fixed;
 }
 
@@ -65,7 +64,7 @@ body {
 .regFormText {
     width: 23vw;
     border: solid 2px !important;
-    
+
 }
 
 .mainDiv {
@@ -288,12 +287,21 @@ table.tableSendAppointment {
     overflow-x: auto;
     white-space: nowrap;
     --bs-table-border-color: black;
-    --bs-table-bg: rgba(0,130,255,0.25); 
+    --bs-table-bg: rgba(0, 130, 255, 0.15);
 }
 
-thead, td, tr {
-    border: solid 1.75px;    
+thead,
+tr,
+td
+ {
+    border: solid 1.75px;
     font-weight: 700;
+    --bs-table-color: rgb(8, 54, 114);
+    vertical-align: middle;
+}
+
+checkboxSendAppointment {
+    vertical-align: middle;
 }
 
 .buttonSendAppointment {
