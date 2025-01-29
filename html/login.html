@@ -1,63 +1,350 @@
-<!DOCTYPE html>
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="stylesheet.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+.red-hat-display-0 {
+    font-family: "Red Hat Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
 
-</head>
+html {
+    height: auto;
+}
 
-<body>
-    <div class="d-block headerLoginPage">
+body {
+    height: auto;
+    font-family: "Red Hat Display", serif;
+    font-weight: 700;
+    font-style: normal;
+    color: rgb(38, 96, 172);
+    background: rgb(0, 130, 255);
+    background: linear-gradient(53deg, rgba(0, 130, 255, 0.4) 20%, rgba(255, 255, 255, 1) 50%, rgba(0, 130, 255, 0.4) 85%);
+    background-attachment: fixed;
+}
 
-    </div>
+a {
+    color: rgb(38, 96, 172);
+}
 
-    <div class="w-100 d-inline-block justify-content center m-0">
-        <div class="d-inline-block text-center divLoginPageHeading">
-            <div style="display: table; width: 100%; height: 100%;">
-                <h1 class="erms">e - Recruitment Management System</h1>
-            </div>
-        </div>
-        <div class="d-inline-block divLoginBox">
-            <div class="mx-2 py-4 loginBox">
-                <div class="row justify-content-between m-0 mb-3">
-                    <div class="col-6 pb-1 ps-5 fs-4 pe-0">
-                        <p class="text-decoration-underline m-0">Sign In</p>
-                    </div>
-                    <div class="col-6 pe-5">
-                        <select class="form-select float-end loginTypeBox">
-                            <option>Recruitee</option>
-                            <option>Recruiter</option>
-                        </select>
-                    </div>
-                </div>
-                <form>
-                    <label class="form-label fs-4 px-5 pt-3">Applicant ID/Email/Phone</labeL>
-                    <div class="px-4 py-2 px-5">
-                        <input type="text" class="form-control-lg border border-none w-100" />
-                    </div>
-                    <label class="form-label fs-4 px-5 pt-3">Password</label>
-                    <div class="px-4 py-2 px-5">
-                        <input type="text" class="form-control-lg w-100 border border-none " />
-                    </div>
-                    <input class="btn btn-light btn-lg m-5" type="submit" />
-                </form>
-                <div class="m-0 divLoginBoxFooter">
-                    <a class="d-inline-block float-start text-decoration-none anchorRegistration"
-                            href="registration.html">Registration</a>
-                    <a class="d-inline-block float-end text-decoration-none anchorForgotPassword"
-                            href="">Forgot Password</a>                
-                </div>
+input[type=submit] {
+    --bs-btn-color: rgb(16, 54, 116) !important;
+    --bs-btn-hover-color: rgb(16, 54, 116) !important;
+}
+
+.header {
+    height: 70px;
+    width: calc(100vw - 350px);
+    padding-top: 5px;
+    border-bottom: solid 1px;
+    border-color: rgb(16, 54, 116);
+}
+
+.headerHeading {
+    font-weight: 900;
+    width: fit-content;
+    float: left;
+    color: rgb(16, 54, 116);
+    text-shadow: 2px 2px 4px rgb(0, 130, 255);
+}
+
+.profileCircle {
+    width: 55px;
+    height: 55px;
+    float: right;
+
+    border-radius: 55px;
+}
+
+.divLoginPageHeading {
+    width: 60%;
+    height: 100vh;
+    vertical-align: top;
+    text-align: center;
+}
+
+.erms {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.divLoginBox {
+    width: 35%;
+    height: 100vh;
+    padding-top: 20vh;
+}
+
+.loginBox {
+    width: 475px;
+    border-radius: 12px;
+    background-color: #D9D9D9;
+    vertical-align: middle;
+}
+
+.loginTypeBox {
+    width: 80%;
+    color: rgb(16, 54, 116);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'     viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgb(16, 54, 116)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.divLoginBoxFooter {
+    height: 20px;
+}
+
+.anchorRegistration {
+    padding-left: 47px;
+}
+
+.anchorForgotPassword {
+    padding-right: 47px;
+}
+
+.regFormDiv {
+    width: fit-content;
+}
+
+.regFormText {
+    width: 23vw;
+    border: solid 2px !important;
+}
+
+.mainDiv {
+    width: 85vw;
+    margin: auto;
+}
+
+.regSubmit {
+    border-color: rgb(222, 226, 230);
+    margin-top: 25px;
+}
 
 
-            </div>
-        </div>
+.sideBarOpen {
+    position: sticky;
+    top: 8px;
+    vertical-align: top;
+    width: 300px;
+    height: 98vh;
+    background-color: white;
+    box-shadow: 0px 0px 5px white;
+}
 
-    </div>
+.sidebarCollapsed {
+    width: 90px;
+}
 
-    <div>
-    </div>
-</body>
+.sideBarCloseButton {
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 235px;
+}
+
+.navBarDiv {
+    display: inline-block;
+    width: 95%;
+    padding: 5px;
+}
+
+.navLinkHeader {
+    background-color: rgb(38, 96, 172);
+    color: white;
+    font-size: 18px;
+    font-weight: 750;
+    height: 55px;
+    vertical-align: middle;
+    clear: both;
+}
+
+.navLinkButton {
+    color: rgb(38, 96, 172);
+    width: 90%;
+    float: right;
+    margin-right: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    height: 55px;
+    border-bottom-color: rgb(0, 9, 87) !important;
+}
+
+.bodyDiv {
+    width: calc(100vw - 350px);
+    min-height: 604px;
+    background-color: white;
+}
+
+.bodyHeadingDiv {
+    box-shadow: 0px 0px 10px white;
+    background-color: rgb(38, 96, 172);
+    color: white;
+}
+
+.bodyHeading {
+    font-size: 26px;
+    font-weight: 780;
+}
+
+.card {
+    width: 330px;
+    margin-right: 5px;
+}
+
+.card-link {
+    width: 140px;
+    font-size: 12.5px;
+}
+
+.applyCard {
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+.cancelCard {
+    font-size: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-top: 150px;
+    width: fit-content;
+}
+
+.applicationsDiv {
+    width: calc(100vw - 325px - 450px);
+}
+
+.applicationStatusDiv {
+
+    width: 430px;
+    height: 99vh;
+    float: right;
+    padding: 5px;
+}
+
+.StatusCard {
+    width: 100%;
+}
+
+.appointmentsDiv {
+    width: 100%;
+}
+
+.offerCardOption {
+    width: 100%;
+}
+
+.submitResultLabel {
+    vertical-align: top;
+    width: 20vw;
+}
+
+.resultSearchBar {
+    width: 25vw;
+}
+
+.subResAppltnID {
+    width: 15%;
+}
+
+.subResApplntName {
+    width: 20%;
+}
+
+.subResApplntID {
+    width: 15%;
+}
+
+.subResDob {
+    width: 12%;
+}
+
+td.subResTdInput {
+    padding: 1px;
+}
+
+
+.rankListUpdate {
+    width: 10vw;
+    font-size: 15px;
+}
+
+.rankSearchBar {
+    width: 15vw;
+    border: solid 1px;
+}
+
+.verifyApplCheckbox {
+    width: 2%;
+}
+
+.rank {
+    width: 10%;
+}
+
+.verifyAppLabelDiv {
+    width: 50%;
+}
+
+.verifyApplLabel {
+    width: 30%;
+}
+
+.applDetailDiv {
+    vertical-align: top;
+}
+
+.verifyApplLabel {
+    width: 30%;
+}
+
+.sendAppointDiv {
+    width: 100%;
+}
+
+.sendAppointLabelDiv {
+    width: 20%;
+}
+
+.checkbox {
+    margin-top: 20px;
+}
+
+.verifyApplInfoCol2 {
+    translate: 60px 0;
+}
+
+.appntLetterUpload {
+    display: block;
+    font-size: 14px;
+    width: 95%;
+}
+
+.appointment {
+    width: 17%;
+}
+
+table.tableSendAppointment {
+    border-radius: 4px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    --bs-table-border-color: black;
+    --bs-table-bg: rgba(0, 130, 255, 0.15);
+}
+
+thead,
+tr,
+td {
+    border: solid 1.75px;
+    font-weight: 700;
+    --bs-table-color: rgb(8, 54, 114);
+    vertical-align: middle;
+}
+
+checkboxSendAppointment {
+    vertical-align: middle;
+}
+
+.buttonSendAppointment {
+    color: rgb(38, 96, 172);
+    font-weight: 700;
+    border: solid 2px black;
+}
