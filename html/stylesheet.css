@@ -16,7 +16,6 @@ body {
     font-family: "Red Hat Display", serif;
     font-weight: 700;
     font-style: normal;
-    overflow-x: hidden;
     color: rgb(38, 96, 172);
     background: rgb(0, 130, 255);
     background: linear-gradient(53deg, rgba(0, 130, 255, 0.4) 20%, rgba(255, 255, 255, 1) 50%, rgba(0, 130, 255, 0.4) 85%);
@@ -25,6 +24,13 @@ body {
 
 a {
     color: rgb(38, 96, 172);
+}
+
+input[type=submit] {
+    width: 150px;
+    --bs-btn-color: rgb(38, 96, 172) !important;
+    --bs-btn-font-weight: 700;   
+    
 }
 
 .header {
@@ -78,6 +84,8 @@ a {
 
 .loginTypeBox {
     width: 80%;
+    color: rgb(16, 54, 116);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'     viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgb(16, 54, 116)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
 }
 
 .divLoginBoxFooter {
@@ -94,11 +102,23 @@ a {
 
 .regFormDiv {
     width: fit-content;
+    margin-right: 5%;
+    margin-bottom: 20px;
 }
 
 .regFormText {
     width: 23vw;
-    border: solid 2px !important;
+    border: solid 2px rgb(16, 54, 116) !important;
+}
+
+.buttonSubmitRegistration {
+    border-width: 2px;
+    
+    --bs-btn-border-color: rgb(16, 54, 116);
+    
+    --bs-btn-hover-bg: rgb(38, 96, 172) !important;
+    --bs-btn-hover-border-color: rgb(16, 54, 116);
+    --bs-btn-hover-color: white;
 }
 
 .mainDiv {
@@ -106,10 +126,15 @@ a {
     margin: auto;
 }
 
-.regSubmit {
-    border-color: rgb(222, 226, 230);
-    margin-top: 25px;
+.contentRegistrationPage {
+    width: fit-content;
+    margin: auto;
 }
+
+.formRegistration {
+    width: 85vw;
+}
+
 
 
 .sideBarOpen {
