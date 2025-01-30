@@ -22,6 +22,10 @@ body {
     background-attachment: fixed;
 }
 
+span {
+    white-space: pre;
+}
+
 a {
     color: rgb(38, 96, 172);
 }
@@ -100,9 +104,14 @@ input[type=submit] {
     padding-right: 47px;
 }
 
+.formRegistration {
+    width: 90vw;
+}
+
 .regFormDiv {
     width: fit-content;
-    margin-right: 5%;
+    margin-right: 2.5vw;
+    margin-left: 4vw;
     margin-bottom: 20px;
 }
 
@@ -111,7 +120,7 @@ input[type=submit] {
     border: solid 2px rgb(16, 54, 116) !important;
 }
 
-.buttonSubmitRegistration {
+.buttonSubmit {
     border-width: 2px;
     
     --bs-btn-border-color: rgb(16, 54, 116);
@@ -130,12 +139,6 @@ input[type=submit] {
     width: fit-content;
     margin: auto;
 }
-
-.formRegistration {
-    width: 85vw;
-}
-
-
 
 .sideBarOpen {
     position: sticky;
@@ -202,13 +205,30 @@ input[type=submit] {
 }
 
 .card {
+    color: rgb(38, 96, 172);
     width: 330px;
-    margin-right: 5px;
+    height: 350px;
+    margin-left: 0.5vw;
+    margin-right: 2.5vw;
+}
+
+.card-body {
+    padding-top: 8px;
 }
 
 .card-link {
     width: 140px;
+    height: 45px;
     font-size: 12.5px;
+    color: rgb(38, 96, 172) !important;
+}
+
+.card-link:hover {
+    color: black !important;
+}
+
+.card-link:focus {
+    color: none !important;
 }
 
 .applyCard {
