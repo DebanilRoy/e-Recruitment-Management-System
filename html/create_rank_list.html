@@ -9,117 +9,128 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="header">
-        <div class="d-inline-block fs-2 mb-0 headerHeading">
-            <h1 class="fs-2">e-Recruitment Management System</h1>
+    <div class="d-inline-block m-2 rounded-3 sideBarOpen">
+        <div class="d-inline-block w-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" 
+            class="btn float-end bi bi-x-lg sideBarCloseButton" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
         </div>
-        <div class="d-inline-block">
-            <div class="d-inline-block border border-2 profileCircle"></div>
+
+        <br>
+
+        <div class="d-inline-block navBarDiv">
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Recruitments</p>
+            <button class="btn border-0 border-bottom text-start ps-0 rounded-0 navLinkButton">Create
+                Recruitments</button>
+            <button class="btn border-0 border-black text-start ps-0 rounded-0 navLinkButton">Manage
+                Recruitments</button>
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Result and Rank List</p>
+            <button class="btn border-0 border-bottom text-start ps-0 rounded-0 navLinkButton">Submit
+                Results</button>
+            <button class="btn border-0 text-start ps-0 rounded-0 navLinkButton">Create Rank List</button>
+            <p class="w-100 text-start ps-2 py-3  mb-0 rounded-1 navLinkHeader">Verification and Appointments</p>
+            <button class="btn border-0 border-bottom text-start ps-0 rounded-0 navLinkButton">Verify
+                Application</button>
+            <button class="btn border-0 border-bottom text-start ps-0 rounded-0 navLinkButton">Send
+                Appointment</button>
+            <button class="btn border-0 text-start ps-0 rounded-0 navLinkButton">Manage Appointments</button>
         </div>
     </div>
     
-    <div class="content">
-        <div class="d-inline-block shadow-sm border border-2 border-dark-subtle  m-1 rounded-3 sideBarOpen">
-            <div class="d-block navBarButtonDiv">
-                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="btn float-end bi bi-x-lg me-3 mt-3 mb-3 p-0" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
+    <div class="d-inline-block content">
+        <div class="me-2 header">
+            <div class="d-inline-block fs-2 mt-2">
+                <h1 class="headerHeading">e-Recruitment Management System</h1>
             </div>
-            <div class="navBarDiv">
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Recruitments</button>
-                <button class="btn border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkButton">Open Recruitments</button>
-                <button class="btn border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkButton">Closed Recruitments</button>
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Applications</button>
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Appointments</button>
-            </div>
+            <div class="btn bg-dark-subtle d-inline-block border border-2 profileCircle"></div>
         </div>
-        <div class="d-inline-block pt-2 pe-2 bodyDiv">
-            <div class="d-inline-block appointmentsDiv">
-                <div class="w-100 bg-secondary ps-3 py-2 rounded-2">
-                    <span class="fs-3">Create Rank List</span>
-                </div>
-                <div class="mt-4 test">         
-                    <div class="d-inline-block fs-5 me-2 mb-3 regFormDiv">
-                        <label for="" class="form-label d-block">Recruitment ID</label>
-                        <input type="text" name="" id="" class="form-control border border-black regFormText">
-                    </div>
-                    <br>
-                    <div class="d-inline-block fs-5 me-5 mb-2 submitResultLabel">
-                        <p class="">Post Name: <span class="">ABCD</span></p>
-                    </div>
-                    <div class="d-inline-block fs-5 me-5 mb-2 submitResultLabel">
-                        <p for="" class="">Location: <span class="">ABCD</span></p>
-                    </div>
-                    <div class="d-inline-block fs-5 mb-2 submitResultLabel">
-                        <p for="" class="">Total Vacancies: <span class="">N</span></p>
-                    </div>
-                    <br>
-                    <div class="d-inline-block fs-5 me-5 mb-1 submitResultLabel">
-                        <p class="">Total Applications: <span class="">N</span></p>
-                    </div>
-                    <div class="d-inline-block fs-5 me-5 mb-1 submitResultLabel">
-                        <p for="" class="">Application With Results: <span class="">N</span></p>
-                    </div>
-                    <div class="d-inline-block fs-5 mb-1 submitResultLabel">
-                        <p for="" class="">Application without Results: <span class="">N</span></p>
-                    </div>
-                    
-                    <table class="table table-secondary table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <td colspan="6">
-                                    <input type="submit" name="" id="" value="Update Rank List" class="d-inline form-control rounded-1 rankListUpdate">
-                                    <input type="text" name="" id="" placeholder="Search Rank" class="d-inline float-end form-control rounded-0 rankSearchBar">
-                                </td>
-                            </tr>
-                            <tr class="table table-dark">
-                                <th class="rank">Rank</th>
-                                <th class="subResAppltnID">ApplicationID</th>
-                                <th class="subResApplntName">Applicant Name</th>
-                                <th class="subResApplntID">ApplicantID</th>
-                                <th class="subResDob">Date of Birth</th>
-                                <th class="subResSubject">Subject 1</th>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="">
-                                <td class="rank">1</td>
-                                <td class="">ABCD1234</td>
-                                <td class="">ABCD ABCD</td>
-                                <td class="">ABCD1234</td>
-                                <td class="">DD/MM/YYYY</td>
-                                <td class="">N</td>
-                            </tr>
-                            <tr class="">
-                                <td class="rank">2</td>
-                                <td class="">ABCD1234</td>
-                                <td class="">ABCD ABCD</td>
-                                <td class="">ABCD1234</td>
-                                <td class="">DD/MM/YYYY</td>
-                                <td class="">N</td>
-                            </tr>
-                            <tr class="">
-                                <td class="rank">3</td>
-                                <td class="">ABCD1234</td>
-                                <td class="">ABCD ABCD</td>
-                                <td class="">ABCD1234</td>
-                                <td class="">DD/MM/YYYY</td>
-                                <td class="">N</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                
-                    <div class="w-100 mt-3 text-center">
-                        <div class="d-inline-block fs-5 mb-3 me-3 regFormDiv">
-                            <input type="submit" name="" id="" value="Freeze Rank List" class="form-control fs-5 border border-black">
-                        </div>
-                    </div>
-                
-                
+        <div class="d-inline-block mt-3 px-3 pt-3 rounded-3 bodyDiv">
+            <div class="w-100 ps-2 py-2 rounded-2 bodyHeadingDiv">
+                <p class="mb-0 bodyHeading">Create Rank List</p>
+            </div>
+            <div class="pt-2 ps-2">         
+                <div class="d-inline-block fs-5 mb-3 divFormInput">
+                    <label for="" class="form-label d-block">Create Rank List</label>
+                    <input type="text" name="" id="" class="form-control border regFormText">
+                </div>
+                <br>
+                <div class="d-inline-block fs-5 me-5 mb-2 submitResultLabel">
+                    <p class="">Post Name: <span class="">ABCD</span></p>
+                </div>
+                <div class="d-inline-block fs-5 me-5 mb-2 submitResultLabel">
+                    <p for="" class="">Location: <span class="">ABCD</span></p>
+                </div>
+                <div class="d-inline-block fs-5 mb-2 submitResultLabel">
+                    <p for="" class="">Total Vacancies: <span class="">N</span></p>
+                </div>
+                <br>
+                <div class="d-inline-block fs-5 me-5 mb-1 submitResultLabel">
+                    <p class="">Total Applications: <span class="">N</span></p>
+                </div>
+                <div class="d-inline-block fs-5 me-5 mb-1 submitResultLabel">
+                    <p for="" class="">Application With Results: <span class="">N</span></p>
+                </div>
+                <div class="d-inline-block fs-5 mb-1 submitResultLabel">
+                    <p for="" class="">Application without Results: <span class="">N</span></p>
                 </div>
                 
+                <table class="table tableSendAppointment">
+                    <thead class="w-100">
+                        <tr>
+                            <th style="width: 100%;" colspan="6">
+                                <input type="submit" name="" id="" value="Update Rank List" class="btn btn-light form-control rounded-1 rankListUpdate">
+                                <input type="text" name="" id="" placeholder="Search Rank" class="float-end form-control rounded-0 rankSearchBar">
+                            </th>
+                        </tr>
+                        <tr class="">
+                            <th class="rank">Rank</th>
+                            <th class="subResAppltnID">ApplicationID</th>
+                            <th class="subResApplntName">Applicant Name</th>
+                            <th class="subResApplntID">ApplicantID</th>
+                            <th class="subResDob">Date of Birth</th>
+                            <th class="subjectResult">Subject 1</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="">
+                            <td class="">1</td>
+                            <td class="">ABCD1234</td>
+                            <td class="">ABCD ABCD</td>
+                            <td class="">ABCD1234</td>
+                            <td class="">DD/MM/YYYY</td>
+                            <td class="">N</td>
+                        </tr>
+                        <tr class="">
+                            <td class="">2</td>
+                            <td class="">ABCD1234</td>
+                            <td class="">ABCD ABCD</td>
+                            <td class="">ABCD1234</td>
+                            <td class="">DD/MM/YYYY</td>
+                            <td class="">N</td>
+                        </tr>
+                        <tr class="">
+                            <td class="">3</td>
+                            <td class="">ABCD1234</td>
+                            <td class="">ABCD ABCD</td>
+                            <td class="">ABCD1234</td>
+                            <td class="">DD/MM/YYYY</td>
+                            <td class="">N</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="w-100 mt-3 text-center">
+                    <div class="d-inline-block fs-5 mb-3 me-3 regFormDiv">
+                        <input type="submit" name="" id="" value="Freeze Rank List" class="btn btn-light form-control fs-5 buttonFreezeList">
+                    </div>
+                </div>
+            
+            
             </div>
+            
+            
             
         </div>
         

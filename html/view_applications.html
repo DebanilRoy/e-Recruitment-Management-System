@@ -9,143 +9,129 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="header">
-
-    </div>
-    <div class="content">
-        <div class="d-inline-block shadow-sm border border-2 border-dark-subtle  m-1 rounded-3 sideBarOpen">
-            <div class="d-block navBarButtonDiv">
-                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="btn float-end bi bi-x-lg me-3 mt-3 mb-3 p-0" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
-            </div>
-            <div class="navBarDiv">
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Recruitments</button>
-                <button class="btn border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkButton">Open Recruitments</button>
-                <button class="btn border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkButton">Closed Recruitments</button>
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Applications</button>
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Appointments</button>
-            </div>
+    <div class="d-inline-block m-2 rounded-3 sideBarOpen">
+        <div class="d-inline-block w-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" 
+            class="btn float-end bi bi-x-lg sideBarCloseButton" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
         </div>
-        <div class="d-inline-block pt-2 pe-2 bodyDiv">
-            <div class="d-inline-block applicationsDiv">
-                <div class="w-100 bg-secondary ps-3 py-2 rounded-2">
-                    <span class="fs-3">Applications > Submitted Applications</span>
-                </div>
-                <div class="mt-4 ms-3">         
-                    <div class="card d-inline-block me-4 mb-4">
+        <div class="d-inline-block navBarDiv">
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Recruitments</p>
+            <button class="btn border-0 border-bottom text-start ps-0 rounded-0 navLinkButton">Open Recruitments</button>
+            <button class="btn border-0 text-start ps-0 rounded-0 navLinkButton">Closed Recruitments</button>
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Applications</p>
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Appointments</p>
+        </div>
+    </div>
+    
+    <div class="d-inline-block content">
+        <div class="me-2 header">
+            <div class="d-inline-block fs-2 mt-2">
+                <h1 class="headerHeading">e-Recruitment Management System</h1>
+            </div>
+            <div class="btn bg-dark-subtle d-inline-block border border-2 profileCircle"></div>
+        </div>
+        
+        <div class="d-inline-block mt-3 px-3 pt-3 rounded-3 bodyDiv">
+            <div class="w-100 ps-2 py-2 rounded-2 bodyHeadingDiv">
+                <span class="mb-0 bodyHeading">Applications  >  Submitted Applications</span>
+            </div>
+            <div class="pt-2 ps-2">         
+                <div class="d-inline-block divApplicationStatusCards">
+                    <div class="card d-inline-block mb-4 cardApplication">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
                             <p class="card-text fs-5">Post: <span>ABCD</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <div class="row justify-content-between">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 ms-0 text-center text-decoration-none applyCard">Status</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Full Advertisement</button>
+                            <button type="button" class="btn btn-light float-end mt-2 rounded-2 buttonSubmit">Status</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
+                    <div class="card d-inline-block mb-4 cardApplication">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
                             <p class="card-text fs-5">Post: <span>ABCD</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <div class="row justify-content-between">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 ms-0 text-center text-decoration-none applyCard">Status</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Full Advertisement</button>
+                            <button type="button" class="btn btn-light float-end mt-2 rounded-2 buttonSubmit">Status</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
+                    <div class="card d-inline-block mb-4 cardApplication">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
                             <p class="card-text fs-5">Post: <span>ABCD</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <div class="row justify-content-between">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 ms-0 text-center text-decoration-none applyCard">Status</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Full Advertisement</button>
+                            <button type="button" class="btn btn-light float-end mt-2 rounded-2 buttonSubmit">Status</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
+                    <div class="card d-inline-block mb-4 cardApplication">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
                             <p class="card-text fs-5">Post: <span>ABCD</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <div class="row justify-content-between">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 ms-0 text-center text-decoration-none applyCard">Status</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Full Advertisement</button>
+                            <button type="button" class="btn btn-light float-end mt-2 rounded-2 buttonSubmit">Status</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
+                    <div class="card d-inline-block mb-4 cardApplication">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
                             <p class="card-text fs-5">Post: <span>ABCD</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <div class="row justify-content-between">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 ms-0 text-center text-decoration-none applyCard">Status</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Full Advertisement</button>
+                            <button type="button" class="btn btn-light float-end mt-2 rounded-2 buttonSubmit">Status</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
+                    <div class="card d-inline-block mb-4 cardApplication">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
                             <p class="card-text fs-5">Post: <span>ABCD</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <div class="row justify-content-between">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 ms-0 text-center text-decoration-none applyCard">Status</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Full Advertisement</button>
+                            <button type="button" class="btn btn-light float-end mt-2 rounded-2 buttonSubmit">Status</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
-                            <p class="card-text fs-5">Department: <span>ABCD</span></p>
-                            <p class="card-text fs-5">Post: <span>ABCD</span></p>
-                            <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <div class="row justify-content-between">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 ms-0 text-center text-decoration-none applyCard">Status</a>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 
-            </div>
-            <div class="d-inline-block shadow-sm border border-2 border-dark-subtle rounded-3 applicationStatusDiv">
-                <div class="card border-0 d-inline-block me-4 mb-4 statusCard">
-                    <div class="card-body p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="btn float-start bi bi-x-lg mt-0 p-0" viewBox="0 0 16 16">
+                <div class="d-inline-block card cardApplicationStatus">
+                    <div class="card-body p-0">
+                        <div class="d-inline-block w-100">
+                            <h2 class="d-inline-block card-title mb-2 text-center bottomp">ID: ABCD1234</h2>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" 
+                            class="btn bi bi-x-lg float-end sideBarCloseButton" viewBox="0 0 16 16">
                             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                        </svg>
-                        <h2 class="card-title mt-1 mb-3 text-center bottomp">ID: ABCD1234</h2>
-                        <div class="px-1">
-                            <p class="card-text fs-5">Application Date: <span>DD/MM/YY</span></p>
-                            <p class="card-text fs-5">Department: <span>ABCD</span></p>
-                            <p class="card-text fs-5">Post: <span>ABCD</span></p>
-                            <p class="card-text fs-5">Salary: <span>$$$$</span></p>
-                            <p class="card-text fs-5">Location: <span>ABCD</span></p>
-                            <p class="card-text fs-5">Open Date: <span>DD/MM/YY</span></p>
-                            <p class="card-text fs-5">Close Date: <span>DD/MM/YY</span></p>
-                            <div class="row justify-content-between px-1">
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 ms-2 me-0 text-center text-decoration-none applyCard">Status</a>
-                                <a href="#" class="col-6 card-link link-dark border rounded-2 me-2 p-1 text-center text-decoration-none">View Full Advertisement</a>
-                            </div>    
+                            </svg>
                         </div>
+                        <br>
+                        <div class="border-bottom mx-1 border-black"></div>                
+                        <p class="mb-1">Application Date: <span>DD/MM/YY</span></p>
+                        <p class="mb-1">Department: <span>ABCD</span></p>
+                        <p class="mb-1">Post: <span>ABCD</span></p>
+                        <p class="mb-1">Salary: <span>$$$$</span></p>
+                        <p class="mb-1">Location: <span>ABCD</span></p>
+                        <p class="mb-1">Open Date: <span>DD/MM/YY</span></p>
+                        <p class="mb-1">Close Date: <span>DD/MM/YY</span></p>
+                        <div class="border-bottom mx-1 border-black"></div>
+                        <div class="text-center">
+                            <p>Status</p>
+                        </div>
+                        <button type="button" class="btn btn-light mt-2 rounded-2 buttonSubmit">View Full Advertisement</button>
+                        <br>
+                        <button type="button" class="btn btn-light mt-2 rounded-2 buttonSubmit">Cancel</button>
                         
                     </div>
-                </div>
-                <div class="cancelCard"><a href="#" class="card-link float-bottom link-dark border rounded-2 me-0 text-center text-decoration-none">Cancel</a></div>    
-            </div> 
-            
+
+                </div> 
+            </div>     
         </div>
         
     </div>

@@ -9,37 +9,38 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="d-inline-block header">
-        <div class="d-inline-block fs-2 mb-0 headerHeading">
-            <h1 class="fs-2">e-Recruitment Management System</h1>
+
+    <div class="d-inline-block m-2 rounded-3 sideBarOpen">
+        <div class="d-inline-block w-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" 
+            class="btn float-end bi bi-x-lg sideBarCloseButton" viewBox="0 0 16 16">
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+            </svg>
         </div>
-        <div class="d-inline-block">
-            <div class="d-inline-block border border-2 profileCircle"></div>
+        <div class="d-inline-block navBarDiv">
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Recruitments</p>
+            <button class="btn border-0 border-bottom text-start ps-0 rounded-0 navLinkButton">Open Recruitments</button>
+            <button class="btn border-0 text-start ps-0 rounded-0 navLinkButton">Closed Recruitments</button>
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Applications</p>
+            <p class="border-0 w-100 text-start ps-2 py-3 mb-0 rounded-1 navLinkHeader">Appointments</p>
         </div>
     </div>
     
-    <div class="content">
-        <div class="d-inline-block shadow-sm border border-2 border-dark-subtle  m-1 rounded-3 sideBarOpen">
-            <div class="d-block navBarButtonDiv">
-                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="btn float-end bi bi-x-lg me-3 mt-3 mb-3 p-0" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
+    <div class="d-inline-block content">
+        <div class="me-2 header">
+            <div class="d-inline-block fs-2 mt-2">
+                <h1 class="headerHeading">e-Recruitment Management System</h1>
             </div>
-            <div class="navBarDiv">
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Recruitments</button>
-                <button class="btn border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkButton">Open Recruitments</button>
-                <button class="btn border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkButton">Closed Recruitments</button>
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Applications</button>
-                <button class="btn bg-dark-subtle border-0 border-bottom border-black w-100 text-start ps-4 rounded-0 navLinkHeader">Appointments</button>
-            </div>
+            <div class="btn bg-dark-subtle d-inline-block border border-2 profileCircle"></div>
         </div>
-        <div class="d-inline-block pt-2 pe-2 bodyDiv">
-            <div class="d-inline-block appointmentsDiv">
-                <div class="w-100 bg-secondary ps-3 py-2 rounded-2">
-                    <span class="fs-3">Appointments > Open/Accepted Offers</span>
+    
+        <div class="d-inline-block mt-3 px-3 pt-3 rounded-3 bodyDiv">
+                <div class="w-100 ps-2 py-2 rounded-2 bodyHeadingDiv">
+                    <span class="mb-0 bodyHeading">Appointments  >  Open/Accepted Offers</span>
                 </div>
-                <div class="mt-4 ms-3 test">         
-                    <div class="card d-inline-block me-4 mb-4">
+
+                <div class="pt-2 ps-2">         
+                    <div class="card d-inline-block mb-4 cardAppointment">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
@@ -47,15 +48,13 @@
                             <p class="card-text fs-5">Salary: <span>$$$$</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
                             <p class="card-text fs-5">Offer Deadline: <span>DD/MM/YYYY</span></p>
-                            <div class="card-link border rounded-2 mb-3 py-2 text-center offerCardOption">
-                                <a href="#" class="card-link link-dark text-decoration-none">Accept</a>
-                            </div>
-                            <div class="card-link border rounded-2 ms-0 py-2 text-center offerCardOption">
-                                <a href="#" class="card-link link-dark text-decoration-none">Reject</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Appointment Letter</button>
+                            <br>
+                            <button type="button" class="btn btn-light mt-2 rounded-2 buttonSubmit">Accept</button>
+                            <button type="button" class="btn btn-light mt-2 rounded-2 buttonSubmit">Reject</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
+                    <div class="card d-inline-block mb-4 cardAppointment">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
@@ -63,15 +62,13 @@
                             <p class="card-text fs-5">Salary: <span>$$$$</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
                             <p class="card-text fs-5">Offer Deadline: <span>DD/MM/YYYY</span></p>
-                            <div class="card-link border rounded-2 mb-3 py-2 text-center offerCardOption">
-                                <a href="#" class="card-link link-dark text-decoration-none">Accept</a>
-                            </div>
-                            <div class="card-link border rounded-2 ms-0 py-2 text-center offerCardOption">
-                                <a href="#" class="card-link link-dark text-decoration-none">Reject</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Appointment Letter</button>
+                            <br>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">Accept</button>
+                            <button type="button" class="btn btn-light mt-2 rounded-2 buttonSubmit">Reject</button>
                         </div>
                     </div>
-                    <div class="card d-inline-block me-4 mb-4">
+                    <div class="card d-inline-block mb-4 cardAppointment">
                         <div class="card-body">
                             <h5 class="card-title fs-3 mb-3 text-center">ID: ABCD1234</h5>
                             <p class="card-text fs-5">Department: <span>ABCD</span></p>
@@ -79,17 +76,15 @@
                             <p class="card-text fs-5">Salary: <span>$$$$</span></p>
                             <p class="card-text fs-5">Location: <span>ABCD</span></p>
                             <p class="card-text fs-5">Offer Deadline: <span>DD/MM/YYYY</span></p>
-                            <div class="card-link border rounded-2 mb-3 py-2 text-center offerCardOption">
-                                <a href="#" class="card-link link-dark text-decoration-none">Accept</a>
-                            </div>
-                            <div class="card-link border rounded-2 ms-0 py-2 text-center offerCardOption">
-                                <a href="#" class="card-link link-dark text-decoration-none">Reject</a>
-                            </div>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Appointment Letter</button>
+                            <br>
+                            <button type="button" class="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">Accept</button>
+                            <button type="button" class="btn btn-light mt-2 rounded-2 buttonSubmit">Reject</button>
                         </div>
                     </div>
                 </div>
                 
-            </div>
+            
             
         </div>
         

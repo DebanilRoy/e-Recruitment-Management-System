@@ -16,7 +16,7 @@ body {
     font-family: "Red Hat Display", serif;
     font-weight: 700;
     font-style: normal;
-    color: rgb(38, 96, 172);
+    color: rgb(38, 96, 172) !important;
     background: rgb(0, 130, 255);
     background: linear-gradient(53deg, rgba(0, 130, 255, 0.4) 20%, rgba(255, 255, 255, 1) 50%, rgba(0, 130, 255, 0.4) 85%);
     background-attachment: fixed;
@@ -37,6 +37,20 @@ input[type=submit] {
     
 }
 
+button {
+    --bs-btn-bg: none !important;
+    --bs-btn-border-color: rgb(38, 96, 172) !important; 
+    --bs-btn-color: rgb(38, 96, 172) !important;
+    --bs-btn-font-weight: 700 !important;
+      
+}
+
+.divFormInput {
+    width: fit-content;
+    margin-right: 2.5vw;
+    margin-bottom: 20px;
+}
+
 .header {
     height: 70px;
     width: calc(100vw - 350px);
@@ -50,7 +64,7 @@ input[type=submit] {
     width: fit-content;
     float: left;
     color: rgb(16, 54, 116);
-    text-shadow: 2px 2px 4px rgb(0, 130, 255);
+    text-shadow: 2px 2px 2px rgb(0, 130, 255);
 }
 
 .profileCircle {
@@ -68,15 +82,10 @@ input[type=submit] {
     text-align: center;
 }
 
-.erms {
-    display: table-cell;
-    vertical-align: middle;
-}
-
 .divLoginBox {
     width: 35%;
     height: 100vh;
-    padding-top: 20vh;
+    padding-top: 15vh;
 }
 
 .loginBox {
@@ -117,7 +126,7 @@ input[type=submit] {
 
 .regFormText {
     width: 23vw;
-    border: solid 2px rgb(16, 54, 116) !important;
+    border: solid 3px rgb(16, 54, 116) !important;
 }
 
 .buttonSubmit {
@@ -146,6 +155,7 @@ input[type=submit] {
     vertical-align: top;
     width: 300px;
     height: 98vh;
+    padding: 8px;
     background-color: white;
     box-shadow: 0px 0px 5px white;
 }
@@ -155,9 +165,7 @@ input[type=submit] {
 }
 
 .sideBarCloseButton {
-    padding: 5px;
-    margin-top: 5px;
-    margin-left: 235px;
+    padding: 0;
 }
 
 .navBarDiv {
@@ -204,16 +212,22 @@ input[type=submit] {
     font-weight: 780;
 }
 
-.card {
-    color: rgb(38, 96, 172);
+.cardViewRecruitments {  
     width: 330px;
     height: 350px;
     margin-left: 0.5vw;
     margin-right: 2.5vw;
+    border-width: 3px;
+    color: rgb(38, 96, 172);
+    border-color: rgb(16, 54, 116);
 }
 
 .card-body {
     padding-top: 8px;
+}
+
+.card-text {
+    color: rgb(38, 96, 172);
 }
 
 .card-link {
@@ -246,24 +260,96 @@ input[type=submit] {
     width: fit-content;
 }
 
+/*
 .applicationsDiv {
     width: calc(100vw - 325px - 450px);
 }
 
-.applicationStatusDiv {
+*/
 
-    width: 430px;
+.divApplicationStatusCards {
+    vertical-align: top;
+    width: calc(100% - 460px);
+    padding-right: 8px;
+}
+
+.cardApplication:nth-child(odd) {
+    margin-right: 24px;
+    border-width: 3px;
+    border-color: rgb(16, 54, 116);
+    .btn {
+        --bs-btn-font-size: 14px !important;
+    }
+
+    .card-title {
+        color:rgb(38, 96, 172);
+    }
+}
+
+.cardApplication:nth-child(even) {
+    border-width: 3px;
+    border-color: rgb(16, 54, 116);
+    .btn {
+        --bs-btn-font-size: 14px !important;
+    }
+
+    .card-title {
+        color:rgb(38, 96, 172);
+    }
+}
+
+.cardApplicationStatus {
+    position: sticky;
+    top: 8;
+    width: 455px;
+    padding: 20px;
+    border: 0;
+    background: rgba(0, 130, 255, 0.4);
+    color: rgb(16, 54, 116);
+    font-size: 18px;
+
+    --bs-card-border-color: rgb(16, 54, 116);
+}
+
+.applicationStatusDiv {
+    vertical-align: top;
+    width: 350px;
     height: 99vh;
-    float: right;
     padding: 5px;
 }
 
-.StatusCard {
-    width: 100%;
+.cardAppointment {
+    margin-right: 24px;
+    border-width: 3px;
+    border-color: rgb(16, 54, 116);
+
+    .btn:first-of-type {
+        width: 100%;
+        --bs-btn-font-size: 14px !important;
+    }
+
+    .btn:nth-of-type(2) {
+        width: 50%;
+    }
+
+    .btn:nth-of-type(3) {
+        float: right;
+        width: 45%;
+    }
+    .card-title {
+        color:rgb(38, 96, 172);
+    }
 }
 
-.appointmentsDiv {
-    width: 100%;
+.buttonCreateRecruitment {
+    width: fit-content !important;
+    border-width: 2px;
+    
+    --bs-btn-border-color: rgb(16, 54, 116);
+    
+    --bs-btn-hover-bg: rgb(38, 96, 172) !important;
+    --bs-btn-hover-border-color: rgb(16, 54, 116);
+    --bs-btn-hover-color: white;    
 }
 
 .offerCardOption {
@@ -272,11 +358,12 @@ input[type=submit] {
 
 .submitResultLabel {
     vertical-align: top;
-    width: 20vw;
+    width: 300px;
 }
 
 .resultSearchBar {
-    width: 25vw;
+    width: 300px;
+    border: solid 1px;
 }
 
 .subResAppltnID {
@@ -296,18 +383,45 @@ input[type=submit] {
 }
 
 td.subResTdInput {
-    padding: 1px;
+    padding: 0;
 }
 
+.buttonSaveResult {
+    border-width: 2px;
+    
+    --bs-btn-border-color: rgb(16, 54, 116);
+    
+    --bs-btn-hover-bg: rgb(38, 96, 172) !important;
+    --bs-btn-hover-border-color: rgb(16, 54, 116);
+    --bs-btn-hover-color: white;    
+}
 
 .rankListUpdate {
-    width: 10vw;
+    width: 200px;
+    border-width: 2px;
     font-size: 15px;
+    
+    --bs-btn-border-color: rgb(16, 54, 116);
+    
+    --bs-btn-hover-bg: rgb(38, 96, 172) !important;
+    --bs-btn-hover-border-color: rgb(16, 54, 116);
+    --bs-btn-hover-color: white;   
 }
 
 .rankSearchBar {
-    width: 15vw;
+    width: 300px;
     border: solid 1px;
+}
+
+.buttonFreezeList {
+    width: fit-content !important;
+    border-width: 2px;
+    
+    --bs-btn-border-color: rgb(16, 54, 116);
+    
+    --bs-btn-hover-bg: rgb(38, 96, 172) !important;
+    --bs-btn-hover-border-color: rgb(16, 54, 116);
+    --bs-btn-hover-color: white;  
 }
 
 .verifyApplCheckbox {
@@ -318,6 +432,9 @@ td.subResTdInput {
     width: 10%;
 }
 
+.subjectResult {
+    width: 28%;
+}
 .verifyAppLabelDiv {
     width: 50%;
 }
@@ -361,6 +478,7 @@ td.subResTdInput {
 }
 
 table.tableSendAppointment {
+    margin: auto;
     border-radius: 4px;
     display: block;
     overflow-x: auto;
@@ -369,7 +487,6 @@ table.tableSendAppointment {
     --bs-table-bg: rgba(0, 130, 255, 0.15);
 }
 
-thead,
 tr,
 td {
     border: solid 1.75px;
@@ -378,7 +495,7 @@ td {
     vertical-align: middle;
 }
 
-checkboxSendAppointment {
+.checkboxSendAppointment {
     vertical-align: middle;
 }
 
@@ -387,3 +504,4 @@ checkboxSendAppointment {
     font-weight: 700;
     border: solid 2px black;
 }
+
