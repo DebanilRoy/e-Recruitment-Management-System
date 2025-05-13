@@ -1,0 +1,224 @@
+import { useEffect, useState } from "react"
+import { useUser } from "./userContext"
+import $ from 'jquery'
+import { getFile } from "./getFile";
+import { useConfirmModal } from "./confirmModal";
+
+export default function SendAppointment() {
+    const context = useUser();
+    const userID = context.userID
+    const [recruitmentID, setRecruitmentID] = useState(null);
+    const [recruitmentDetails, setRecruitmentDetails] = useState(null);
+    const [applications, setApplications] = useState([]);
+    const [checkedApplications, setCheckedApplications] = useState([])
+    
+    const confirmModal = useConfirmModal()
+
+    if (recruitmentDetails) {
+        var vacancyCount = {GEN: recruitmentDetails.vacancyGEN, 
+                            SC: recruitmentDetails.vacancySC, 
+                            ST: recruitmentDetails.vacancyST, 
+                            OBC: recruitmentDetails.vacancyOBC
+    }}
+
+    function handleSubmitRecruitment (event) {
+        event.preventDefault()
+        getRecruitmentDetails(recruitmentID)
+        getApplications(recruitmentID)
+    }
+
+    function getRecruitmentDetails(recruitmentID) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8000/src/sendAppointments/getRecruitmentDetails.php",
+            data: JSON.stringify(recruitmentID),
+            success: (data) => {
+                setRecruitmentDetails({...data, remaining: (data['vacancytotal'] - (data['open'] + data['accepted']))})
+            },
+            error: () => {
+                console.log("Error")
+            }
+        })
+    }
+    
+    function updateVacancyCounter(event, application) {
+        setRecruitmentDetails(prev => ({...prev, remaining: (event.target.checked) ? (prev.remaining - 1) : (prev.remaining + 1)}))
+    }
+    
+    function getApplications(recruitmentID) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8000/src/sendAppointments/getApplications.php",
+            data: JSON.stringify(recruitmentID),
+            success: (data) => {
+                setApplications(data)
+            },
+            error: () => {
+                console.log("Error: getApplicationDetails")
+            }
+        })
+    }
+
+    async function sendAppointment(event) {
+        event.preventDefault();
+        const sendConfirm = await confirmModal("Are you sure you want to send appointment?")
+        if (sendConfirm) {
+            const formData = new FormData();
+            checkedApplications.forEach(application => {
+                formData.append(application , $(event.target).find('input[type="file"]#' + application)[0].files[0])
+            })
+
+            formData.append("applications", JSON.stringify({applications: checkedApplications, userID: userID}))
+            
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8000/src/sendAppointments/sendAppointments.php",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: (data) => {
+                    setCheckedApplications([])
+                    getRecruitmentDetails(recruitmentID)
+                    getApplications(recruitmentID)
+                }
+            })
+        }
+    }
+
+    function update(event) {
+        setRecruitmentID(event.target.value)
+    }
+    
+    function getClassLabel(status) {
+        switch (status) {
+            case "open":
+                return "offerOpen"
+            
+            case "accepted":
+                return "offerAccepted"
+            
+            case "rejected":
+                return "offerRejectedLapsed"
+
+            case "lapsed":
+                return "offerRejectedLapsed"
+
+            default:
+                break;
+        }
+    }
+    
+    function updateCheckedApplications(event, applicationID) {
+        (event.target.checked) ? setCheckedApplications(prev => ([...prev, applicationID])) : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
+    }
+
+    return (
+        <>
+            <div className="bodyDiv">
+                <div className="ps-2 py-2 rounded-2 bodyHeadingDiv">
+                    <p className="mb-0 bodyHeading">Send Appointment</p>
+                </div>
+                <div className="pt-2 ps-2">
+                    <div className="divRecruitmentInfo">
+                        <form onSubmit={(event) => {handleSubmitRecruitment(event)}}>
+                            <div className="divFormInputRecruitmentId">
+                                <label htmlFor="" className="form-label d-block">Recruitment ID</label>
+                                <input onChange={(event) => update(event)} type="text" name="recruitmentID" id="recruitmentID" list="recruitmentIdOptions" 
+                                       className="form-control fs-5"/>
+                                <datalist id="recruitmentIdOptions">
+                                    <option value="ABCD1234"/>
+                                    <option value="ABCD1234"/>
+                                    <option value="ABCD1234"/>
+                                    <option value="ABCD1234"/>
+                                    <option value="ABCD1234"/>
+                                </datalist>
+                            </div>
+                            
+                            <button className="btn fs-5 buttonPrimary">Submit</button>
+                        </form>
+
+                        {recruitmentDetails && (<><div className="divRecruitmentDetailsLabel">
+                            <p className="">Post Name : <span className="">{recruitmentDetails.postName}</span></p>
+                            <p className="">Location : <span className="">{recruitmentDetails.location}</span></p>
+                            <p className="">Total Applications : <span className="">{recruitmentDetails.applicationCount}</span></p>
+                            <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancytotal}</span></p>
+                            <p className="">GEN : <span className="">{recruitmentDetails.vacancyGEN}</span></p>
+                            <p className="">SC : <span className="">{recruitmentDetails.vacancySC}</span></p>
+                            <p className="">ST : <span className="">{recruitmentDetails.vacancyST}</span></p>
+                            <p className="">OBC : <span className="">{recruitmentDetails.vacancyOBC}</span></p>
+                        </div>
+                    
+                        <div className="divAppointmentsDetails">
+                            <p className="fs-5">Appointments Open  : <span className="">{recruitmentDetails.open}</span></p>
+                            <p className="fs-5">Appointments Accepted  : <span className="">{recruitmentDetails.accepted}</span></p>
+                            <p className="fs-5">Appointments Rejected : <span className="">{recruitmentDetails.rejected_lapsed}</span></p>
+                            <p className="fs-5">Remaining Vacancies : <span className="">{recruitmentDetails.remaining}</span></p>
+                        </div></>)}
+                    </div>
+                    
+                    {recruitmentDetails && (<form onSubmit={(event) => sendAppointment(event)}>
+                        <table className="table tableSendAppointment">
+                            <thead>
+                                <tr>
+                                    <td colSpan="8">
+                                        <input type="text" name="" id="" placeholder="Search Application"
+                                            className="form-control tableSearchBar"/>
+                                    </td>
+                                </tr>
+                                <tr className="">
+                                    <th className=""></th>
+                                    <th className="rank">Rank</th>
+                                    <th className="subResAppltnID">ApplicationID</th>
+                                    <th className="subResApplntName">Applicant Name</th>
+                                    <th className="subResApplntID">ApplicantID</th>
+                                    <th className="subResDob">Date of Birth</th>
+                                    <th className="">Category</th>
+                                    <th className="appointment">Appointment Letter</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                applications.map(application => {
+                                    var classname = null;
+                                    
+                                    if (vacancyCount[application.category] > 0 && !["rejected", "lapsed"].includes(application.offerStatus)) {
+                                        vacancyCount[application.category]--
+                                    }
+
+                                    else {
+                                        classname = "disabled"
+                                    }
+
+                                    return (<tr className={getClassLabel(application.offerStatus) + " " + ((!getClassLabel(application.offerStatus) ? (classname) : null))}>
+                                        <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } className="align-middle text-center checkboxSendAppointment">
+                                            {(application.offerStatus === null) && (<input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"
+                                                    disabled={(!recruitmentDetails.remaining && !checkedApplications.includes(application.applicationID) || (classname === "disabled")) ? true : false}/>)} 
+                                        </td>
+                                        <td className="rank">{application.rank}</td>
+                                        <td className="">{application.applicationID.toUpperCase()}</td>
+                                        <td className="">{application.applicantName}</td>
+                                        <td className="">{application.applicantID}</td>
+                                        <td className="">{application.dob}</td>
+                                        <td className="">{application.category}</td>
+                                        <td className="">{(application.offerStatus === null) ? (
+                                            <input  disabled={(!recruitmentDetails.remaining && !checkedApplications.includes(application.applicationID) || (classname === "disabled")) ? true : false} 
+                                                    className="appntLetterUpload" type="file" 
+                                                    id={application.applicationID} 
+                                                    required={checkedApplications.includes(application.applicationID)}/>) : (<span onClick={() => {getFile(application.offerFileName, "appointments")}} className="offerFileLink">View Offer</span>) }</td>
+                                    </tr>
+                                            )
+                                            
+                                }
+                                
+                                )
+                                }
+                            </tbody>
+                        </table>
+
+                        <button name="" id="" className="btn buttonPrimary">Send Appointment</button>
+                    </form>)}
+                </div>
+            </div>
+        </>
+    )
+}

@@ -1,0 +1,1425 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+    --primary-color: rgb(0, 48, 96);
+    --secondary-color: #94c1dd; 
+    --tertiary-color: #00698A;
+
+    --grey: rgb(234, 234, 234);
+    
+    --table-grey: rgb(217, 217, 217);
+    --good-color: #f4ca83;
+    --text-color: rgb(255, 242, 219);
+}
+
+.red-hat-display-0 {
+    font-family: "Red Hat Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+body {
+    height: fit-content;
+    font-family: "Red Hat Display", serif;
+    font-weight: 700;
+    font-style: normal;
+    background: rgb(223, 223, 223);
+    color: var(--primary-color) !important;
+}
+
+.root {
+    display: grid;
+    grid-template-columns: 270px;
+    grid-template-rows: 91px;   
+    padding: 8px;
+    gap: 8px;
+    transition: grid-template-columns 0.5s ease-out;
+}
+
+.loginPage {
+    grid-template-columns: 600px;
+    grid-template-rows: 104px;   
+    transition: none !important;
+}
+
+.sideBarClosed {
+    grid-template-columns: 74px !important;
+    transition: grid-template-columns 0.4s ease-in;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 22px;
+}
+
+h4 {
+    font-weight: 600;
+    flex: 0 0 100%;
+    margin: 0;
+    padding: 8px;
+    background-color: var(--good-color);
+    border-radius: 4px;
+    font-size: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin: 0;
+}
+
+span {
+    white-space: pre;
+}
+
+a {
+    color: rgb(38, 96, 172);
+}
+
+label {
+    font-size: 18px;
+}
+
+input, select {
+    font-weight: 600 !important;
+    border: solid 2px rgb(16, 54, 116) !important;
+    border-radius: 4px !important;
+    font-size: 18px !important;
+    color: black !important;
+}
+
+input::placeholder {
+    color: rgba(128, 128, 128, 0.586) !important;
+    font-weight: 500;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=submit] {
+    width: 150px;
+    --bs-btn-color: rgb(38, 96, 172) !important;
+    --bs-btn-font-weight: 700;   
+}
+
+input:disabled, select:disabled {
+    background: rgb(227, 227, 227) !important;
+}
+
+input[type=checkbox] {
+    border: solid 2px var(--primary-color) !important;
+}
+
+input[type=checkbox]:checked {
+    background-color: var(--primary-color) !important;
+}
+
+input[type=checkbox]:disabled {
+    background-color: lightgray;
+    color: black !important ;
+}
+
+input[type=checkbox]:disabled[status=verified] {
+    background: rgb(66, 211, 66);
+}
+
+input[type=checkbox]:disabled[status=rejected] {
+    background: red;
+    color: none;
+}
+
+input[type=file] {
+    border: none !important;
+}
+
+button {
+    width: fit-content;
+    border: 2px solid !important;
+    border-color: var(--primary-color) !important;
+    background: none !important;
+    border-radius: 4px !important;
+    color: var(--primary-color) !important;
+    font-weight: 700 !important;
+}
+
+button:hover {
+    background: var(--secondary-color) !important;
+
+}
+
+button:focus {
+    box-shadow: none !important;
+    border-color: var(--primary-color) !important;
+}
+
+button:active {
+    background: var(--tertiary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+button:disabled {
+    --bs-btn-border-color: var(--primary-color) !important;
+}
+
+table {
+    width: 100%;
+    color: var(--primary-color);
+    border-radius: 4px !important;
+    overflow: hidden;
+}
+
+table > tbody > tr > td > input {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    border: none !important;
+}
+
+thead, thead td{
+    background: var(--primary-color) !important;
+    color: var(--good-color);
+}
+
+tbody, td, th {
+    border: solid 1.75px black;
+    font-weight: 700;
+    vertical-align: middle;
+    color: var(--text-color);
+    padding: 8px;
+}
+
+td {
+    color: var(--primary-color);
+}
+
+.notification {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: fit-content;
+    height: fit-content;
+    padding: 8px 16px 8px 8px;
+    vertical-align: middle;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+.notification * {
+    font-size: 20px;
+}
+
+.isActive {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
+
+.success {
+    background: rgb(144, 238, 144, 0.8);
+    color: green;
+}
+
+.error {
+    background: rgb(255, 0, 0, 0.8);
+    color: white;
+}
+
+.confirmModal {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(176, 176, 176, 0.614);
+}
+
+.confirmModal > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    row-gap: 0px;
+    height: 150px;
+    width: 400px;
+    padding: 16px;
+    background: white;
+    border-radius: 6px;
+}
+
+.confirmModal > div div {
+    display: flex;
+    column-gap: 8px;
+}
+
+.divFormInput {
+    width: fit-content;
+    margin-right: 2.5vw;
+    margin-bottom: 20px;
+}
+
+.divLoginPageHeading {
+    grid-column: 1;
+    grid-row: 1;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divLoginBox {
+    grid-column: 2;
+    grid-row: 1;
+    width: 35%;
+    height: 100vh;
+    align-items: center;
+}
+
+.loginBox {
+    width: 475px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 8px rgb(90, 111, 144);
+    background-color: rgb(116, 116, 116, 0.18);
+    vertical-align: middle;
+
+}
+
+.loginBox p {
+    color: red;
+}
+
+.loginTypeBox {
+    width: 80%;
+    color: rgb(16, 54, 116);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg'     viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgb(16, 54, 116)' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+.divLoginBoxFooter {
+    height: 20px;
+}
+
+.anchorRegistration {
+    padding-left: 47px;
+}
+
+.anchorForgotPassword {
+    padding-right: 47px;
+}
+
+#headerRegistration {
+    float: none;
+}
+
+.bodyRegistration {
+    overflow: scroll;
+}
+
+.formRegistration {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 70px;
+    row-gap: 20px;
+    padding-top: 4px;
+}
+
+.formPassword {
+    display: flex;
+    justify-content: center;
+}
+
+.formPassword > div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding-top: 4px;
+}
+
+.formPassword > button {
+    align-self: start;
+}
+
+.regFormDiv {
+    width: fit-content;
+    margin-right: 2.5vw;
+    margin-left: 4vw;
+    margin-bottom: 20px;
+}
+
+.regFormText {
+    width: 27vw;
+    border: solid 2px rgb(16, 54, 116) !important;
+    border-radius: 4px;
+}
+
+.regFormText:focus {
+    box-shadow: none !important;
+}
+
+.incorrect {
+    box-shadow: none;
+    border: solid 2px red !important;
+
+}
+
+.correct {
+    box-shadow: none;
+    border: solid 2px green !important;
+}
+
+.header {
+    grid-row: 1;
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: fit-content;
+    padding: 8px;
+    border-radius: 8px;
+    border-color: rgb(16, 54, 116);
+    background: white;
+    box-shadow: 0px 0px 6px grey;
+    z-index: 1;
+    transition: width 0.5s ease-in;
+}
+
+.headerHeading {
+    font-weight: 900;
+    width: fit-content;
+    float: left;
+    margin-bottom: 0;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 2px var(--secondary-color);
+}
+
+.profileCircle {
+    display: flex;
+    flex-direction: row-reverse;
+    column-gap: 10px;
+    width: 120px;
+    height: 75px;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: width 0.3s ease-out allow-discrete;
+}
+
+.opened {
+    justify-content: right;
+    width: 130px !important;
+}
+
+.logout {
+    transform: rotate(180deg);
+}
+
+.divProfilePhoto {
+    display: flex;
+    flex-grow: 1 !important;  
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    row-gap: 8px;
+}
+
+.divProfilePhoto div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formProfile {
+    display: flex;
+    column-gap: 48px;
+    row-gap: 8px;
+    flex-wrap: wrap;
+}
+
+
+
+.formProfile > div {
+    flex: 0 0 30%;
+    padding: 0px 8px 8px 8px;
+}
+
+.formProfile > :first-child {   
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.formProfile > .divEditProfile {
+    flex-basis: unset !important;
+    display: flex;
+    column-gap: 4px;
+    width: fit-content;
+    min-width: 165px;
+    align-self: end;
+    justify-content: end;
+    button {
+        height: fit-content;
+    }
+}
+
+.buttonSubmit {
+    border-width: 1px;
+    
+    --bs-btn-border-color: rgb(16, 54, 116);
+    
+    --bs-btn-hover-bg: rgb(38, 96, 172) !important;
+    --bs-btn-hover-border-color: rgb(16, 54, 116);
+    --bs-btn-hover-color: white;
+}
+
+.accept {
+    border-color: rgb(0, 160, 0) !important;
+    color: rgb(0, 160, 0) !important; 
+}
+
+.accept:hover {
+    background: rgb(0, 160, 0) !important;
+    border-color: rgb(0, 160, 0) !important;
+    color: white !important;
+}
+
+.reject {
+    border-color: rgb(193, 0, 0) !important;
+    color: rgb(216, 0, 0) !important;
+
+    
+}
+
+.reject:hover {
+    background: rgb(193, 0, 0) !important;
+    border-color: rgb(193, 0, 0) !important;
+    color: white !important;
+}
+
+.mainDiv {
+    width: 85vw;
+    margin: auto;
+}
+
+.contentRegistrationPage {
+    width: fit-content;
+    margin: auto;
+}
+
+.horizontalLine {
+    height: 1px;
+    width: 98%;
+    border-top: 1px solid;
+}
+
+.sideBar {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    display: flex;
+    position: sticky;
+    top: 8px;
+    vertical-align: top;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 74px;
+    height: calc(100vh - 16px);
+    padding: 12px;
+    border-radius: 6px;
+    background-color: white;
+    transition: width 0.4s ease-in;
+    overflow: scroll;
+    scrollbar-width: none;
+    box-shadow: 0px 0px 10px grey;
+}
+
+.sideBar > .navBarDiv{
+    display: none;
+    opacity: 0;
+    transition: all 0.2s allow-discrete;
+}
+
+.sideBarOpen {
+    width: 270px;
+    padding: 0 12px 12px 12px;
+    border-radius: 8px !important; 
+    transition: width 0.5s ease-out;
+}
+
+.sideBarOpen > :first-child {
+    box-sizing: content-box;
+    position: sticky;
+    text-align: right;
+    top: 0;
+    width: 100%;
+    padding: 12px 0px 12px 0px;
+    background: white;
+}
+
+.sideBarOpen > .navBarDiv {
+    display: flex;
+    opacity: 1;
+
+    @starting-style {
+        opacity: 0;    
+    }
+}
+
+.sideBarCloseButton {
+    padding: 0;
+    border: none;
+    color: rgb(38, 96, 172);
+    transition: transform all 0.3s;
+}
+
+.sideBarCloseButton:hover {
+    color:rgba(0, 139, 179);
+}
+
+.navBarDiv {
+    width: 100%;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: end;
+    row-gap: 4px;
+    text-wrap: nowrap;
+}
+
+.navLinkHeader {
+    height: 49px;
+    width: 100%;
+    align-content: center;
+    padding: 0px 10px 0px 10px;
+    background-color: var(--primary-color);
+    color: #FFF2DB;
+    font-size: 18px;
+    font-weight: 750;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+
+.navLinkButton {
+    display: flex;
+    height: 47px;
+    width: 98%;
+    padding: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    text-wrap: nowrap;
+    border: 0 !important;
+    border-radius: 4px;
+    align-items: center;
+}
+
+.active {
+    background-color: var(--good-color) !important;
+}
+
+#buttonlapsedappointment {
+    font-size: 15px;
+    text-wrap: wrap;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    row-gap: 8px;
+    height: 98vh;
+    box-shadow: 2px -2px 5px rgb(158, 158, 158);
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.navLinkButton:hover {
+    background: var(--secondary-color);
+}
+
+.verifyAppointments {
+    font-size: 16px !important;
+}
+
+.bodyDiv {
+    grid-row: 2;
+    grid-column: 2;
+    width: 100%;
+    flex-shrink: 1;
+    padding: 12px;    
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0px 0px 6px grey;
+}
+
+.bodyHeadingDiv {
+    padding: 8px;
+    border-radius: 6px;
+    background-color: var(--primary-color);
+}
+
+.bodyHeading {
+    font-size: 26px;
+    font-weight: 780;
+    color: rgb(255, 242, 219);
+    
+    span:hover {
+        text-decoration: underline !important;
+        cursor: pointer;
+    }
+}
+
+.cardViewRecruitments {  
+    width: 330px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    border-width: 1px;
+    box-shadow: 0px 0px 2px grey;
+    border-color: rgb(16, 54, 116);
+}
+
+.card-text {
+    margin-bottom: 10px;
+}
+
+.card-text span{
+    font-size: 18px;
+    color: black;
+}
+
+.cardViewRecruitments .buttonSubmit:first-child{
+    font-size: 15px;
+}
+
+.cardViewRecruitments .accept {
+    border-color: rgb(0, 132, 0) !important;
+    color: white !important; 
+    background: rgb(0, 132, 0) !important;
+}
+
+/*
+.card-link {
+    width: 140px;
+    height: 45px;
+    font-size: 12.5px;
+    color: rgb(38, 96, 172) !important;
+}
+
+
+.card-link:hover {
+    color: black !important;
+}
+
+.card-link:focus {
+    color: none !important;
+}
+
+*/
+
+.applyCard {
+    font-size: 15px;
+    padding-top: 10px;
+}
+
+.formApply {
+    display: flex;
+    column-gap: 30px;
+    row-gap: 15px;
+    flex-wrap: wrap;
+}
+
+.formApply *:first-child {
+    flex: 0 0 100%;
+    
+    input {
+        width: 30%;
+    }
+}
+
+.formApply * {
+    flex: 0 0 30%;
+}
+
+.formApply #category {
+    flex: 0 0 60%;
+
+    select {
+        width: 50% !important;
+    }
+}
+
+.formApply > :last-child {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.applyFormText {
+    min-width: 200px;
+}
+
+.cancelCard {
+    font-size: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    margin-top: 150px;
+    width: fit-content;
+}
+
+.divApplicationStatusCards {
+    width: 100%;
+    display: inline-flex;
+    vertical-align: top;
+    flex-wrap: wrap;
+    padding-right: 8px;
+    gap: 15px;
+    transition: all 0.35s ease;
+}
+
+.statusOpen {
+    width: calc(100% - 460px);
+    gap: 15px;
+}
+
+.cardApplication {
+    height: fit-content;
+    border-width: 1px;
+    border-color: rgb(16, 54, 116);
+    
+    .btn {
+        --bs-btn-font-size: 14px !important;
+    }
+}
+
+.divButtons {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.divButtons *:last-child {
+    flex-grow: 1;
+}
+
+.cardApplicationStatus {
+    position: sticky;
+    top: 8;
+    display: flex;
+    row-gap: 2px;
+    width: 400px;
+    padding: 20px;
+    opacity: 1;
+    color: rgb(16, 54, 116);
+    font-size: 18px;
+    box-shadow: 0px 5px solid grey;
+    --bs-card-border-color: rgb(16, 54, 116);
+    transition: opacity 1s ease, display 0.3s allow-discrete;
+
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+.cardApplicationStatus div:last-child {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 4px;
+}
+
+.cardApplicationStatus div:last-child * {
+    width: 150px;
+    text-wrap: wrap;
+    line-height: 1.2;
+}
+.cardApplicationStatus span {
+    color: black;
+}
+
+.cardApplicationStatus .statusDiv {
+    display: grid;
+    grid-template-columns: 100px;
+    row-gap: 4px;
+}
+
+.cardApplicationStatus .statusDiv h4 {
+    grid-column: span 2;
+    line-height: 1;
+}
+
+.cardApplicationStatus .statusDiv p{
+    grid-column: 1;
+}
+
+.cardApplicationStatus .statusDiv span {
+    grid-column: 2;
+    font-size: 16px;
+}
+
+.cardApplicationStatus .statusDiv span.yellow {
+    color: var(--good-color);
+}
+
+.cardApplicationStatus .statusDiv span.red {
+    color: red;
+}
+
+.cardApplicationStatus .statusDiv span.green {
+    color: green;
+}
+
+.applicationStatusDiv {
+    vertical-align: top;
+    width: 350px;
+    height: 99vh;
+    padding: 5px;
+}
+
+.divAppointments {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cardAppointment {
+    margin-right: 24px;
+    border-width: 1px;
+    border-color: rgb(16, 54, 116);
+
+    .btn:first-of-type {
+        width: 100%;
+        --bs-btn-font-size: 14px !important;
+    }
+}
+
+.cardAppointment .accept {
+    width: 48% !important;
+    --bs-btn-disabled-border-color: rgb(0, 132, 0) !important;
+    --bs-btn-disabled-color: white !important; 
+    --bs-btn-disabled-bg: rgb(0, 160, 0) !important;
+}
+
+.cardAppointment .reject {
+    width: 48% !important;
+}
+
+.cardAppointment .accepted {
+    width: 100% !important;
+}
+
+.divRecruitmentInfo {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 16px;
+    row-gap: 10px;
+    padding-bottom: 15px;
+}
+
+.divRecruitmentInfo form {
+    display: flex;
+    flex: 0 0 35%;
+    column-gap: 10px;
+    align-items: end;
+    margin-block-end: 0;
+
+    * {
+        height: fit-content;
+    }
+
+    div {
+        flex-grow: 1;
+    }
+}
+
+.divRecruitmentDetailsLabel {
+    align-items: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    column-gap: 25px;
+    width: 50%;
+}
+
+.divRecruitmentDetailsLabel * {
+    flex: 0 0 30%;
+    height: fit-content;
+    margin-bottom: 0;
+    font-size: 18px;
+    line-height: normal;
+}
+
+.divRecruitmentDetailsLabel span {
+    color: black;
+}
+
+.formCreateRecruitment {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 55px;
+}
+
+.formCreateRecruitment > div {
+    flex: 0 0 30%;
+}
+
+.formCreateRecruitment > :last-child {
+    flex: 0 0 100%;
+    text-align: center;
+}
+
+.modifySubjectsLabel *{
+    flex: 0 0 45%;
+}
+
+.divModifySubjects {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 35px;
+}
+
+.divModifySubjects > :last-child {
+    flex-basis: 100%;
+}
+
+.divModifySubjects input {
+    flex: 0 0 30%;
+}
+
+.divModifySubjects label {
+    flex-basis: 100%;
+}
+
+.divCreateRecruitmentButtons {
+    flex-basis: 100%;
+}
+
+.recruitmentDetailsData {
+    font-weight: 500;
+    color: black;
+}
+
+.formSubjects {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 55px;
+}
+
+.divModifySubjectsLabel {
+    width: 50%;
+}
+
+.offerCardOption {
+    width: 100%;
+}
+
+.card {
+    height: fit-content;
+    padding: 16px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    color: var(--primary-color);
+}
+
+.cardManageRecruitments {  
+    width: 300px;
+}
+
+.cardManageRecruitments div:last-child {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.cardEditRecruitment {
+    display: none !important;
+    position: sticky;
+    top: 8;
+    width: 550px;
+    padding: 16px;
+    opacity: 0;
+    color: rgb(16, 54, 116);
+    font-size: 18px;
+    box-shadow: 0px 5px solid grey;
+    --bs-card-border-color: rgb(16, 54, 116);
+    transition: opacity 1s ease, display 0.3s allow-discrete;
+}
+
+.open {
+    opacity: 1;
+    display: inline-block !important;
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+.formEditRecruitmentDetails {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    margin: 0;
+}
+
+.formEditRecruitmentDetails div {
+    display: flex;
+    padding: 0px 8px 0px 8px;
+}
+
+.formEditRecruitmentDetails div#vacancies div {
+    display: block;
+    text-wrap: wrap;
+    text-align: center;
+
+    label {
+        width: 100%;
+    }
+
+    input {
+        width: 6ch;
+        padding: 0;
+        text-align: center;
+    }
+}
+
+.formEditRecruitmentDetails div#vacancies div * {
+    display: inline-block;
+}
+
+.formEditRecruitmentDetails div#file {
+    align-items: center;
+}
+
+.formEditRecruitmentDetails div#file p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.formEditRecruitmentDetails label {
+    flex: 0 0 40%;
+    font-size: 18px;
+}
+
+.formEditRecruitmentDetails input[type="text"], 
+.formEditRecruitmentDetails input[type="date"], 
+.formEditRecruitmentDetails input[type="file"],
+.formEditRecruitmentDetails input[type="number"] {
+    width: 60%;
+    height: 30px;
+    border: none !important;
+    padding-inline-start: 6px;
+    font-size: 18px;
+    background: rgb(234, 234, 234);
+    border-radius: 2px;
+}
+
+.formEditRecruitmentDetails input[type="file"] {
+    width: 40%;
+    height: fit-content;
+    padding-left: 6px;
+    background: none;
+    font-size: 12px !important;
+}
+
+.formEditRecruitmentDetails div#vacancies div input[type="number"].correct {
+    background: green !important;
+    color: white;
+}
+
+.formEditRecruitmentDetails div#vacancies div input[type="number"].incorrect {
+    background: red !important;
+    color: white;
+}
+
+.formEditRecruitmentDetails a {
+    align-self: center;
+    font-size: 14px !important;
+}
+
+.formEditRecruitmentDetails > :last-child {
+    align-self: center;
+}
+
+.resultSearchBar {
+    width: 300px;
+    border: solid 1px;
+}
+
+.subResAppltnID {
+    width: 15%;
+}
+
+.subResApplntName {
+    width: 20%;
+}
+
+.subResApplntID {
+    width: 15%;
+}
+
+.subResDob {
+    width: 12%;
+}
+
+td.subResTdInput {
+    padding: 0;
+}
+
+.createRankListLabel * {
+    flex: 0 0 40%;
+}
+
+.rankListUpdate {
+    background: white !important;
+    border-radius: 4px;
+}
+
+.tableSearchBar {
+    width: 200px;
+    border: solid 1px;
+    padding-inline-start: 8px;
+    border-radius: 0;
+    
+    font-size: 16px !important;
+}
+
+.buttonFreezeList {
+    width: fit-content !important;
+    border-width: 2px;
+    
+    --bs-btn-border-color: rgb(16, 54, 116);
+    
+    --bs-btn-hover-bg: rgb(38, 96, 172) !important;
+    --bs-btn-hover-border-color: rgb(16, 54, 116);
+    --bs-btn-hover-color: white;  
+}
+
+.verifyApplicationsLabel {
+    column-gap: 45px;
+}
+
+.verifyApplicationsLabel * {
+    flex: 0 0 35%;
+}
+
+.verifyApplCheckbox {
+    width: 2%;
+}
+
+.divAppointmentsDetails {
+    display: flex;
+    column-gap: 20px;
+}
+
+.tableResults td {
+    background-color: var(--table-grey);
+}
+
+.tableRankList td {
+    background: white;
+}
+
+.tableSendAppointment { 
+    .rank {
+        width: 10%;
+    }
+
+    .subResApplicationID {
+        width: 15%;
+    }
+
+    .subresApplicantName {
+        width: 15%;
+    }    
+
+    .subresApplicantID {
+        width: 15%;
+    }
+
+    .subResDob {
+        width: 10%;
+    }
+
+    .subjectResult {
+        width: 35%;
+    }
+}
+
+.subjectResult {
+    width: 28%;
+}
+
+.divVerifyAppInfo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 8px;
+}
+
+.divVerifyAppInfoLabel {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.divVerifyAppInfoLabel p {
+    flex: 0 0 50%;
+}
+.verifyAppLabelDiv {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    height: fit-content;
+    row-gap: 15px;
+    column-gap: 40px;
+}
+
+.verifyAppLabelDiv .divFormInput {
+    flex-basis: 100%;
+    height: fit-content;
+    margin: 0;
+}
+
+.verifyApplLabel {
+    display: flex;
+    flex-direction: column;
+}
+
+.divVerifyApplBio {
+    width: 500px;
+    display: none;
+    justify-self: flex-end;
+    padding: 8px;
+    border: 2px solid;
+    border-radius: 6px;
+    font-size: 18px;
+    background: rgb(255, 255, 255, 0.9);
+}
+
+.divVerifyApplBioOpen {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    display: flex !important;
+    gap: 20px;
+    z-index: 2;
+}
+
+.divVerifyApplBio * {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+.divVerifyApplBio * p, .divVerifyApplBio * p *{
+    width: fi;
+    display: inline-block;
+    margin: 0;
+}
+
+.divVerifyApplBioOpen span {
+    color: black;
+}
+
+.tableVerifyApplication span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.applDetailDiv {
+    vertical-align: top;
+}
+
+.divVerifyApplicationOption {
+    display: flex;
+    gap: 16px;
+    padding-top: 8px;
+}
+
+.divSendAppointmentInfo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 8px;
+}
+
+.divSendAppointmentInfo .divFormInput {
+    flex-basis: 100%;
+    margin-bottom: 0;
+    margin-right: 0;
+}
+
+.sendAppointDiv {
+    width: 100%;
+}
+
+.checkbox {
+    margin-top: 20px;
+}
+
+.verifyApplInfoCol2 {
+    translate: 60px 0;
+}
+
+.appntLetterUpload {
+    display: block;
+    font-size: 14px;
+    width: 95%;
+}
+
+.offerFileLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.appointment {
+    width: 17%;
+}
+
+.offerOpen {
+    td {
+        background: rgb(249, 206, 149);
+    }
+}
+
+.offerAccepted {
+    td {
+        background: rgb(157, 255, 157);
+    }
+}
+
+.offerRejectedLapsed {
+    td {
+            background: rgb(254, 133, 133) !important;
+        }
+}
+
+.disabled {
+    tr,td {
+        background: rgb(203, 203, 203) !important;
+    }
+    
+    td {
+        color: rgb(112, 112, 112);
+        border-color: var(--primary-color);
+    }
+}
+
+.checkboxSendAppointment {
+    vertical-align: middle;
+}
+
+.buttonSendAppointment {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.test {
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+
+}
+
+#null_applications {
+    display: none;
+}
