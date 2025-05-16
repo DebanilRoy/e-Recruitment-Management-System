@@ -1,16 +1,7 @@
 <?php
     include "../session/session.php";
+    include "../utils/dbconn.php";
     
-    try {
-        $conn = new PDO("mysql: host=localhost;port=3306;dbname=ehrms", "root", "thisismine");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    
-    catch (PDOException $e){
-        echo "Connection Failed";
-
-    }
-
     $userID = $_SESSION['userID'];
 
     $statRecruitments = $conn->prepare(" SELECT  recruitmentID, 
