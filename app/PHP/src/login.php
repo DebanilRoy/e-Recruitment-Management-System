@@ -1,5 +1,5 @@
 <?php
-    include './session/session.php';
+    include 'session/session.php';
     include 'utils/dbconn.php';
 
     $credentials = file_get_contents("php://input");
