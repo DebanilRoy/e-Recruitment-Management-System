@@ -19,7 +19,7 @@ export default function Login(props) {
        
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/login.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/login.php",
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },

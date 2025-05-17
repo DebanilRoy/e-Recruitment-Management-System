@@ -12,7 +12,7 @@ export default function ViewApplications() {
     function getApplications() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/viewApplications/getApplications.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewApplications/getApplications.php",
             xhrFields: {
                 withCredentials: true
             },

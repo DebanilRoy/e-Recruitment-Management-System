@@ -11,7 +11,7 @@ export default function ViewRecruitmentsOpen(props) {
     function getRecruitments() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/viewRecruitmentsOpen/getRecruitments.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewRecruitmentsOpen/getRecruitments.php",
             xhrFields: {
                 withCredentials: true
             },

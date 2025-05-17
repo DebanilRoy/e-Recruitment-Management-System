@@ -6,7 +6,7 @@ export default function ClosedRecruitments () {
     function getClosedRecruitments() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/viewRecruitmentsOpen/getClosedRecruitments.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewRecruitmentsOpen/getClosedRecruitments.php",
             xhrFields: {
                 withCredentials: true
             },
