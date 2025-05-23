@@ -1,23 +1,20 @@
 import { useEffect } from "react";
 
 import $ from 'jquery'
-import Login from './Login'
-import Registration from "./Registration";
+import Login from './Components/Login'
+import Registration from "./Components/Recruitee/Registration";
 import Content from './Content';
-import Modal from "./confirmModal";
+import Modal from "./modalContext";
 import Notification from "./notificationContext";
 import { useUser } from "./userContext";
 import { useRoutes } from "react-router";
 
-
-export default function App() {  
+export default function App() {
     const context = useUser()
     const [isLogin, setIsLogin] = [context.isLogin, context.setIsLogin]
     const setUserID = context.setUserID
 
     document.getElementById('root').className = ["/"].includes(window.location.pathname) ? "root loginPage" : "root";
-
-    console.log("Re render")
 
     const routes = useRoutes(
         !isLogin ? [
@@ -45,19 +42,6 @@ export default function App() {
         }
     }, [isLogin]);
     
-/*    useEffect(() => {
-        switch (accType) {
-            case "Applicant":
-                setPage("ViewRecruitments")
-                break
-            case "Recruiter":
-                setPage("CreateRecruitment")
-                break
-            default :
-                break
-        }
-    }, [accType])
-*/
     function sessionRequest () {
         $.ajax (
             {

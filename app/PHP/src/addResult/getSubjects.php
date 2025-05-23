@@ -11,11 +11,11 @@
 
     }
 
-    $recruitmentID = $_POST['recruitmentID'];
+    $recruitmentID = json_decode(file_get_contents("php://input"));
 
-    $stat = $conn->prepare(" SELECT * FROM subjects WHERE recruitmentID='$recruitmentID' 
+    $stat = $conn->prepare(" SELECT * FROM subjects WHERE recruitmentID=:recruitmentID 
                                     ORDER BY priority;");
-    $stat->execute();
+    $stat->execute([":recruitmentID" => $recruitmentID]);
 
     $subjects = $stat->fetchAll(PDO::FETCH_ASSOC);
 

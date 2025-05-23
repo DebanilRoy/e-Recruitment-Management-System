@@ -18,12 +18,10 @@
         $prevID = "A001";
     }
 
-    echo json_encode($recruitmentInfo);
-
     $stat = $conn->prepare("CALL create_recruitment(:recruitmentInfo)");
     
-    //while ($attempt > 0 && !$success) {
-        //try {
+    while ($attempt > 0 && !$success) {
+        try {
             $result = $stat->execute([":recruitmentInfo" => json_encode($recruitmentInfo)]);
             
             if ($result) {
@@ -31,9 +29,9 @@
             }
 
             $success = true;
-        //}
+        }
         
-        /*catch (Exception $e) {
+        catch (Exception $e) {
             if ($e->getCode() == 23000) {
                 $recruitmentInfo->recruitmentID = increment($recruitmentInfo->recruitmentID);
                 $attempt--;
@@ -42,8 +40,8 @@
             else {
                 echo $e;
             }
-        } */ 
-    //}
+        }
+    }
 
     $conn = null;
 ?>

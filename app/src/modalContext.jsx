@@ -13,8 +13,6 @@ export default function Modal({children}) {
             setModalState({isOpen: true, message: message, resolve})
         })
     }
-
-    console.log(modalState.resolve)
     
     function ModalConfirm() {
         modalState.resolve(true)

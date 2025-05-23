@@ -1,5 +1,5 @@
 import { useNavigate, Link, replace, NavLink } from "react-router"
-import { useUser } from "./userContext"
+import { useUser } from "../userContext"
 
 export default Sidebar
 

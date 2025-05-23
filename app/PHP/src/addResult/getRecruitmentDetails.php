@@ -13,7 +13,7 @@
 
     $recruitmentID = $_POST['recruitmentID'];
     
-    $statDetails = $conn->prepare(  "SELECT r.postName, r.location, r.vacancyTotal, 
+    $statDetails = $conn->prepare(  "SELECT r.postName, r.location, r.vacancyTotal, r.isFrozen,
                                     CAST( CASE WHEN SUM(CASE WHEN a.recruitmentID = '$recruitmentID' 
                                     THEN 1 ELSE NULL END) > 0 THEN SUM(CASE WHEN a.recruitmentID = '$recruitmentID' 
                                     THEN 1 ELSE NULL END) ELSE 0 END AS UNSIGNED ) AS applicationCount

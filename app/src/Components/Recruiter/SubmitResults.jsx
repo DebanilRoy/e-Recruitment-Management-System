@@ -1,39 +1,31 @@
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
+import RecruitmentIDSearchBar from '../../utils/RecruitmentIDSearchBar'
+import { useRecruitments } from '../../recruitmentsContext'
+import { useNotification } from '../../notificationContext'
+
 import $ from 'jquery'
 
 export default function SubmitResults() {
     const [resultData, setResultData] = useState([]);
     const [subjects, setSubjects] = useState([])
     const [recruitmentID, setRecruitmentID] = useState(null)
-    const [recruitmentDetails, setRecruitmentDetails] = useState(null)
-    const [subjectsNames, setSubjectsNames] = useState(); 
 
-    function getRecruitmentDetails(event) {
-        event.preventDefault()
-        const form = $(event.target)
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8000/src/addResult/getRecruitmentDetails.php",
-            data: form.serialize(),
-            success: (data) => {
-                setRecruitmentDetails(data)
-            }
-        })
-    }
+    const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
+
+    const Notification = useNotification()
+
+    useEffect(() => {
+        getRecruitments()
+    }, [])
 
     function getSubjects(event) {
         event.preventDefault()
-        const form = $(event.target)
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/addResult/getSubjects.php",
-            data: form.serialize(), 
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/addResult/getSubjects.php",
+            data: JSON.stringify($(event.target).find("select").val()), 
             success: data => {
-                setRecruitmentID($(event.target).find("#recruitmentID").val())
-                setSubjects(data);
-                var subjectNames = {}
-                data.forEach(subject => (subjectNames[subject.subjectName] = ""))
-                setSubjectsNames(subjectNames)
+                setSubjects(data)
             }
         })
     }
@@ -42,48 +34,32 @@ export default function SubmitResults() {
         const form = $(event.target)
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/addResult/getResults.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/addResult/getResults.php",
             data: form.serialize(),
             success: (results) => {
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:8000/src/addResult/getSubjects.php",
-                    data: form.serialize(), 
-                    success: data => {
-                        if (results[0]) {
-                            var subjectNames = {}
-                            data.forEach(subject => (subjectNames[subject.subjectName] = ""))
-                            setResultData([{key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: "", ...subjectNames}, ...results[1].map(application => ({key: crypto.randomUUID(), ...application}))]);
-                        }
-
-                        else {
-                            console.log("Error Get Data")
-                        }
-                    }
-                })
+                setResultData([{key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: ""}, ...results[1].map(application => ({key: crypto.randomUUID(), ...application}))]);
             }
         })
     }
 
     function saveResults() {
-        console.log("saveData called")
-        var sendData = []
-        
-        resultData.map(application => (application.applicationID) &&
-            subjects.map(subject => {
-                sendData.push({ recruitmentID: recruitmentID, 
-                                applicationID: application.applicationID, 
-                                subjectID : subject.subjectID,
-                                result: application[subject.subjectName]}) 
-            })
+        const sendData = resultData.slice(0, -1).flatMap(application => 
+            subjects.map(subject => ({  recruitmentID: recruitmentID, 
+                                        applicationID: application.applicationID, 
+                                        subjectID : subject.subjectID,
+                                        result: (application[subject.subjectName]) ?? null
+                                    })
+            )
         )
         
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/addResult/saveResults.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/addResult/saveResults.php",
             data: JSON.stringify(sendData),
             success: (data) => {
-                console.log(data);
+                data !== 23000 ?
+                Notification("Results saved!", "success") :
+                Notification("Results not saved, Application ID not found", "error")
             },
             error: () => {
                 console.log("Error: Send Data")
@@ -98,7 +74,7 @@ export default function SubmitResults() {
     function addRow(key) {
         if (checkRow(key)) {
             const application = resultData.findIndex(application => application.key === key);
-            setResultData([...resultData.slice(0, application + 1), {key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: "", ...subjectsNames}, ...resultData.slice(application + 1)]);
+            setResultData([...resultData.slice(0, application + 1), {key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: ""}, ...resultData.slice(application + 1)]);
         }
     }
     
@@ -131,21 +107,15 @@ export default function SubmitResults() {
                     <p className="mb-0 bodyHeading">Submit Results</p>
                 </div>
 
-                <div className="pt-2 ps-2">         
+                <div className="pt-2 px-2">         
                     <div className="divRecruitmentInfo">
                         <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getResults(event)}}>
-                            <div className="divFormInputRecruitmentId">
-                                <label htmlFor="" className="form-label d-block">Recruitment ID</label>
-                                <input type="text" name="recruitmentID" id="recruitmentID" list="recruitmentIdOptions" className="form-control fs-5"/>
-                                <datalist id="recruitmentIdOptions">
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                </datalist>
-                            </div>
-                            
+                            <RecruitmentIDSearchBar>
+                                {recruitments.map(recruitment => 
+                                        <option>{recruitment.recruitmentID}</option>
+                                    )}
+                            </RecruitmentIDSearchBar>
+
                             <button className="btn fs-5 buttonPrimary">Submit</button>
                         </form>
                         
@@ -184,16 +154,19 @@ export default function SubmitResults() {
                                             onFocus={() => {addRow(application.key)}} 
                                             onBlur={() => {deleteRow(application.key)}}>
                                             <td className="subResTdInput">
-                                                <input  value={application.applicationID.toUpperCase()} 
+                                                <input  disabled={recruitmentDetails.isFrozen} value={application.applicationID.toUpperCase()} 
                                                         onChange={ (event) => {updateData(application.key, "applicationID", event.target.value.toLowerCase())}} 
                                                         type="text" placeholder="ApplicationID" className="form-control"/></td>
                                             <td className="">{application.applicantName}</td>
                                             <td className="">{application.applicantID}</td>
                                             <td className="">{application.dob}</td>
                                             {(subjects.length > 0) && (subjects.map(subject => (
-                                            <td className={"subresTdInput " + subject.subjectName}><input value={application[subject.subjectName]} 
-                                                onChange={ (event) => {updateData(application.key, subject.subjectName, event.target.value)}} 
-                                                type="text" placeholder="Result" className="form-control"/></td>
+                                                <td className={"subresTdInput " + subject.subjectName}>
+                                                    <input disabled={recruitmentDetails.isFrozen} value={application[subject.subjectName]} 
+                                                        onChange={ (event) => {updateData(application.key, subject.subjectName, event.target.value)}} 
+                                                        type="text" placeholder="Result" className="form-control"
+                                                    />
+                                                </td>
                                             )))}
                                             
                                         </tr>
@@ -202,16 +175,16 @@ export default function SubmitResults() {
                             </table>
                         
                             <div className="w-100 mt-3 text-center">
-                                <div className="d-inline-block fs-5 mb-3 me-3 regFormDiv">
+                                {!recruitmentDetails.isFrozen ? <div className="d-inline-block fs-5 mb-3 me-3 regFormDiv">
                                     <button onClick={() => {saveResults()}} className="btn fs-5 buttonPrimary">Save</button>
-                                </div>
+                                </div> :
+                                <div className="d-inline-block fs-5 mb-3 me-3 regFormDiv">
+                                    <p className="">Rank List Frozen</p>
+                                </div>}
                             </div>
                         </>
                     ): null}
-                
-                
                 </div>
-                
             </div>
         </>
     )

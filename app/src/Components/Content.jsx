@@ -1,31 +1,30 @@
-import { useNavigate, useRoutes } from 'react-router'
+import { useLocation, useRoutes } from 'react-router'
 
 import Sidebar from './Sidebar'
-import Header from './Header'
+import Header from '../Header'
 
 import Profile from './profile'
-import ViewRecruitmentsOpen from './ViewRecruitmentsOpen'
-import ClosedRecruitments from './closedRecruitments'
-import Apply from './Apply'
-import ViewApplications from './ViewApplications'
-import ViewClosedApplications from './viewClosedApplications'
+import ViewRecruitmentsOpen from './Recruitee/Recruitments/ViewRecruitmentsOpen'
+import ClosedRecruitments from './Recruitee/Recruitments/closedRecruitments'
+import Apply from '../Apply'
+import ViewApplications from './Applications/ViewApplications'
+import ViewClosedApplications from './Applications/viewClosedApplications'
 import AppointmentsOpen from './AppointmentsOpen'
-import ViewClosedAppointments from './viewClosedAppointments'
+import ViewClosedAppointments from './Appointments/viewClosedAppointments'
 
-import CreateRecruitment from './CreateRecruitment'
-import ManageRecruitments from './manageRecruitments'
-import AddSubjects from './AddSubjects'
-import SubmitResults from './SubmitResults'
-import CreateRankList from './CreateRankList'
-import VerifyApplication from './VerifyApplication'
-import SendAppointment from './SendAppointment'
+import CreateRecruitment from './Recruiter/CreateRecruitment'
+import ManageRecruitments from './Recruiter/manageRecruitments'
+import AddSubjects from './Recruiter/AddSubjects'
+import SubmitResults from './Recruiter/SubmitResults'
+import CreateRankList from './Recruiter/CreateRankList'
+import VerifyApplication from './Recruiter/VerifyApplication'
+import SendAppointment from './Recruiter/SendAppointment'
 
-
-import { useUser } from './userContext'
+import RecruitmentsProvider from '../recruitmentsContext'
+import { useUser } from '../userContext'
 
 export default function Content(props) { 
     const accType = useUser().accType
-    console.log(sessionStorage.getItem('accType'))
 
     document.getElementById('root').className = "root";
     
@@ -57,8 +56,16 @@ export default function Content(props) {
             <Sidebar/>
 
                 <Header/>
-                {routes}
-
+                    {accType === "recruiter" ? 
+                        <RecruitmentsProvider key={useLocation().pathname}>
+                            {routes}
+                        </RecruitmentsProvider>
+                        
+                        :
+                        
+                        routes
+                        
+                    }
         </>
     )
 

@@ -1,60 +1,35 @@
 import { useEffect, useState, formData } from "react"
+import { useRecruitments } from "../../recruitmentsContext";
 import $ from 'jquery'
 
 export default function AddSubjects () {
     const [subjects, setSubjects] = useState([]);
     const [deletedSubjects, setDeletedSubjects] = useState([]);
-    const [recruitmentID, setRecruitmentID] = useState();
-    const [recruitments, setRecruitment] = useState([]);
-    const [recruitmentDetails, setRecruitmentDetails] = useState(null);
 
-    const subjectsArray = { subjects: subjects,
-                            deletedSubjects: deletedSubjects
-    }
-    
-    function retrieveRecruitments(event) {
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8000/src/createRecruitment/retrieveRecruitments.php",
-            xhrFields: {
-                withCredentials: true, // Ensure cookies are sent with the request
-            },
-            success: (data) => {
-                setRecruitment(data)
-            },
-            error: () => {
-                console.log("Retrieve Failed")
-            }
-        })
-    }
+    const { recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails } = useRecruitments()
+
 
     useEffect(() => {
-        retrieveRecruitments();
+        getRecruitments()
     }, [])
-    
-    function handleSubmitRecruitment(event) {
+
+    function getSubjects(event) {
         event.preventDefault()
-        const form = $(event.target)
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/createRecruitment/recruitmentDetails.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRecruitment/recruitmentDetails.php",
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
-            data: form.serialize(),
-            success: (data) => {
-                
-                setRecruitmentID($(event.target).find("[name='recruitmentID']").val())
-                const details = data[0]
-                setRecruitmentDetails(details)
-                
-                const subjects = data[1]
+            data: JSON.stringify($(event.target).find("select").val()),
+            success: (data) => {               
+                const subjects = data
                 
                 const test = () => {
                     var final = [];
                     if (subjects.length > 0) {
                         subjects.forEach(subject => {
-                            final.push({subjectKey: crypto.randomUUID(), subjectID: subject.subjectID, subjectName: subject.subjectName, priority: subject.priority})
+                            final.push({subjectKey: crypto.randomUUID(), ...subject})
                         })
                     }
                     
@@ -63,7 +38,6 @@ export default function AddSubjects () {
                 }
                 
                 setSubjects(test())
-                
             },
             error: () => {
                 console.log("Recruitment Details Rectrive Failed")
@@ -71,26 +45,18 @@ export default function AddSubjects () {
         })
     }
 
-    function checkCol (subjectKey) {
-        var isEmpty = true
-        const subject = subjects.findIndex(subject => subject.subjectKey === subjectKey);
-
-        if (subjects[subject]["subjectName"] !== "") {
-            isEmpty = false
-        }
-
-        return isEmpty
+    function isEmpty (subjectKey) {
+        return subjects.some(subject => subject.subjectKey === subjectKey  && subject.subjectName === "")
     }
 
     function addCol (subjectKey) {
-        if (checkCol(subjectKey)) {
+        if (isEmpty(subjectKey)) {
             setSubjects(prevSubjects => [...prevSubjects, {subjectKey: crypto.randomUUID(), subjectID: "", subjectName: "", priority: ""}])
         }
     }
 
     function deleteCol(subjectKey) {
-
-        if (subjects.length !== 1 && checkCol(subjectKey)) {
+        if (subjects.length !== 1 && isEmpty(subjectKey)) {
             const subject = subjects.findIndex(subject => subject.subjectKey === subjectKey);
             
             if (subjects[subject].subjectID) {
@@ -101,38 +67,19 @@ export default function AddSubjects () {
         }
     }
 
-    function updateSubject(subjectKey, value) {
-        const subject = subjects.findIndex(subject => subject.subjectKey === subjectKey)
-        setSubjects(prevSubjects => {
-            const newSubjects = [...prevSubjects];
-            newSubjects[subject] = {...newSubjects[subject], subjectName: value}
-            return newSubjects
-        })
+    function updateSubject(subjectKey, subjectName) {
+        setSubjects(prevSubjects => prevSubjects.map(subject => subject.subjectKey === subjectKey ? ({...subject, subjectName: subjectName}) : subject))
     }
 
     function handleSubmit(event) {
-        const subjectData = new FormData()
-        subjectData.append("recruitmentID", JSON.stringify(recruitmentID))
-        
-        var count = 1;
-        const test = () => {
-            var final = [];
-            if (subjects.length > 1) {
-                subjects.forEach(subject => {
-                    final.push({subjectKey: crypto.randomUUID(), subjectID: subject.subjectID, subjectName: subject.subjectName, priority: count})
-                    count++
-                })
-            }
-            
-            return final
-        }
-        
-        const finalSubjects = test()
-        
-        subjectData.append("subjects", JSON.stringify(finalSubjects))
-        subjectData.append("deletedSubjects", JSON.stringify(deletedSubjects))
-        
         event.preventDefault()
+            
+        const finalSubjects = subjects.map(({subjectKey, ...rest}, index) => ({...rest, priority: index + 1})).slice(0, -1)
+             
+        const subjectData = {"recruitmentID": recruitmentDetails.recruitmentID,
+                             "subjects": finalSubjects,
+                             "deletedSubjects": deletedSubjects 
+        }
 
         $.ajax({
             type: "POST",
@@ -140,13 +87,12 @@ export default function AddSubjects () {
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
-            data: subjectData,
-            processData: false,
-            contentType: false,
+            data: JSON.stringify(subjectData),
             success: (data) => {
                 console.log("Submit Success")
             } 
         })
+            
     }
 
     return (
@@ -158,16 +104,16 @@ export default function AddSubjects () {
                     
                 <div className="pt-2 px-2">         
                     <div className="d-flex divRecruitmentInfo">
-                        <form onSubmit={(event) => {handleSubmitRecruitment(event)}}>
+                        <form onSubmit={(event) => {getRecruitmentDetails(event), getSubjects(event)}}>
                             <div className="fs-5">
-                                <h3 htmlFor="" className="d-block">Recruitment ID</h3>
-                                <input type="text" name="recruitmentID" id="recruitmentID" list="recruitmentIdOptions" 
-                                        className="form-control fs-5"/>
-                                <datalist id="recruitmentIdOptions">
+                                <label htmlFor="" className="d-block">Recruitment ID</label>
+                                <select name="recruitmentID" id="recruitmentID"  
+                                        className="form-control fs-5">
+                                            <option>-- select --</option>
                                     {recruitments.map(recruitment => (
-                                            <option value={recruitment}/>
+                                            <option>{recruitment.recruitmentID}</option>
                                         ))}
-                                </datalist>
+                                </select>
                             </div>
                             
                             <button className="btn fs-5 buttonSubmit">Submit</button>
@@ -185,7 +131,7 @@ export default function AddSubjects () {
                         <div className="divModifySubjects">
                             <h4 className="">Subjects</h4>
                             {subjects.map((subject) =>
-                                (<input key={subject.subjectKey} name="subject[]" type="text" value={subject.subjectName}
+                                (<input disabled={recruitmentDetails.isPublished ? true: false} key={subject.subjectKey} name="subject[]" type="text" value={subject.subjectName}
                                     onClick={() => addCol(subject.subjectKey)} 
                                     onChange={(event) => updateSubject(subject.subjectKey, event.target.value)} 
                                     onBlur={() => deleteCol(subject.subjectKey)} 
@@ -193,7 +139,7 @@ export default function AddSubjects () {
                                     className="form-control"/>))}
                         
                             <div className="">
-                                <button name="" id="" className="btn buttonSubmit">Save</button>
+                                <button disabled={recruitmentDetails.isPublished ? true : false} name="" id="" className="btn buttonSubmit">Save</button>
                             </div>    
                         </div>
 

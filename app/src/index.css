@@ -162,7 +162,8 @@ button:active {
 }
 
 button:disabled {
-    --bs-btn-border-color: var(--primary-color) !important;
+    background: rgb(227, 227, 227) !important;
+
 }
 
 table {
@@ -198,14 +199,14 @@ td {
 .notification {
     position: fixed;
     bottom: 16px;
-    right: 16px;
+    right: -100%;
     width: fit-content;
     height: fit-content;
-    padding: 8px 16px 8px 8px;
+    padding: 12px 20px 12px 12px;
     vertical-align: middle;
-    border-radius: 2px;
-    opacity: 0;
-    transition: opacity 0.2s ease-out;
+    border-radius: 4px;
+    box-shadow: 0px 0px 5px 1px rgb(190, 190, 190);
+    transition: right 0.5s ease-out;
 }
 
 .notification * {
@@ -213,17 +214,17 @@ td {
 }
 
 .isActive {
-    opacity: 1;
-    transition: opacity 0.5s ease-in;
+    right: 16px !important;
+    transition: right 0.5s ease-in;
 }
 
 .success {
-    background: rgb(144, 238, 144, 0.8);
-    color: green;
+    background: rgba(194, 253, 194, 0.9);
+    color: rgb(0, 165, 0);
 }
 
 .error {
-    background: rgb(255, 0, 0, 0.8);
+    background: rgba(207, 0, 0, 0.8);
     color: white;
 }
 

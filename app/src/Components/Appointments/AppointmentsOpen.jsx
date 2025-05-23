@@ -12,7 +12,7 @@ export default function AppointmentsOpen() {
     function getAppointments() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/viewAppointments/getAppointments.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewAppointments/getAppointments.php",
             xhrFields: {
                 withCredentials: true
             },

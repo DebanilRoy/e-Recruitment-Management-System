@@ -18,15 +18,14 @@
         $result = $stat->execute();
 
         if ($result) {
-            echo json_encode("Result saved Successfully");
+            echo json_encode($result);
         }
     }
 
     catch (PDOException $e) {
-        echo json_encode($e->getMessage());
+        echo $e->getCode();
     }
-
-
+    
     
     $conn = null;
 ?>

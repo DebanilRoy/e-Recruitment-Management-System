@@ -11,9 +11,11 @@
 
     }
 
-    $recruitmentID = json_decode($_POST['recruitmentID']);
-    $subjects = json_decode($_POST['subjects']);
-    $delete = json_decode($_POST['deletedSubjects']);
+    $data = json_decode(file_get_contents("php://input"));
+
+    $recruitmentID = $data->recruitmentID;
+    $subjects = $data->subjects;
+    $delete = $data->deletedSubjects;
     
     echo json_encode($subjects);
  
@@ -23,7 +25,6 @@
     $result = $stat->fetchAll(PDO::FETCH_ASSOC); 
 
     foreach($subjects as $subject) {
-        echo "Checking Subject" . json_encode($subject);
         if ($subject->subjectID == "" && $subject->subjectName != "") {
             $insertStat = "INSERT INTO subjects (recruitmentID, subjectName, priority) VALUES";
             $insertStat .= " ('$recruitmentID', '$subject->subjectName', $subject->priority);";
@@ -52,4 +53,5 @@
     }
 
 
+    $conn = null;
 ?>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import $ from 'jquery'
-import { useUser } from "./userContext";
+import { useUser } from "../userContext";
 
 import { regex } from "./Registration";
 import { updateData } from "./Registration";
@@ -21,7 +21,7 @@ export default function Profile () {
     function getProfile() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/profile/getProfile.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/profile/getProfile.php",
             data: JSON.stringify(userID),
             xhrFields: {
                 withCredentials: true
@@ -41,7 +41,7 @@ export default function Profile () {
         event.preventDefault();
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/profile/editProfile.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/profile/editProfile.php",
             data: JSON.stringify(profile),
             xhrFields: {
                 withCredentials: true

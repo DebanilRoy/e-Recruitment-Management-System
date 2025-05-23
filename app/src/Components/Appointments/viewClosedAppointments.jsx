@@ -7,7 +7,7 @@ export default function ViewClosedAppointments() {
     function getClosedAppointments() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/viewAppointments/getClosedAppointments.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/viewAppointments/getClosedAppointments.php",
             xhrFields: {
                 withCredentials: true
             },

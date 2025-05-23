@@ -8,7 +8,7 @@ export default function ViewClosedApplications() {
     function getClosedApplications() {
         $.ajax({
             type: "POST",
-            url: "http://" + process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewApplications/getClosedApplications.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewApplications/getClosedApplications.php",
             xhrFields: {
                 withCredentials: true
             },

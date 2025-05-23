@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { useNotification } from "./notificationContext";
+import { useConfirmModal } from "../../modalContext";
+import { useNotification } from "../../notificationContext";
 import $ from 'jquery'
 
 export default function CreateRecruitment(props) {
@@ -14,24 +15,25 @@ export default function CreateRecruitment(props) {
                                                                 datePublished: null,
                                                                 appLastDate: null});
     
-
+    const Confirm = useConfirmModal()
+    const Notification = useNotification()
     
-    function handleSubmit (event) {
+    async function createRecruitment(event) {
         event.preventDefault()
-        const form = $(event.target)
+        const confirm = await Confirm("Are you sure you want to create the Recruitment?")
+        confirm &&
         $.ajax({
             type: "POST",
-            url: "http://" + process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRecruitment/createRecruitment.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRecruitment/createRecruitment.php",
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
             data: JSON.stringify(recruitmentInput),
             success(data) {
-                //set(data)
-                console.log("Recruitment Created")
+                Notification("Recruitment created", "success")
             },
             error(data) {
-                console.log("Error")
+                Notification("Recruitment could not be created, please try again")
             }
         },)
     }
@@ -69,7 +71,7 @@ export default function CreateRecruitment(props) {
                 </div>
                     
                 <div className="pt-2 px-2">         
-                    <form action="http://localhost:8000/src/createRecruitment/createRecruitment.php" method="post" onSubmit={(event) => {handleSubmit(event)}} 
+                    <form method="post" onSubmit={(event) => {createRecruitment(event)}} 
                             className="formCreateRecruitment">
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">Post Name</label>

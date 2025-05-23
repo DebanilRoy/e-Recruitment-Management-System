@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { useUser } from "./userContext"
+import { useUser } from "../../userContext"
 import $ from 'jquery'
-import { getFile } from "./getFile";
-import { useConfirmModal } from "./confirmModal";
+import { getFile } from "../../getFile";
+import { useConfirmModal } from "../../modalContext";
 
 export default function SendAppointment() {
     const context = useUser();

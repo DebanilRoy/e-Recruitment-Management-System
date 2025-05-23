@@ -5,17 +5,14 @@ const notificationContext = createContext()
 export const useNotification = () => useContext(notificationContext)
 
 export default function Notification({children}) {
-    const [notifState, setNotifState] = useState({isActive: false, message: "", status: "",  resolve: null})
+    const [notifState, setNotifState] = useState({isActive: false, message: "", status: "success"})
 
     function showNotification(message, status) {
-        return new Promise((resolve) => {
-            setNotifState({isActive: true, message, status, resolve})
-        })
+        setNotifState({isActive: true, message: message.toUpperCase(), status})
     }
 
     useEffect(() => {
-        console.log("isActive set to false")
-        notifState.isActive && setTimeout(() => setNotifState(prev => ({...prev, isActive: false})), 3000)
+        notifState.isActive && setTimeout(() => setNotifState(prev => ({...prev, isActive: false})), 5000)
     }, [notifState.isActive])
 
     return (

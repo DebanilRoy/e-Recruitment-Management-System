@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router'
 import { useUser } from './userContext'
 import { useNotification } from './notificationContext'
-import { useConfirmModal } from './confirmModal'
+import { useConfirmModal } from './modalContext'
 import $ from 'jquery'
 
 export default function Apply() {
@@ -22,7 +22,7 @@ export default function Apply() {
     function getApplicantData(ID) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/apply/getApplicantData.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/apply/getApplicantData.php",
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },

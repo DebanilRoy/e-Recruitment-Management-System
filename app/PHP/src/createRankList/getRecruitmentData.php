@@ -11,7 +11,7 @@
     }
 
     $recruitmentID = $_POST['recruitmentID'];
-    $stat = $conn->prepare("CALL getRecruitmentDetailRankList(:recruitmentID);");
+    $stat = $conn->prepare("CALL get_recruitment_data_ranklist(:recruitmentID);");
     
     $stat->execute([":recruitmentID" => $recruitmentID]);
 

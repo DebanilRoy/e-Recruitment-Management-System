@@ -11,13 +11,7 @@
 
     }
 
-    $recruitmentID = $_POST['recruitmentID'];
-
-    $statDetails = $conn->prepare("SELECT postName, salary, location, vacancyTotal, appLastDate FROM recruitment 
-                                    WHERE recruitmentID = '$recruitmentID';");
-    $statDetails->execute();
-
-    $details = $statDetails->fetch(PDO::FETCH_ASSOC);
+    $recruitmentID = json_decode(file_get_contents("php://input"));
 
     $statSubjects = $conn->prepare("SELECT * FROM subjects 
                                         WHERE recruitmentID = '$recruitmentID'
@@ -27,10 +21,8 @@
 
     $subjects = $statSubjects->fetchAll(PDO::FETCH_ASSOC);
 
-    $response = array($details, $subjects);
-    
-    if ($details) {
-        echo json_encode($response);
+    if ($subjects) {
+        echo json_encode($subjects);
     }
 
     $conn = null;

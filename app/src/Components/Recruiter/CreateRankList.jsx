@@ -1,45 +1,44 @@
-import { use, useState } from "react"
+import { useEffect, useState } from "react"
+import RecruitmentIDSearchBar from "../../utils/RecruitmentIDSearchBar";
 import $ from 'jquery'
-import { useConfirmModal } from "./confirmModal";
+import { useConfirmModal } from "../../modalContext";
+import { useRecruitments } from "../../recruitmentsContext";
 
 export default function CreateRankList() {
-    const [recruitmentID, setRecruitmentID] = useState(null);
-    const [recruitmentDetails, setRecruitmentDetails] = useState(null);
     const [subjects, setSubjects] = useState([]);
     const [rankList, setRankList] = useState([]);
-    const [isRanklistFrozen, setIsRanklistFrozen] = useState(false);
+    const [recruitmentData, setRecruitmentData] = useState({});
 
+    const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
     const confirmModal = useConfirmModal()
 
-    function getRecruitmentDetails(event) {
+    
+    useEffect(() => {
+        getRecruitments();
+    }, [])
+    
+    function getRecruitmentData(event) {
         event.preventDefault()
         const form = $(event.target)
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/createRankList/getRecruitmentDetailRankList.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRankList/getRecruitmentData.php",
             data: form.serialize(),
             success: (data) => {
-                setRecruitmentDetails({ postName: data.postName, 
-                                        location: data.location, 
-                                        vacancyTotal: data.vacancytotal, 
-                                        applicationCount: data.applicationcount,
-                                        applicationResultCount: data.applicationresultcount,
-                                        applicationNonResultCount: data.applicationnonresultcount
-                                    })
-
-                setIsRanklistFrozen(data.isFrozen)
+                setRecruitmentData(data)
+            },
+            error: () => {
+                console.log("Error: getRecruitmentData")
             }
         })
     }
-
+    
     function getSubjects(event) {
-        const form = $(event.target)
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/addResult/getSubjects.php",
-            data: form.serialize(), 
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/addResult/getSubjects.php",
+            data: JSON.stringify($(event.target).find("select#recruitmentID").val()),
             success: data => {
-                setRecruitmentID($(event.target).find("#recruitmentID").val())
                 setSubjects(data);
                 var subjectNames = {}
                 data.forEach(subject => (subjectNames[subject.subjectName] = ""))
@@ -48,11 +47,11 @@ export default function CreateRankList() {
     }
     
     function getRankList(event) {
-        const form = $(event.target)
+        console.log("getRankList")
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/createRankList/getRankList.php",
-            data: form.serialize(),
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRankList/getRankList.php",
+            data: JSON.stringify($(event.target).find("select#recruitmentID").val()),
             success: (data) => {
                 setRankList(data);
             },
@@ -65,8 +64,8 @@ export default function CreateRankList() {
     function updateRankList() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/createRankList/getRankList.php",
-            data: JSON.stringify(recruitmentID),
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRankList/getRankList.php",
+            data: JSON.stringify(recruitmentDetails.recruitmentID),
             success: (data) => {
                 setRankList(data);
             },
@@ -81,7 +80,7 @@ export default function CreateRankList() {
         if (freezeConfirm) {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/src/createRankList/freezeRankList.php",
+                url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRankList/freezeRankList.php",
                 data: JSON.stringify(recruitmentID),
                 success: (data) => {
                     setIsRanklistFrozen(data)
@@ -99,20 +98,14 @@ export default function CreateRankList() {
                 <div className="w-100 ps-2 py-2 rounded-2 bodyHeadingDiv">
                     <p className="mb-0 bodyHeading">Create Rank List</p>
                 </div>
-                <div className="pt-2 ps-2">         
+                <div className="pt-2 px-2">         
                     <div className="d-flex divRecruitmentInfo">                       
-                        <form onSubmit={(event) => {getRecruitmentDetails(event); getSubjects(event); getRankList(event)}}>
-                            <div className="divFormInputRecruitmentId">
-                                <label htmlFor="" className="form-label d-block">Recruitment ID</label>
-                                <input type="text" name="recruitmentID" id="recruitmentID" list="recruitmentIdOptions" className="form-control fs-5"/>
-                                <datalist id="recruitmentIdOptions">
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                    <option value="ABCD1234"/>
-                                </datalist>
-                            </div>
+                        <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getRecruitmentData(event); getRankList(event)}}>
+                            <RecruitmentIDSearchBar>
+                                {recruitments.map(recruitment => 
+                                    <option>{recruitment.recruitmentID}</option>
+                                )}
+                            </RecruitmentIDSearchBar>                         
                             
                             <button className="btn fs-5">Submit</button>
                         </form>
@@ -121,13 +114,12 @@ export default function CreateRankList() {
                             <p className="">Post Name : <span className="">{recruitmentDetails.postName}</span></p>
                             <p className="">Location : <span className="">{recruitmentDetails.location}</span></p>
                             <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancyTotal}</span></p>
-                            <p className="">Total Applications : <span className="">{recruitmentDetails.applicationCount}</span></p>
-                            <p className="">Application with Results : <span className="">{recruitmentDetails.applicationResultCount}</span></p>
-                            <p className="">Application without Results : <span className="">{recruitmentDetails.applicationNonResultCount}</span></p>
+                            <p className="">Total Applications : <span className="">{recruitmentData.applicationCount ?? null}</span></p>
+                            <p className="">Application with Results : <span className="">{recruitmentData.applicationResultCount}</span></p>
+                            <p className="">Application without Results : <span className="">{recruitmentData.applicationNonResultCount}</span></p>
                         </div>) : null}   
                     </div>
-                    
-                    
+                                        
                     {(recruitmentDetails) && (
                         <table className="tableRankList">
                             <thead className="">
@@ -166,7 +158,7 @@ export default function CreateRankList() {
                         </table>
                     )}
 
-                    {(recruitmentDetails) && (!isRanklistFrozen ? (
+                    {(recruitmentDetails) && (!recruitmentDetails.isFrozen ? (
                         <div className="w-100 mt-3 text-center">
                             <div className="d-inline-block fs-5 mb-3 me-3 regFormDiv">
                                 <button onClick={() => freezeRankList()} className="btn btn-light form-control fs-5 buttonPrimary buttonFreezeList">Freeze Rank List</button>

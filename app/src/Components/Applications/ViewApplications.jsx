@@ -38,7 +38,7 @@ export default function ViewApplications() {
         const confirm = await confirmModal("Are you sure you want to Cancel the Application?")
         confirm && $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/viewApplications/cancelApplication.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewApplications/cancelApplication.php",
             data: JSON.stringify(applicationID),
             success: () => {
                 getApplications()

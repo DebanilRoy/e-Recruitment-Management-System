@@ -1,6 +1,6 @@
 import { useState } from "react"
 import $ from 'jquery'
-import { useConfirmModal } from "./confirmModal";
+import { useConfirmModal } from "../../modalContext";
 
 export default function VerifyApplication() {
     const [recruitmentID, setRecruitmentID] = useState(null);
