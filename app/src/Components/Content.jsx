@@ -1,27 +1,27 @@
 import { useLocation, useRoutes } from 'react-router'
 
 import Sidebar from './Sidebar'
-import Header from '../Header'
+import Header from './Header'
 
 import Profile from './profile'
-import ViewRecruitmentsOpen from './Recruitee/Recruitments/ViewRecruitmentsOpen'
-import ClosedRecruitments from './Recruitee/Recruitments/closedRecruitments'
-import Apply from '../Apply'
-import ViewApplications from './Applications/ViewApplications'
-import ViewClosedApplications from './Applications/viewClosedApplications'
-import AppointmentsOpen from './AppointmentsOpen'
-import ViewClosedAppointments from './Appointments/viewClosedAppointments'
+import RecruitmentsOpen from './Recruitee/Recruitments/RecruitmentsOpen'
+import RecruitmentsClosed from './Recruitee/Recruitments/RecruitmentsClosed'
+import Apply from './Recruitee/Apply'
+import ViewApplications from './Recruitee/Applications/ApplicationsOpen'
+import ViewClosedApplications from './Recruitee/Applications/ApplicationsClosed'
+import AppointmentsOpen from './Recruitee/Appointments/AppointmentsOpen'
+import ViewClosedAppointments from './Recruitee/Appointments/AppointmentsClosed'
 
 import CreateRecruitment from './Recruiter/CreateRecruitment'
-import ManageRecruitments from './Recruiter/manageRecruitments'
+import ManageRecruitments from './Recruiter/ManageRecruitments'
 import AddSubjects from './Recruiter/AddSubjects'
 import SubmitResults from './Recruiter/SubmitResults'
 import CreateRankList from './Recruiter/CreateRankList'
-import VerifyApplication from './Recruiter/VerifyApplication'
+import VerifyApplications from './Recruiter/VerifyApplications'
 import SendAppointment from './Recruiter/SendAppointment'
 
-import RecruitmentsProvider from '../recruitmentsContext'
-import { useUser } from '../userContext'
+import RecruitmentsProvider from '../Context/recruitmentsContext'
+import { useUser } from '../Context/userContext'
 
 export default function Content(props) { 
     const accType = useUser().accType
@@ -30,15 +30,15 @@ export default function Content(props) {
     
     const routes = useRoutes(
         (accType === "applicant") ? [
-        {path: "/", element: <ViewRecruitmentsOpen/>},
+        {path: "/", element: <RecruitmentsOpen/>},
         {path: "/profile", element: <Profile/>},
-        {path: "recruitments", element: <ViewRecruitmentsOpen/>},
-        {path: "closedrecruitments", element: <ClosedRecruitments/>},
-        {path: "applications", element: <ViewApplications/>},
-        {path: "closedapplications", element: <ViewClosedApplications/>},
+        {path: "recruitmentsopen", element: <RecruitmentsOpen/>},
+        {path: "recruitmentsclosed", element: <RecruitmentsClosed/>},
+        {path: "applicationsopen", element: <ViewApplications/>},
+        {path: "applicationsclosed", element: <ViewClosedApplications/>},
         {path: "apply", element: <Apply/>},
-        {path: "appointments", element: <AppointmentsOpen/>},
-        {path: "closedappointments", element: <ViewClosedAppointments/>},
+        {path: "appointmentsopen", element: <AppointmentsOpen/>},
+        {path: "appointmentsclosed", element: <ViewClosedAppointments/>},
     ] : 
     [
         {path: "/", element: <CreateRecruitment/>},
@@ -47,7 +47,7 @@ export default function Content(props) {
         {path: "managerecruitments", element: <ManageRecruitments/>},
         {path: "submitresults", element: <SubmitResults/>},
         {path: "createranklist", element: <CreateRankList/>},
-        {path: "verifyapplications", element: <VerifyApplication/>},
+        {path: "verifyapplications", element: <VerifyApplications/>},
         {path: "sendappointments", element: <SendAppointment/>}
     ])
 

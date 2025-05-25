@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router'
-import { useUser } from './userContext'
-import { useNotification } from './notificationContext'
-import { useConfirmModal } from './modalContext'
+import { useUser } from '../../Context/userContext'
+import { useNotification } from '../../Context/notificationContext'
+import { useConfirmModal } from '../../Context/modalContext'
 import $ from 'jquery'
 
 export default function Apply() {
@@ -104,7 +104,7 @@ export default function Apply() {
             <div className="d-inline-block bodyDiv">
                 <div className="w-100 ps-2 py-2 rounded-2 bodyHeadingDiv">
                     <span className="mb-0 bodyHeading">Recruitment  {'>'}  
-                        <span onClick={() => {navigate("/content/recruitments", {replace: true})}}>  Open Recruitments  </span>  
+                        <span onClick={() => {navigate("/content/recruitmentsopen", {replace: true})}}>  Open Recruitments  </span>  
                             {'>'}  Apply ({postName})</span>
                 </div>
                 

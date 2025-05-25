@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import $ from 'jquery'
 
-export default function ViewClosedAppointments() {
+export default function AppointmentsClosed() {
     const [closedAppointments, setClosedAppointments] = useState([]);
 
     function getClosedAppointments() {

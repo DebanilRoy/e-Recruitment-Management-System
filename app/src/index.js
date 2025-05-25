@@ -1,13 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider} from "react-router";
 import './index.css';
 import App from './App';
-import { UserProvider } from "./userContext";
-
+import { UserProvider } from './Context/userContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-console.log(window.location.pathname)
 const router = createBrowserRouter([
   {
     path: '/*',

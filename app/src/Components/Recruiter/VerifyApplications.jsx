@@ -1,33 +1,45 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import $ from 'jquery'
-import { useConfirmModal } from "../../modalContext";
+import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
+import { useRecruitments } from "../../Context/recruitmentsContext";
+import { useConfirmModal } from "../../Context/modalContext";
 
-export default function VerifyApplication() {
-    const [recruitmentID, setRecruitmentID] = useState(null);
+export default function VerifyApplications() {
+//    const [recruitmentID, setRecruitmentID] = useState(null);
     const [openApplicationBio, setOpenApplicationBio] = useState(false);
     const [applicationBio, setApplicationBio] = useState({});
     const [applications, setApplications] = useState([]);
-    const [recruitmentDetails, setRecruitmentDetails] = useState(null);
+    const [applicationsData, setApplicationsData] = useState({});
     const [checkedApplications, setCheckedApplications] = useState([]);
+
+    const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
 
     const confirmModal = useConfirmModal()
 
-    function getApplicationDetails(event) {
+    useEffect(() => {
+        getRecruitments()
+    }, [])
+
+    function getApplicationsData(event) {
         event.preventDefault()
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/verifyApplications/getRecruitmentDetails.php",
-            data: JSON.stringify(recruitmentID),
-            success: (details) => {
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:8000/src/verifyApplications/getApplications.php",
-                    data: JSON.stringify(recruitmentID),
-                    success: (applications) => {
-                        setRecruitmentDetails(details)
-                        setApplications(applications)
-                    }
-                })
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/verifyApplications/getApplicationsData.php",
+            data: JSON.stringify($(event.target).find("select").val()),
+            success: (data) => {
+                setApplicationsData(data)
+            }
+        })
+    }
+
+    function getApplications(event) {
+        event.preventDefault()
+        $.ajax({
+            type: "POST",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/verifyApplications/getApplications.php",
+            data: JSON.stringify($(event.target).find("select").val()),
+            success: (applications) => {
+                setApplications(applications)
             }
         })
     }
@@ -35,7 +47,7 @@ export default function VerifyApplication() {
     function getApplicationBio(applicationID) {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/verifyApplications/getApplicationBio.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/verifyApplications/getApplicationBio.php",
             data: JSON.stringify(applicationID),
             success: data => {
                 console.log(data)
@@ -49,25 +61,17 @@ export default function VerifyApplication() {
         event.preventDefault()
         const action = event.nativeEvent.submitter.name === "verify" ? "verify" : "reject"
         const confirmVerify = await confirmModal("Are you sure you want to " + action + " " + checkedApplications.length + " applications ?")
-        console.log(event.nativeEvent.submitter.name)
+
         if (confirmVerify) {
             $.ajax({
             type: "POST",
-            url: ("http://localhost:8000/src//verifyApplications/verifyApplications.php"),
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src//verifyApplications/verifyApplications.php",
             data: JSON.stringify([(event.nativeEvent.submitter.name === "verify" ? "verify" : "reject"), checkedApplications]),
             success: (data) => {
                 console.log("Success")
                 
             }
         })}
-    }
-
-    function update(event) {
-        setRecruitmentID(event.target.value)
-    }
-
-    function applicationBioClose() {
-        setOpenApplicationBio(false)
     }
 
     function updateCheckedApplications(event, applicationID) {
@@ -83,20 +87,13 @@ export default function VerifyApplication() {
                 <div className="pt-2 ps-2">
 
                 <div className="divRecruitmentInfo"> 
-                    <form onSubmit={(event) => {getApplicationDetails(event);}}>
-                        <div className="divFormInputRecruitmentId">
-                            <label htmlFor="" className="form-label d-block">Recruitment ID</label>
-                            <input onChange={(event) => update(event)} type="text" name="recruitmentID" id="recruitmentID" list="recruitmentIdOptions" 
-                                    className="form-control fs-5"/>
-                            <datalist id="recruitmentIdOptions">
-                                <option value="ABCD1234"/>
-                                <option value="ABCD1234"/>
-                                <option value="ABCD1234"/>
-                                <option value="ABCD1234"/>
-                                <option value="ABCD1234"/>
-                            </datalist>
-                        </div>
-                        
+                    <form onSubmit={(event) => {getRecruitmentDetails(event); getApplications(event), getApplicationsData(event)}}>
+                        <RecruitmentIDSearchBar>
+                            {recruitments.map(recruitment => (
+                                recruitment.isPublished && <option>{recruitment.recruitmentID}</option>
+                            ))}
+                        </RecruitmentIDSearchBar>
+                                                
                         <button className="btn fs-5">Submit</button>
                     </form>
                     
@@ -105,9 +102,9 @@ export default function VerifyApplication() {
                             <p>Post Name : <span>{recruitmentDetails.postName}</span></p>
                             <p>Location : <span>{recruitmentDetails.location}</span></p>
                             <p>Total Vacancies : <span>{recruitmentDetails.vacancyTotal}</span></p>
-                            <p>Total Applications : <span>{recruitmentDetails.applicationCount}</span></p>
-                            <p>Applications Checked : <span>{recruitmentDetails.checked}</span></p>
-                            <p>Application Verified : <span>{recruitmentDetails.verified}</span></p>
+                            <p>Total Applications : <span>{applicationsData.applicationCount}</span></p>
+                            <p>Applications Checked : <span>{applicationsData.checked}</span></p>
+                            <p>Application Verified : <span>{applicationsData.verified}</span></p>
                         </div>
                     ) : null}
                 </div>     

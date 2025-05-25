@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import $ from 'jquery'
-import { useConfirmModal } from "./confirmModal";
-import { getFile } from "./getFile";
+import { useConfirmModal } from "../../Context/modalContext";
+import { getFile } from "../../Utils/getFile";
 export default function ManageRecruitments() {
     const [recruitments, setRecruitments] = useState([])
     const [recruitmentInfo, setRecruitmentInfo] = useState(null)

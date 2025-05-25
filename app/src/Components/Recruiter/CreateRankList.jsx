@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import RecruitmentIDSearchBar from "../../utils/RecruitmentIDSearchBar";
+import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar"
 import $ from 'jquery'
-import { useConfirmModal } from "../../modalContext";
-import { useRecruitments } from "../../recruitmentsContext";
+import { useConfirmModal } from "../../Context/modalContext";
+import { useRecruitments } from "../../Context/recruitmentsContext";
 
 export default function CreateRankList() {
     const [subjects, setSubjects] = useState([]);
@@ -103,7 +103,7 @@ export default function CreateRankList() {
                         <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getRecruitmentData(event); getRankList(event)}}>
                             <RecruitmentIDSearchBar>
                                 {recruitments.map(recruitment => 
-                                    <option>{recruitment.recruitmentID}</option>
+                                    recruitment.isPublished && <option>{recruitment.recruitmentID}</option>
                                 )}
                             </RecruitmentIDSearchBar>                         
                             

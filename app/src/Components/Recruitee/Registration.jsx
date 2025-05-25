@@ -1,19 +1,9 @@
 import { useState, useEffect } from 'react'
-import { useUser } from './userContext'
-import { useNavigate, useLocation } from 'react-router'
-import { useConfirmModal } from './confirmModal'
+import { useNavigate } from 'react-router'
+import { useConfirmModal } from '../../Context/modalContext'
 import { SHA256 } from 'crypto-js'
+import regex from '../../Utils/regex'
 import $ from 'jquery'
-
-export const regex =  {
-    "spaceRx" : /\s/,
-    "firstNameRx" : /^$|^[A-Za-z]+$/,
-    "lastNameRx" : /^$|^[A-Za-z]+(?:( [A-Za-z]+))*(\s?)$/,
-    "numberRx" : /^\d{0,10}$/,
-    "emailRx" : /^[a-z0-9]+(([\.-][a-z0-9]+)*)+@([a-z0-9]+([\.-][a-z0-9]+)*)\.[a-z]{2,}$/,
-    "pinCodeRx" : /d{0,6}/,
-    "passwordRx" : /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,}/
-}
 
 export function updateData(event, setDetails) {
     console.log("Update data called")
@@ -53,12 +43,25 @@ export function pinCodeCheck(event, setDetails) {
 export default function Registration() {
     const [applicantDetails, setApplicantDetails] = useState({firstName: "", lastName: "", mobile: "", alternateMobile: ""})
     const [password, setPassword] = useState({password : "", repassword: ""})
-    const navigate = useNavigate()
     const [applicantID, setApplicantID] = useState(null)
     const [allowSubmit, setAllowSubmit] = useState(false)
+    const [photo, setPhoto] = useState()
+
+    const navigate = useNavigate()
+    
+    function setPhotoPreview(event) {
+        try {
+            const photo = event.target.files[0];
+            setPhoto(URL.createObjectURL(photo))
+        }
+        
+        catch {
+
+        }
+    }
+
     const confirmModal = useConfirmModal();
     
-    console.log(confirmModal)
     async function register(event) {
         event.preventDefault()
         const confirm = await confirmModal("Are you sure you want to Register?")
@@ -114,45 +117,73 @@ export default function Registration() {
 
                 <div className="pt-2 ps-2">
                     <form onSubmit={(event) => {register(event)}} action="" className="formRegistration">               
-                        <div className="fs-5" >
-                            <label htmlFor="" className="form-label d-block">First Name</label>
+                        <div className="fs-5 divFirstName" >
+                            <label htmlFor="" className="form-label">First Name</label>
                             <input onChange={(event) => {firstNameCheck(event, setApplicantDetails)}}
                                     type="text" name="" id="firstName" value={applicantDetails.firstName.toUpperCase()}
-                                    className={"form-control fs-5 border border-black regFormText"}/>
+                                    className={"form-control fs-5 border regFormText"}/>
                         </div>
-                        <div className="fs-5" >
-                            <label htmlFor="" className="form-label d-block">Last Name</label>
+                        <div className="fs-5 divLastName" >
+                            <label htmlFor="" className="form-label">Last Name</label>
                             <input  onChange={(event) => {lastNamecheck(event, setApplicantDetails)}}
                                     type="text" name="" id="lastName" value={applicantDetails.lastName.toUpperCase()} 
-                                    className="form-control fs-5 border border-black regFormText"/>
+                                    className="form-control fs-5 border regFormText"/>
                         </div>
-                        <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Date of Birth</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="date" name="" id="dob" value={applicantDetails.dob}
-                                    className="form-control fs-5 border border-black regFormText"/>
-                        </div>
-                        <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Email</label>
-                            <input onChange={(event) => {(regex.emailRx.test(event.target.value) ? setAllowSubmit(true) : setAllowSubmit(false)); updateData(event, setApplicantDetails )}}
-                                   type="email" name="" id="email" value={applicantDetails.email}
-                                   className={(applicantDetails.email && regex.emailRx.test(applicantDetails.email) ? "accept " : "") + (applicantDetails.email && !regex.emailRx.test(applicantDetails.email) ? "reject " : "") + "form-control fs-5 border border-black regFormText"}/>
-                        </div>
-                        <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Mobile Number</label>
-                            <input  onChange={(event) => {phoneNumberCheck(event, setApplicantDetails)}}
-                                    type="text" name="phonenumber" id="mobile" value={applicantDetails.mobile}
-                                    className="form-control fs-5 border border-black regFormText"/>
-                        </div>
-                        <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Alternate Mobile Number</label>
-                            <input onChange={(event) => {phoneNumberCheck(event, setApplicantDetails)}}
-                                    type="text" name="phonenumber" id="alternateMobile" value={applicantDetails.alternateMobile || ""}
-                                    className="form-control fs-5 border border-black regFormText"/>
+                        <div className="fs-5 divFileInput">
+                            <div className="divPhotoInput">
+                                <label className="d-block">Photo</label>
+                                <label htmlFor="photo" className="form-label labelPhoto">Upload</label>
+                                <input onChange={(event) => {setPhotoPreview(event)}} type="file" accept="image/*" name="" id="photo"
+                                        className=""/>
+                                <img src={photo} width="200" height="200"/>
+                                
+                            </div>
+                            <div className="fs-5 divDobProof">
+                                <label className="form-label d-block">Proof of DoB</label>
+                                <input type="file" className="" />
+                            </div>
+                            <div className="fs-5 divQualificationProof">
+                                <label className="form-label d-block">Proof of Qualification</label>
+                                <input type="file" className="" />
+                            </div>
+                            <div className="fs-5 divCategoryProof">
+                                <label className="form-label d-block">Proof of Category</label>
+                                <input type="file" className="" />
+                            </div>
+                            <div className="fs-5 divAddressProof">
+                                <label className="form-label d-block">Proof of Address</label>
+                                <input type="file" className="" />
+                            </div>
+                            
                         </div>
                         
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Qualification</label>
-                            <select className="form-control fs-5 border border-black regFormText" 
+                            <label htmlFor="" className="form-label">Date of Birth</label>
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="date" name="" id="dob" value={applicantDetails.dob}
+                                    className="form-control fs-5 border regFormText"/>
+                        </div>
+                        <div className="w-50 fs-5">
+                            <label htmlFor="" className="form-label">Email</label>
+                            <input onChange={(event) => {(regex.emailRx.test(event.target.value) ? setAllowSubmit(true) : setAllowSubmit(false)); updateData(event, setApplicantDetails )}}
+                                   type="email" name="" id="email" value={applicantDetails.email}
+                                   className={(applicantDetails.email && regex.emailRx.test(applicantDetails.email) ? "accept " : "") + (applicantDetails.email && !regex.emailRx.test(applicantDetails.email) ? "reject " : "") + "form-control fs-5 border regFormText"}/>
+                        </div>
+                        <div className="fs-5">
+                            <label htmlFor="" className="form-label">Mobile Number</label>
+                            <input  onChange={(event) => {phoneNumberCheck(event, setApplicantDetails)}}
+                                    type="text" name="phonenumber" id="mobile" value={applicantDetails.mobile}
+                                    className="form-control fs-5 border regFormText"/>
+                        </div>
+                        <div className="w-50 fs-5">
+                            <label htmlFor="" className="form-label">Alternate Mobile Number</label>
+                            <input onChange={(event) => {phoneNumberCheck(event, setApplicantDetails)}}
+                                    type="text" name="phonenumber" id="alternateMobile" value={applicantDetails.alternateMobile || ""}
+                                    className="form-control fs-5 border regFormText"/>
+                        </div>
+                        
+                        <div className="fs-5">
+                            <label htmlFor="" className="form-label">Qualification</label>
+                            <select className="form-control fs-5 border regFormText" 
                                 onChange={(event) => {updateData(event, setApplicantDetails)}}
                                 id="qualification"
                                 >
@@ -164,11 +195,10 @@ export default function Registration() {
                         </div>
         
                         <div className="w-50 fs-5">
-                            <label htmlFor="" className="form-label d-block">Category</label>
-                            <select className="form-control fs-5 border border-black regFormText" 
-                                onChange={(event) => {console.log(event); updateData(event, setApplicantDetails)}}
-                                id="category"
-                                >
+                            <label htmlFor="" className="form-label">Category</label>
+                            <select className="form-control fs-5 border regFormText" 
+                                onChange={(event) => {updateData(event, setApplicantDetails)}}
+                                id="category">
                                 <option value="GEN">GEN</option>
                                 <option value="SC">SC</option>
                                 <option value="ST">ST</option>
@@ -177,38 +207,38 @@ export default function Registration() {
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Address Line 1</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="addressFirstLine" className="form-control fs-5 border border-black regFormText"
+                            <label htmlFor="" className="form-label">Address Line 1</label>
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="addressFirstLine" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.addressFirstLine}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Address Line 2</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="addressSecondLine" className="form-control fs-5 border border-black regFormText"
+                            <label htmlFor="" className="form-label">Address Line 2</label>
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="addressSecondLine" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.addressSecondLine}/>
                         </div>
                     
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">City</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="city" className="form-control fs-5 border border-black regFormText"
+                            <label htmlFor="" className="form-label">City</label>
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="city" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.city || ""}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">District</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="district" className="form-control fs-5 border border-black regFormText"
+                            <label htmlFor="" className="form-label">District</label>
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="district" className="form-control fs-5 border regFormText"
                                 value={applicantDetails.district}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">State</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="state" className="form-control fs-5 border border-black regFormText"
+                            <label htmlFor="" className="form-label">State</label>
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="state" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.state}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Pin Code</label>
-                            <input onChange={(event) => {pinCodeCheck(event, setApplicantDetails)}} type="text" name="" id="pinCode" className="form-control fs-5 border border-black regFormText"
+                            <label htmlFor="" className="form-label">Pin Code</label>
+                            <input onChange={(event) => {pinCodeCheck(event, setApplicantDetails)}} type="text" name="" id="pinCode" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.pinCode}/>
                         </div>
 
@@ -218,7 +248,6 @@ export default function Registration() {
                     </form>
                 </div>
             </div>
-        
         </> : 
         
         <>
@@ -235,20 +264,19 @@ export default function Registration() {
                     <form onSubmit={(event) => {savePassword(event)}} action="" className="formPassword">               
                         <div>
                             <div className="fs-5" >
-                                <label htmlFor="" className="form-label d-block">Password</label>
+                                <label htmlFor="" className="form-label">Password</label>
                                 <input onChange={(event) => {updatePassword(event, regex.firstNameRx)}}
                                         type="password" name="" id="password" value={password.password}
-                                        className={(password.password && regex.passwordRx.test(password.password) ? "accept " : "") + (password.password && !regex.passwordRx.test(password.password) ? "reject " : "") + " form-control fs-5 border border-black regFormText"}/>
+                                        className={(password.password && regex.passwordRx.test(password.password) ? "accept " : "") + (password.password && !regex.passwordRx.test(password.password) ? "reject " : "") + " form-control fs-5 border regFormText"}/>
                             </div>
 
                             <div className="fs-5" >
-                                <label htmlFor="" className="form-label d-block">Re-enter Password</label>
+                                <label htmlFor="" className="form-label">Re-enter Password</label>
                                 <input onChange={(event) => {updatePassword(event, regex.firstNameRx)}}
                                         type="password" name="" id="repassword" value={password.repassword}
-                                        className={(password.repassword && regex.passwordRx.test(password.repassword) && password.repassword === password.password ? "accept " : "") + (password.repassword && (!regex.passwordRx.test(password.repassword) || password.repassword !== password.password ? "reject " : "")) + "form-control fs-5 border border-black regFormText"}/>
+                                        className={(password.repassword && regex.passwordRx.test(password.repassword) && password.repassword === password.password ? "accept " : "") + (password.repassword && (!regex.passwordRx.test(password.repassword) || password.repassword !== password.password ? "reject " : "")) + "form-control fs-5 border regFormText"}/>
                             </div>
 
-                            
                             <button disabled={(password.password !== password.repassword) ? true : false} 
                                     className="btn fs-5 buttonSubmit">Submit</button>
                         </div>

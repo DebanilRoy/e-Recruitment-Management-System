@@ -1,12 +1,10 @@
-import { useState } from "react"
-import $ from 'jquery'
 import { useNavigate } from "react-router";
-import { sessionDestroy } from "./App";
-import { useUser } from "./userContext";
+import { sessionDestroy } from "../App";
+import { useUser } from "../Context/userContext";
 
 export default function Header() {
     const navigate = useNavigate();
-    const {setIsLogin, setAccType} = useUser()
+    const {accType, setIsLogin, setAccType} = useUser()
 
     async function logout() {
         sessionStorage.clear();
@@ -27,10 +25,10 @@ export default function Header() {
                 <p>{"Welcome, " + useUser().userID}</p>
                 
                 <div className="profileCircle">
-                    <div onClick={() => {navigate("/content/profile", {replace: true})}} style={{"cursor": "pointer"}}>
+                    {accType === "applicant" && <div onClick={() => {navigate("/content/profile", {replace: true})}} style={{"cursor": "pointer"}}>
                         <img src="/profile.png" width="55" height="55"/>
                         <p style={{"font-size" : "14px", "text-align" : "center", "height" : "20px"}} className="m-0">Profile</p>
-                    </div>
+                    </div>}
                     <div onClick={() => {logout()}} style={{"cursor": "pointer"}}>
                         <img src="/icon_logout.png" width="55" height="55"/>
                         <p style={{"font-size" : "14px", "text-align" : "center", "height" : "20px"}} className="m-0">Logout</p>

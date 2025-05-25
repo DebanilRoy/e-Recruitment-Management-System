@@ -1,23 +1,16 @@
 import { useEffect, useState } from "react";
 import $ from 'jquery'
-import { useUser } from "../userContext";
-
-import { regex } from "./Registration";
-import { updateData } from "./Registration";
-import { firstNameCheck } from "./Registration";
-import { lastNamecheck } from "./Registration";
-import { phoneNumberCheck } from "./Registration";
-import { pinCodeCheck } from "./Registration";
+import { useUser } from "../Context/userContext";
+import regex from "../Utils/regex";
+import { updateData } from "../Utils/inputCheck";
+import { phoneNumberCheck } from "../Utils/inputCheck";
+import { pinCodeCheck } from "../Utils/inputCheck";
 
 export default function Profile () {
     const userID = useUser().userID
     const [profile, setProfile] = useState({firstName: "", lastName: "", mobile: null, alternateMobile: null})
     const [editView, setEditView] = useState(false);
 
-    console.log(profile)
-    console.log(editView)
-
-    console.log(regex.emailRx.test(profile.email))
     function getProfile() {
         $.ajax({
             type: "POST",

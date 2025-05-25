@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import $ from 'jquery'
-import { useConfirmModal } from './confirmModal'
-import { useNotification } from './notificationContext'
-export default function ViewApplications() {
+import { useConfirmModal } from '../../../Context/modalContext'
+import { useNotification } from '../../../Context/notificationContext'
+
+export default function ApplicationsOpen() {
     const [applications, setApplications] = useState([])
     const [applicationStatus, setApplicationStatus] = useState(null)
 

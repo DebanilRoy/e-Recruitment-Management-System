@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { useConfirmModal } from "../../modalContext";
-import { useNotification } from "../../notificationContext";
+import { useConfirmModal } from "../../Context/modalContext";
+import { useNotification } from "../../Context/notificationContext";
 import $ from 'jquery'
 
 export default function CreateRecruitment(props) {

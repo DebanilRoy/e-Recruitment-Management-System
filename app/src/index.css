@@ -135,6 +135,10 @@ input[type=file] {
     border: none !important;
 }
 
+input[type=file]#photo {
+    display: none;
+}
+
 button {
     width: fit-content;
     border: 2px solid !important;
@@ -320,11 +324,76 @@ td {
 }
 
 .formRegistration {
+    display: grid;
+    row-gap: 24px;
+}
+
+.formRegistration .divFirstName {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.formRegistration .divFileInput {
+    grid-area: 1 / 3 / 5 / 4;
+    display: grid;
+    gap: 16px;
+}
+
+.divFileInput * {
     display: flex;
-    flex-wrap: wrap;
-    column-gap: 70px;
-    row-gap: 20px;
-    padding-top: 4px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.divFileInput .divPhotoInput {
+    grid-area: 1 / 1 / 2 / 3;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    column-gap: 16px;
+}
+
+.divPhotoInput input {
+    width: 0;
+}
+
+.divPhotoInput label:first-child {
+    grid-area: 1 / 1 / 2 / 3;
+    justify-self: center;
+}
+
+.divPhotoInput .labelPhoto {
+    grid-area: 2 / 1 / 3 / 2;
+    padding: 4px;
+    justify-self: right;
+    border: 2px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.divPhotoInput .labelPhoto:hover {
+    color: white;
+    background-color: var(--primary-color);
+}
+
+.divPhotoInput img {
+    grid-area: 2 / 2 / 3 / 3;
+    background: lightgrey;
+    border-radius: 4px;
+}
+
+.divFileInput .divDobProof {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+}
+
+.divFileInput input {
+    width: 200px;
+    font-size: 16px !important;
+}
+
+.divDobProof input {
+    width: 200px;
 }
 
 .formPassword {

@@ -1,5 +1,5 @@
 import { useEffect, useState, formData } from "react"
-import { useRecruitments } from "../../recruitmentsContext";
+import { useRecruitments } from "../../Context/recruitmentsContext";
 import $ from 'jquery'
 
 export default function AddSubjects () {

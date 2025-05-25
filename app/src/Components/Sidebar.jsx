@@ -1,5 +1,5 @@
 import { useNavigate, Link, replace, NavLink } from "react-router"
-import { useUser } from "../userContext"
+import { useUser } from "../Context/userContext"
 
 export default Sidebar
 
@@ -34,17 +34,17 @@ function SidebarRecruitee() {
                 </div>
                 <div className="navBarDiv">
                     <p className="border-0 text-start mb-0 rounded-1 navLinkHeader">Recruitments</p>
-                    <NavLink to="/content/recruitments" end className={(({isActive}) => "btn navLinkButton " + (isActive ? "active" : ""))}>Open Recruitments</NavLink>
+                    <NavLink to="/content/recruitmentsopen" end className={(({isActive}) => "btn navLinkButton " + (isActive ? "active" : ""))}>Open Recruitments</NavLink>
                     <div className="horizontalLine"></div>
-                    <NavLink to="/content/closedrecruitments" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Closed Recruitments</NavLink>
+                    <NavLink to="/content/recruitmentsclosed" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Closed Recruitments</NavLink>
                     <p className="border-0 text-start mb-0 rounded-1 navLinkHeader">Applications</p>
-                    <NavLink to="/content/applications" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Open Applications</NavLink>
+                    <NavLink to="/content/applicationsopen" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Open Applications</NavLink>
                     <div className="horizontalLine"></div>
-                    <NavLink to="/content/closedapplications" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Closed Applications</NavLink>
-                    <p className="border-0 text-start mb-0 rounded-1 navLinkHeader">Appointment Offers</p>
-                    <NavLink to="/content/appointments" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Open Offers</NavLink>
+                    <NavLink to="/content/applicationsclosed" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Closed Applications</NavLink>
+                    <p className="border-0 text-start mb-0 rounded-1 navLinkHeader">Offers</p>
+                    <NavLink to="/content/appointmentsopen" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Open Offers</NavLink>
                     <div className="horizontalLine"></div>
-                    <NavLink to="/content/closedappointments" id="buttonlapsedappointment" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Previous Offers</NavLink>
+                    <NavLink to="/content/appointmentsclosed" id="buttonlapsedappointment" className={({isActive}) => "btn navLinkButton " + (isActive ? "active" : "")}>Previous Offers</NavLink>
                 </div>
             </div>
         </>
@@ -64,7 +64,7 @@ function SidebarRecruiter(props) {
                 </div>
                 <div className="navBarDiv">
                     <p className="border-0 text-start mb-0 rounded-1 navLinkHeader">Recruitments</p>
-                    <NavLink to="/content/createrecruitments" className={({isActive}) => "btn border-0 text-start navLinkButton " + (isActive ? "active" : "")}>Create Recruitments</NavLink>
+                    <NavLink to="/content/createrecruitments" className={({isActive}) => "btn border-0 text-start navLinkButton " + (isActive ? "active" : "")}>Create Recruitment</NavLink>
                     <div className="horizontalLine"></div>
                     <NavLink to="/content/addsubjects" className={({isActive}) => "btn border-0 text-start navLinkButton " + (isActive ? "active" : "")}>Add/Modify Subjects</NavLink>
                     <div className="horizontalLine"></div>

@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import $ from 'jquery'
 import Login from './Components/Login'
 import Registration from "./Components/Recruitee/Registration";
-import Content from './Content';
-import Modal from "./modalContext";
-import Notification from "./notificationContext";
-import { useUser } from "./userContext";
+import Content from './Components/Content';
+import Modal from "./Context/modalContext";
+import Notification from "./Context/notificationContext";
+import { useUser } from "./Context/userContext";
 import { useRoutes } from "react-router";
 
 export default function App() {

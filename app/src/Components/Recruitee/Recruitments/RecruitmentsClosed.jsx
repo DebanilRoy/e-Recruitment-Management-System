@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import $ from 'jquery'
-export default function ClosedRecruitments () {
+export default function RecruitmentsClosed () {
     const [closedRecruitments, setClosedRecruitments] = useState([]);
     
     function getClosedRecruitments() {

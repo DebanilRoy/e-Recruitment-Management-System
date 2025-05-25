@@ -9,7 +9,6 @@ export const UserProvider = ({children}) => {
 
     useEffect(() => {
         const storedAccType = sessionStorage.getItem('accType')
-        console.log(sessionStorage.getItem('accType'))
         if (storedAccType) {
             console.log("storedAccType: true")
             setAccType(storedAccType)

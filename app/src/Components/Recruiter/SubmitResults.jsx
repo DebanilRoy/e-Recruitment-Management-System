@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
-import RecruitmentIDSearchBar from '../../utils/RecruitmentIDSearchBar'
-import { useRecruitments } from '../../recruitmentsContext'
-import { useNotification } from '../../notificationContext'
+import RecruitmentIDSearchBar from '../RecruitmentIDSearchBar'
+import { useRecruitments } from '../../Context/recruitmentsContext'
+import { useNotification } from '../../Context/notificationContext'
 
 import $ from 'jquery'
 
 export default function SubmitResults() {
     const [resultData, setResultData] = useState([]);
     const [subjects, setSubjects] = useState([])
-    const [recruitmentID, setRecruitmentID] = useState(null)
 
     const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
 
@@ -44,7 +43,7 @@ export default function SubmitResults() {
 
     function saveResults() {
         const sendData = resultData.slice(0, -1).flatMap(application => 
-            subjects.map(subject => ({  recruitmentID: recruitmentID, 
+            subjects.map(subject => ({  recruitmentID: recruitmentDetails.recruitmentID, 
                                         applicationID: application.applicationID, 
                                         subjectID : subject.subjectID,
                                         result: (application[subject.subjectName]) ?? null
@@ -112,7 +111,7 @@ export default function SubmitResults() {
                         <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getResults(event)}}>
                             <RecruitmentIDSearchBar>
                                 {recruitments.map(recruitment => 
-                                        <option>{recruitment.recruitmentID}</option>
+                                        recruitment.isPublished && (<option>{recruitment.recruitmentID}</option>)
                                     )}
                             </RecruitmentIDSearchBar>
 

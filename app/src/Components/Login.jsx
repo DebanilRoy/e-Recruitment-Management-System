@@ -3,10 +3,10 @@ import { useState, useEffect, useContext } from 'react'
 import { Routes, Route, Link, useNavigate } from 'react-router';   
 import { SHA256 } from 'crypto-js';
 import $ from 'jquery'
-import { useUser } from './userContext';
+import { useUser } from '../Context/userContext';
 
-export default function Login(props) {
-    const [credentials, setCredentials] = useState({accType: "Applicant", email: null, pwd: null});
+export default function Login() {
+    const [credentials, setCredentials] = useState({accType: "Applicant", email: "", pwd: ""});
     const [loginCode, setLoginCode] = useState();
 
     const setIsLogin = useUser().setIsLogin
@@ -31,7 +31,7 @@ export default function Login(props) {
                     sessionStorage.setItem('accType', data[2])
                     console.log("Item Set: ", sessionStorage.getItem('accType'))
                     data[2] === "applicant" ?
-                        navigate("/content/recruitments") : navigate("/content/createrecruitments")
+                        navigate("/content/recruitmentsopen") : navigate("/content/createrecruitments")
                 }
                 
                 setLoginCode(data[1])

@@ -2,7 +2,7 @@ import { useState, useEffect, use } from "react";
 import $ from 'jquery'
 import { useNavigate } from "react-router";
 
-export default function ViewRecruitmentsOpen(props) {
+export default function RecruitmentsOpen(props) {
     const [recruitments, setRecruitments] = useState([])
     const [appliedRecruitments, setAppliedRecruitments] = useState([])
 

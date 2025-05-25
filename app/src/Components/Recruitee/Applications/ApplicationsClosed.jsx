@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import $ from 'jquery'
 
-export default function ViewClosedApplications() {
+export default function ApplicationsClosed() {
     const [closedApplications, setClosedApplications] = useState([])
     const [applicationStatus, setApplicationStatus] = useState(null)
     
