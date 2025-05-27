@@ -87,7 +87,7 @@ export default function VerifyApplications() {
                 <div className="pt-2 ps-2">
 
                 <div className="divRecruitmentInfo"> 
-                    <form onSubmit={(event) => {getRecruitmentDetails(event); getApplications(event), getApplicationsData(event)}}>
+                    <form onSubmit={(event) => {getRecruitmentDetails(event); getApplications(event); getApplicationsData(event)}}>
                         <RecruitmentIDSearchBar>
                             {recruitments.map(recruitment => (
                                 recruitment.isPublished && <option>{recruitment.recruitmentID}</option>

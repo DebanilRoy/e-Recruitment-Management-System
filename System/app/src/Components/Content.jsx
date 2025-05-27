@@ -3,7 +3,7 @@ import { useLocation, useRoutes } from 'react-router'
 import Sidebar from './Sidebar'
 import Header from './Header'
 
-import Profile from './profile'
+import Profile from './Profile'
 import RecruitmentsOpen from './Recruitee/Recruitments/RecruitmentsOpen'
 import RecruitmentsClosed from './Recruitee/Recruitments/RecruitmentsClosed'
 import Apply from './Recruitee/Apply'
@@ -51,13 +51,15 @@ export default function Content(props) {
         {path: "sendappointments", element: <SendAppointment/>}
     ])
 
+    const pathname = useLocation().pathname
+    
     return (
         <>
             <Sidebar/>
 
                 <Header/>
                     {accType === "recruiter" ? 
-                        <RecruitmentsProvider key={useLocation().pathname}>
+                        <RecruitmentsProvider key={pathname}>
                             {routes}
                         </RecruitmentsProvider>
                         

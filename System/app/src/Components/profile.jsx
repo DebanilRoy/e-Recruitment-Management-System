@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import $ from 'jquery'
 import { useUser } from "../Context/userContext";
-import regex from "../Utils/regex";
-import { updateData } from "../Utils/inputCheck";
-import { phoneNumberCheck } from "../Utils/inputCheck";
-import { pinCodeCheck } from "../Utils/inputCheck";
+import regex from "../utils/regex";
+import { updateData } from "../utils/inputCheck";
+import { phoneNumberCheck } from "../utils/inputCheck";
+import { pinCodeCheck } from "../utils/inputCheck";
 
 export default function Profile () {
     const userID = useUser().userID

@@ -3,7 +3,7 @@ import { useUser } from "../../Context/userContext"
 import $ from 'jquery'
 import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
 import { useRecruitments } from "../../Context/recruitmentsContext";
-import { getFile } from "../../Utils/getFile";
+import { getFile } from "../../utils/getFile";
 import { useConfirmModal } from "../../Context/modalContext";
 
 export default function SendAppointment() {
@@ -43,7 +43,7 @@ export default function SendAppointment() {
         })
     }
   
-    function updateVacancyCounter(event, application) {
+    function updateVacancyCounter(event) {
         setRecruitmentData(prev => ({...prev, remaining: (event.target.checked) ? (prev.remaining - 1) : (prev.remaining + 1)}))
     }
     
@@ -62,7 +62,6 @@ export default function SendAppointment() {
     }
 
     async function sendAppointment(event) {
-        event.preventDefault();
         const sendConfirm = await confirmModal("Are you sure you want to send appointment?")
         if (sendConfirm) {
             const formData = new FormData();
@@ -80,17 +79,13 @@ export default function SendAppointment() {
                 contentType: false,
                 success: (data) => {
                     setCheckedApplications([])
-                    getRecruitmentDetails(recruitmentID)
-                    getApplications(recruitmentID)
+                    getRecruitmentDetails()
+                    getApplications()
                 }
             })
         }
     }
-
-    function update(event) {
-        setRecruitmentID(event.target.value)
-    }
-    
+  
     function getClassLabel(status) {
         switch (status) {
             case "open":

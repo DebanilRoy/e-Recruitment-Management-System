@@ -1,3 +1,4 @@
+import regex from "./regex"
 export function updateData(event, setDetails) {
     console.log("Update data called")
     setDetails(prevData => ({...prevData, [event.target.id]: event.target.value}))

@@ -104,7 +104,7 @@ export default function AddSubjects () {
                     
                 <div className="pt-2 px-2">         
                     <div className="d-flex divRecruitmentInfo">
-                        <form onSubmit={(event) => {getRecruitmentDetails(event), getSubjects(event)}}>
+                        <form onSubmit={(event) => {getRecruitmentDetails(event); getSubjects(event)}}>
                             <div className="fs-5">
                                 <label htmlFor="" className="d-block">Recruitment ID</label>
                                 <select name="recruitmentID" id="recruitmentID"  

@@ -81,9 +81,9 @@ export default function CreateRankList() {
             $.ajax({
                 type: "POST",
                 url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRankList/freezeRankList.php",
-                data: JSON.stringify(recruitmentID),
+                data: JSON.stringify(recruitmentDetails.recruitmentID),
                 success: (data) => {
-                    setIsRanklistFrozen(data)
+                    
                 },
                 error: (data) => {
                     console.log("Rank List Failed")

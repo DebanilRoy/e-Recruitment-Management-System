@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useConfirmModal } from '../../Context/modalContext'
 import { SHA256 } from 'crypto-js'
-import regex from '../../Utils/regex'
+import regex from '../../utils/regex'
 import $ from 'jquery'
 
 export function updateData(event, setDetails) {
