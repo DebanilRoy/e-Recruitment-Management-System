@@ -53,7 +53,7 @@ export default function Apply() {
             },
             success: () => {
                 console.log("Application Submitted!")
-                navigate("/content/recruitments", {replace: true})
+                navigate("/content/recruitmentsOpen", {replace: true})
                 notification("Application Submitted!", "success")
             },
             error: () => {

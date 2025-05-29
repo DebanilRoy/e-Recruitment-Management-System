@@ -12,11 +12,8 @@
 package-lock.json
 package.json
 
-# testing
-/coverage
-
-# production
-/build
+#testing
+__pycache__/
 
 # misc
 .DS_Store
