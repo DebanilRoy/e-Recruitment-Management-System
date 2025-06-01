@@ -83,7 +83,7 @@ export default function CreateRankList() {
                 url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRankList/freezeRankList.php",
                 data: JSON.stringify(recruitmentDetails.recruitmentID),
                 success: (data) => {
-                    
+                    getRecruitmentDetails()
                 },
                 error: (data) => {
                     console.log("Rank List Failed")
@@ -103,7 +103,7 @@ export default function CreateRankList() {
                         <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getRecruitmentData(event); getRankList(event)}}>
                             <RecruitmentIDSearchBar>
                                 {recruitments.map(recruitment => 
-                                    recruitment.isPublished && <option>{recruitment.recruitmentID}</option>
+                                    recruitment.isPublished && (recruitment.appLastDate < (new Date().getFullYear() + '-' + (new Date().getMonth() + 1 < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + new Date().getDate())) && <option>{recruitment.recruitmentID}</option>
                                 )}
                             </RecruitmentIDSearchBar>                         
                             

@@ -1,5 +1,6 @@
 import { useEffect, useState, formData } from "react"
 import { useRecruitments } from "../../Context/recruitmentsContext";
+import { useNotification } from "../../Context/notificationContext";
 import $ from 'jquery'
 
 export default function AddSubjects () {
@@ -8,7 +9,9 @@ export default function AddSubjects () {
 
     const { recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails } = useRecruitments()
 
+    const Notification = useNotification()
 
+    console.log(subjects)
     useEffect(() => {
         getRecruitments()
     }, [])
@@ -22,74 +25,61 @@ export default function AddSubjects () {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
             data: JSON.stringify($(event.target).find("select").val()),
-            success: (data) => {               
-                const subjects = data
-                
-                const test = () => {
-                    var final = [];
-                    if (subjects.length > 0) {
-                        subjects.forEach(subject => {
-                            final.push({subjectKey: crypto.randomUUID(), ...subject})
-                        })
-                    }
-                    
-                    final.push({subjectKey: crypto.randomUUID(), subjectID: "", subjectName:"", priority: ""})
-                    return final
+            success: (subjects) => {               
+                setSubjects([...subjects.map(subject => ({key: crypto.randomUUID(), ...subject})), 
+                                {key: crypto.randomUUID(), subjectID: "", subjectName:"", priority: ""}
+                            ])
+            },
+            error: (xhrFields) => {
+                if (xhrFields.status === 200) {
+                    setSubjects([{key: crypto.randomUUID(), subjectID: "", subjectName:"", priority: ""}])
+                }
+                else {
+                    console.log("Recruitment Details Rectrive Failed")
                 }
                 
-                setSubjects(test())
-            },
-            error: () => {
-                console.log("Recruitment Details Rectrive Failed")
             }
         })
     }
 
-    function isEmpty (subjectKey) {
-        return subjects.some(subject => subject.subjectKey === subjectKey  && subject.subjectName === "")
+    function isEmpty (key) {
+        return subjects.some(subject => subject.key === key  && subject.subjectName === "")
     }
 
-    function addCol (subjectKey) {
-        if (isEmpty(subjectKey)) {
-            setSubjects(prevSubjects => [...prevSubjects, {subjectKey: crypto.randomUUID(), subjectID: "", subjectName: "", priority: ""}])
+    function addCol (key) {
+        if (isEmpty(key)) {
+            setSubjects(prevSubjects => [...prevSubjects, {key: crypto.randomUUID(), subjectID: "", subjectName: "", priority: ""}])
         }
     }
 
-    function deleteCol(subjectKey) {
-        if (subjects.length !== 1 && isEmpty(subjectKey)) {
-            const subject = subjects.findIndex(subject => subject.subjectKey === subjectKey);
-            
-            if (subjects[subject].subjectID) {
-                setDeletedSubjects(prevDelSub => [...prevDelSub, subjects[subject].subjectID])
-            }
-
-            setSubjects(prevSubjects => prevSubjects.filter(subject => subject.subjectKey !== subjectKey))
+    function deleteCol(key) {
+        if (subjects.length !== 1 && isEmpty(key)) {
+            setSubjects(prevSubjects => prevSubjects.filter(subject => subject.key !== key))
         }
     }
 
-    function updateSubject(subjectKey, subjectName) {
-        setSubjects(prevSubjects => prevSubjects.map(subject => subject.subjectKey === subjectKey ? ({...subject, subjectName: subjectName}) : subject))
+    function updateSubject(key, subjectName) {
+        setSubjects(prevSubjects => prevSubjects.map(subject => subject.key === key ? ({...subject, subjectName: subjectName}) : subject))
     }
 
     function handleSubmit(event) {
         event.preventDefault()
             
-        const finalSubjects = subjects.map(({subjectKey, ...rest}, index) => ({...rest, priority: index + 1})).slice(0, -1)
+        const finalSubjects = subjects.map(({key, ...rest}, index) => ({...rest, priority: index + 1})).slice(0, -1)
              
         const subjectData = {"recruitmentID": recruitmentDetails.recruitmentID,
                              "subjects": finalSubjects,
-                             "deletedSubjects": deletedSubjects 
         }
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/modifySubjects/modifySubjects.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/modifySubjects/modifySubjects.php",
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
             data: JSON.stringify(subjectData),
             success: (data) => {
-                console.log("Submit Success")
+                Notification("Subjects Saved", "success")
             } 
         })
             
@@ -131,10 +121,10 @@ export default function AddSubjects () {
                         <div className="divModifySubjects">
                             <h4 className="">Subjects</h4>
                             {subjects.map((subject) =>
-                                (<input disabled={recruitmentDetails.isPublished ? true: false} key={subject.subjectKey} name="subject[]" type="text" value={subject.subjectName}
-                                    onClick={() => addCol(subject.subjectKey)} 
-                                    onChange={(event) => updateSubject(subject.subjectKey, event.target.value)} 
-                                    onBlur={() => deleteCol(subject.subjectKey)} 
+                                (<input disabled={recruitmentDetails.isPublished ? true: false} key={subject.key} name="subject[]" type="text" value={subject.subjectName}
+                                    onClick={() => addCol(subject.key)} 
+                                    onChange={(event) => updateSubject(subject.key, event.target.value)} 
+                                    onBlur={() => deleteCol(subject.key)} 
                                     id="" placeholder="Subject Name" 
                                     className="form-control"/>))}
                         

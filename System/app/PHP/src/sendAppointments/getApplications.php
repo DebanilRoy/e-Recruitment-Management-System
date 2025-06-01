@@ -1,15 +1,6 @@
 <?php
     include "../session/session.php";
-
-    try {
-        $conn = new PDO("mysql: host=localhost;port=3306;dbname=ehrms", "root", "thisismine");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-
-    catch (PDOException $e){
-        echo "Connection Failed";
-
-    }
+    include "../utils/dbconn.php";
 
     $recruitmentID = file_get_contents("php://input");
     $recruitmentID = json_decode($recruitmentID);
@@ -20,6 +11,7 @@
                                             a.applicantID,
                                             ap.dob,
                                             ap.category,
+                                            a.verifyStatus,
                                             app.offerStatus,
                                             app.offerFileName
                                     FROM applications a 

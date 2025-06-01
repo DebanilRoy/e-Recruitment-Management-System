@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import $ from 'jquery'
 import { useConfirmModal } from "../../Context/modalContext";
+import { useNotification } from "../../Context/notificationContext";
 import { getFile } from "../../utils/getFile";
 export default function ManageRecruitments() {
     const [recruitments, setRecruitments] = useState([])
     const [recruitmentInfo, setRecruitmentInfo] = useState(null)
 
     const confirmModal = useConfirmModal()
+    const Notification = useNotification()
 
     function getRecruitments() {
         $.ajax({
@@ -42,9 +44,10 @@ export default function ManageRecruitments() {
             contentType: false,
             success: (data) => {
                 getRecruitments()
+                Notification("Recruitment Info Saved", "success")
             },  
             error: (jqXHR) => {
-                console.log("Error: saveRecruitmentInfo")
+                Notification("Error: Recruitment info could not be saved", "error")
             } 
         })
     }
@@ -56,12 +59,14 @@ export default function ManageRecruitments() {
 
             $.ajax({
                 type: "POST",
-                url: "http://" + process.env.REACT_APP_BACKEND_BASE_URL + "/src/manageRecruitments/publish.php",
+                url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/manageRecruitments/publish.php",
                 data: JSON.stringify(recruitmentID),
                 success: () => {
+                    Notification("Recruitment Published", "success")
                     getRecruitments()
                 },
                 error: () => {
+                    Notification("Error: Recruitment could not be published", "error")
                     console.log("Error: publish")
                 }
             })

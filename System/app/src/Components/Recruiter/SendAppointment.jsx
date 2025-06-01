@@ -21,7 +21,6 @@ export default function SendAppointment() {
         getRecruitments()
     }, [])
 
-    console.log(recruitmentData)
     if (recruitmentDetails) {
         var vacancyCount = {GEN: recruitmentDetails.vacancyGEN, 
                             SC: recruitmentDetails.vacancySC, 
@@ -73,7 +72,7 @@ export default function SendAppointment() {
             
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8000/src/sendAppointments/sendAppointments.php",
+                url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/sendAppointments/sendAppointments.php",
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -134,7 +133,7 @@ export default function SendAppointment() {
                                     <p className="">Post Name : <span className="">{recruitmentDetails.postName}</span></p>
                                     <p className="">Location : <span className="">{recruitmentDetails.location}</span></p>
                                     <p className="">Total Applications : <span className="">{recruitmentDetails.applicationCount}</span></p>
-                                    <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancytotal}</span></p>
+                                    <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancyTotal}</span></p>
                                     <p className="">GEN : <span className="">{recruitmentDetails.vacancyGEN}</span></p>
                                     <p className="">SC : <span className="">{recruitmentDetails.vacancySC}</span></p>
                                     <p className="">ST : <span className="">{recruitmentDetails.vacancyST}</span></p>
@@ -178,14 +177,26 @@ export default function SendAppointment() {
                                     applications.map(application => {
                                         var classname = null;
                                         
-                                        if (vacancyCount[application.category] > 0 && !["rejected", "lapsed"].includes(application.offerStatus)) {
-                                            vacancyCount[application.category]--
-                                        }
-
-                                        else {
+                                        if (application.verifyStatus === -1 || ["rejected", "lapsed"].includes(application.offerStatus) ) {
                                             classname = "disabled"
                                         }
 
+                                        else {
+                                            if (application.category === "GEN") {
+                                                vacancyCount["GEN"] > 0 
+                                                    ? vacancyCount[application.category]-- 
+                                                    : classname = "disabled" 
+                                            }
+
+                                            else {
+                                                vacancyCount[application.category] > 0 
+                                                    ? vacancyCount[application.category]--     
+                                                    : vacancyCount["GEN"] > 0  
+                                                        ? vacancyCount["GEN"]-- 
+                                                        : classname = "disabled"
+                                            }                                          
+                                        }
+                                        
                                         return (<tr className={getClassLabel(application.offerStatus) + " " + ((!getClassLabel(application.offerStatus) ? (classname) : null))}>
                                             <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } className="align-middle text-center checkboxSendAppointment">
                                                 {(application.offerStatus === null) && (<input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"

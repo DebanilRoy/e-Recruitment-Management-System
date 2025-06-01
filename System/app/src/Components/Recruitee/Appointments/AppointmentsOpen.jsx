@@ -44,8 +44,8 @@ export default function AppointmentsOpen() {
         })
     }
 
-    function reject(appointmentID) {
-        const confirm = Confirm("Are you sure you want to reject the offer?")
+    async function reject(appointmentID) {
+        const confirm = await Confirm("Are you sure you want to reject the offer?")
         confirm && $.ajax({
             type: "POST",
             url: "http://localhost:8000/src/viewAppointments/reject.php",

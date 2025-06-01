@@ -1365,8 +1365,8 @@ td.subResTdInput {
 }
 
 .divVerifyApplBioOpen {
-    position: absolute;
-    top: 8px;
+    position: fixed;
+    top: 16px;
     right: 16px;
     display: flex !important;
     gap: 20px;

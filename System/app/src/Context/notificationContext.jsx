@@ -19,7 +19,7 @@ export default function Notification({children}) {
         <notificationContext.Provider value={showNotification}>
             {children}
             <div className={"notification " + (notifState.isActive && "isActive ") + " " + notifState.status}>
-                    {notifState.message}
+                    <p>{notifState.message}</p>
             </div>
         </notificationContext.Provider>
     )

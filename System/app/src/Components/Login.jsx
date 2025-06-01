@@ -30,10 +30,15 @@ export default function Login() {
                     setAccType(data[2])
                     sessionStorage.setItem('accType', data[2])
                     console.log("Item Set: ", sessionStorage.getItem('accType'))
-                    data[2] === "applicant" ?
-                        navigate("/content/recruitmentsopen") : navigate("/content/createrecruitments")
+                    switch (data[2]) {
+                        case "applicant":
+                            navigate("/content/recruitmentsopen")
+                            break;
+                        case "recruiter":
+                            navigate("/content/createrecruitments")
+                            break;
+                    }   
                 }
-                
                 setLoginCode(data[1])
             },
             error(data) {

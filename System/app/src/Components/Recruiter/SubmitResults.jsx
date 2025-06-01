@@ -17,6 +17,7 @@ export default function SubmitResults() {
         getRecruitments()
     }, [])
 
+    console.log(resultData)
     function getSubjects(event) {
         event.preventDefault()
         $.ajax({
@@ -42,14 +43,15 @@ export default function SubmitResults() {
     }
 
     function saveResults() {
-        const sendData = resultData.slice(0, -1).flatMap(application => 
-            subjects.map(subject => ({  recruitmentID: recruitmentDetails.recruitmentID, 
-                                        applicationID: application.applicationID, 
-                                        subjectID : subject.subjectID,
-                                        result: (application[subject.subjectName]) ?? null
-                                    })
-            )
-        )
+        const sendData = {recruitmentID: recruitmentDetails.recruitmentID, 
+                          results : resultData.slice(1).flatMap(application => 
+                            subjects.map(subject => ({  
+                                applicationID: application.applicationID, 
+                                subjectID : subject.subjectID,
+                                result: (application[subject.subjectName]) ?? null
+                                })
+                            )
+        )}
         
         $.ajax({
             type: "POST",
@@ -73,7 +75,7 @@ export default function SubmitResults() {
     function addRow(key) {
         if (checkRow(key)) {
             const application = resultData.findIndex(application => application.key === key);
-            setResultData([...resultData.slice(0, application + 1), {key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: ""}, ...resultData.slice(application + 1)]);
+            setResultData([{key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: ""}, ...resultData]);
         }
     }
     
@@ -111,7 +113,7 @@ export default function SubmitResults() {
                         <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getResults(event)}}>
                             <RecruitmentIDSearchBar>
                                 {recruitments.map(recruitment => 
-                                        recruitment.isPublished && (<option>{recruitment.recruitmentID}</option>)
+                                        recruitment.isPublished && (recruitment.appLastDate < (new Date().getFullYear() + '-' + (new Date().getMonth() + 1 < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + new Date().getDate())) && (<option>{recruitment.recruitmentID}</option>)
                                     )}
                             </RecruitmentIDSearchBar>
 

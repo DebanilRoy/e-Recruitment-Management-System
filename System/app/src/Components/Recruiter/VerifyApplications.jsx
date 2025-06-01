@@ -90,7 +90,7 @@ export default function VerifyApplications() {
                     <form onSubmit={(event) => {getRecruitmentDetails(event); getApplications(event); getApplicationsData(event)}}>
                         <RecruitmentIDSearchBar>
                             {recruitments.map(recruitment => (
-                                recruitment.isPublished && <option>{recruitment.recruitmentID}</option>
+                                recruitment.isFrozen && <option>{recruitment.recruitmentID}</option>
                             ))}
                         </RecruitmentIDSearchBar>
                                                 

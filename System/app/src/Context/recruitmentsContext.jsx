@@ -23,12 +23,21 @@ export default function RecruitmentsProvider({children}) {
     }
 
     function getRecruitmentDetails (event) {
-        event.preventDefault()
-        const recruitmentID = $(event.target).find("select#recruitmentID").val()
-        recruitmentID === "-- select --" ? 
-            alert("Select Recruitment ID") :
-            recruitments.map(recruitment => recruitment.recruitmentID === recruitmentID && setRecruitmentDetails(recruitment))
+        try {
+            event.preventDefault()
+
+            const recruitmentID = $(event.target).find("select#recruitmentID").val()
+            recruitmentID === "-- select --" ? 
+                alert("Select Recruitment ID") :
+                recruitments.map(recruitment => recruitment.recruitmentID === recruitmentID && setRecruitmentDetails(recruitment))
+        }
+        
+        catch {
+            setRecruitmentDetails(prev => ({...prev, isFrozen: 1}))
+        }
+
     }
+    
 
     return (
         <recruitmentsContext.Provider value={{recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails}}>
