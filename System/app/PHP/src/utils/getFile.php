@@ -1,19 +1,36 @@
 <?php
     include "../session/session.php";
-    $fileTypes = ['advert', 'appointments'];
 
-    $filerequest = file_get_contents("php://input");
-    $filerequest = json_decode($filerequest);
-    [$filename, $filetype] = [$filerequest->filename, $filerequest->filetype];
+    $paths = ["recruitment" => "recruitment",
+                  "appointments" => "appointments",
+                  "photo" => "documents/photo",
+                  "dob" => "documents/dob",
+                  "qualification" => "documents/qualification",
+                  "category" => "documents/category",
+                  "address" => "documents/address"];
 
-    $filepath = "../../uploads/" . $filetype . "/" . $filename . ".jpg";
+    $filerequest = json_decode(file_get_contents("php://input"));
+    [$fileref, $filetype] = [$filerequest->filename, $filerequest->filetype];
 
-    if (file_exists($filepath)) {
-        $mimeType = mime_content_type($filepath);
-        header("Content-Type: " . $mimeType);
-        header("Content-Disposition: attachment; filename=\"" . $filepath);
-        readfile($filepath);
+    $filepath = "../../uploads/" . $paths[$filetype] . "/" . $fileref;
+    $filesearch = glob($filepath . ".*");
+
+    if (!empty($filesearch)) {
+        $file = $filesearch[0];
     }
+
+    else {
+        echo json_encode("File Not Found");
+        exit;
+    }
+
+    if (file_exists($file)) {
+        $mimeType = mime_content_type($file);
+        header("Content-Type: " . $mimeType);
+        header("Content-Disposition: attachment; filename=\"" . basename($file) . "\"");
+        readfile($file);
+    }
+
     else {
         echo json_encode($filepath);
     }

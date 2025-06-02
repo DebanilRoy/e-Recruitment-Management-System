@@ -61,6 +61,7 @@ export default function SendAppointment() {
     }
 
     async function sendAppointment(event) {
+        event.preventDefault()
         const sendConfirm = await confirmModal("Are you sure you want to send appointment?")
         if (sendConfirm) {
             const formData = new FormData();
@@ -76,10 +77,8 @@ export default function SendAppointment() {
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: (data) => {
+                success: () => {
                     setCheckedApplications([])
-                    getRecruitmentDetails()
-                    getApplications()
                 }
             })
         }

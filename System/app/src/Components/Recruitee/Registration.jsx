@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useConfirmModal } from '../../Context/modalContext'
+import { useNotification } from '../../Context/notificationContext'
 import { SHA256 } from 'crypto-js'
 import regex from '../../utils/regex'
 import $ from 'jquery'
@@ -43,16 +44,22 @@ export function pinCodeCheck(event, setDetails) {
 export default function Registration() {
     const [applicantDetails, setApplicantDetails] = useState({firstName: "", lastName: "", mobile: "", alternateMobile: ""})
     const [password, setPassword] = useState({password : "", repassword: ""})
-    const [applicantID, setApplicantID] = useState(null)
     const [allowSubmit, setAllowSubmit] = useState(false)
+    const [photoPreview, setPhotoPreview] = useState()
     const [photo, setPhoto] = useState()
+    const [dobproof, setDobproof] = useState()
+    const [qualproof, setQualproof] = useState()
+    const [catproof, setCatproof] = useState()
+    const [addressproof, setAddressproof] = useState()
+    const [isAccountChecked, setIsAccountChecked] = useState(false);
 
     const navigate = useNavigate()
-    
-    function setPhotoPreview(event) {
+    const Notification = useNotification();
+
+    function setPreview(event) {
         try {
             const photo = event.target.files[0];
-            setPhoto(URL.createObjectURL(photo))
+            setPhotoPreview(URL.createObjectURL(photo))
         }
         
         catch {
@@ -60,37 +67,57 @@ export default function Registration() {
         }
     }
 
+    function setFile(event, setState) {
+        setState(event.target.files[0])
+    }
+
     const confirmModal = useConfirmModal();
     
-    async function register(event) {
+    async function accountCheck(event) {
         event.preventDefault()
         const confirm = await confirmModal("Are you sure you want to Register?")
+        confirm && (
+            $.ajax({
+                type: "POST",
+                url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/registration/accountCheck.php",
+                data: JSON.stringify({email: applicantDetails.email, mobile: applicantDetails.mobile}),
+                success: () => {
+                    setIsAccountChecked(true)
+                },
+                error: () => {
+                    Notification("Email or Mobile is registered to another account", "error")
+                } 
+            })
+        )
+    }
+
+    async function register(event) {
+        event.preventDefault()    
+        const confirm = await confirmModal("Are you sure you want to Register?")
+
+        const formData = new FormData();
+        formData.append("applicantDetails", JSON.stringify(applicantDetails))
+        formData.append("photo", photo)
+        formData.append("dobproof", dobproof)
+        formData.append("qualproof", qualproof)
+        formData.append("catproof", catproof)
+        formData.append("addressproof", addressproof)
+        formData.append("password", SHA256(password.password).toString())
+
         confirm && ($.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/registration/register.php",
-            data: JSON.stringify(applicantDetails),
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/registration/register.php",
+            data: formData,
+            processData: false,
+            contentType: false,
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
             success: (data) => {
-                setApplicantID(data)
+                navigate("/", {replace: true})
+                Notification("Registration Completed", "success")
             }
         }))
-    }
-
-    async function savePassword(event) {
-        event.preventDefault()
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:8000/src/registration/savePassword.php",
-            data: JSON.stringify([{applicantID: applicantID, pwd: SHA256(password['password']).toString()}]),
-            success: (data) => {
-                navigate("/", {replace: true})
-            },
-            error: (data) => {
-
-            }
-        })
     }
 
     function updatePassword(event) {
@@ -103,7 +130,7 @@ export default function Registration() {
     }, [])
 
     return (
-        !applicantID ? 
+        !isAccountChecked ? 
         
         <>
             <div className="p-1 pt-1 pb-2 text-center">
@@ -116,7 +143,7 @@ export default function Registration() {
                 </div>
 
                 <div className="pt-2 ps-2">
-                    <form onSubmit={(event) => {register(event)}} action="" className="formRegistration">               
+                    <form onSubmit={(event) => {accountCheck(event)}} action="" className="formRegistration">               
                         <div className="fs-5 divFirstName" >
                             <label htmlFor="" className="form-label">First Name</label>
                             <input onChange={(event) => {firstNameCheck(event, setApplicantDetails)}}
@@ -133,26 +160,26 @@ export default function Registration() {
                             <div className="divPhotoInput">
                                 <label className="d-block">Photo</label>
                                 <label htmlFor="photo" className="form-label labelPhoto">Upload</label>
-                                <input onChange={(event) => {setPhotoPreview(event)}} type="file" accept="image/*" name="" id="photo"
-                                        className=""/>
-                                <img src={photo} width="200" height="200"/>
+                                <input onChange={(event) => {setPreview(event); setFile(event, setPhoto)}} type="file" accept="image/*" name="" id="photo"
+                                        />
+                                <img src={photoPreview} width="200" height="200"/>
                                 
                             </div>
                             <div className="fs-5 divDobProof">
                                 <label className="form-label d-block">Proof of DoB</label>
-                                <input type="file" className="" />
+                                <input onChange={(event) => {setFile(event, setDobproof)}} type="file" id="dobproof"/>
                             </div>
                             <div className="fs-5 divQualificationProof">
                                 <label className="form-label d-block">Proof of Qualification</label>
-                                <input type="file" className="" />
+                                <input onChange={(event) => {setFile(event, setQualproof)}} type="file" id="qualproof"/>
                             </div>
                             <div className="fs-5 divCategoryProof">
                                 <label className="form-label d-block">Proof of Category</label>
-                                <input type="file" className="" />
+                                <input onChange={(event) => {setFile(event, setCatproof)}} type="file" id="catproof"/>
                             </div>
                             <div className="fs-5 divAddressProof">
                                 <label className="form-label d-block">Proof of Address</label>
-                                <input type="file" className="" />
+                                <input onChange={(event) => {setFile(event, setAddressproof)}} type="file" id="addressproof"/>
                             </div>
                             
                         </div>
@@ -261,7 +288,7 @@ export default function Registration() {
                 </div>
 
                 <div className="pt-2 ps-2">
-                    <form onSubmit={(event) => {savePassword(event)}} action="" className="formPassword">               
+                    <form onSubmit={(event) => {register(event)}} action="" className="formPassword">               
                         <div>
                             <div className="fs-5" >
                                 <label htmlFor="" className="form-label">Password</label>

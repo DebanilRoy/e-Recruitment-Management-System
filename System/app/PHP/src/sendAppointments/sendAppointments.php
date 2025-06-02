@@ -1,16 +1,9 @@
 <?php 
     include "../session/session.php";
+    include "../utils/dbconn.php";
     include "../utils/lastID.php";
     include "../utils/increment.php";
-
-    try {
-        $conn = new PDO("mysql: host=localhost;port=3306;dbname=ehrms", "root", "thisismine");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-
-    catch (PDOException $e){
-        echo "Connection Failed";
-    }
+    include "../utils/uploadFile.php";
 
     $data = $_POST["applications"];
 
@@ -37,7 +30,7 @@
     
     if ($result) {
         foreach ($applications as $application) {
-            move_uploaded_file($_FILES[$application]['tmp_name'], ("../../uploads/appointments/" . hash("sha256", $application) . ".jpg"));
+            file_upload($_FILES[$application]['tmp_name'], hash("sha256", $application) . "." . pathinfo($_FILES[$application]['name'], PATHINFO_EXTENSION), "appointments");
         }
 
         echo json_encode($final);
