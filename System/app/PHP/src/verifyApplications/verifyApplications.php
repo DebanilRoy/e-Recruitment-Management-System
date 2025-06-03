@@ -1,14 +1,6 @@
 <?php
     include "../session/session.php";
-
-    try {
-        $conn = new PDO("mysql: host=localhost;port=3306;dbname=ehrms", "root", "thisismine");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-
-    catch (PDOException $e) {
-        echo "Connection failed";
-    }
+    include "../utils/dbconn.php";
 
     $data = file_get_contents("php://input");
     $data = json_decode($data);

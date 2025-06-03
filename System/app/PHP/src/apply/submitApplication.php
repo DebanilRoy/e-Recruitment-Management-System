@@ -2,15 +2,7 @@
     include "../session/session.php";
     include "../utils/lastID.php";
     include "../utils/increment.php";
-
-    try {
-        $conn = new PDO("mysql: host=localhost;port=3306;dbname=ehrms", "root", "thisismine");
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    }
-    
-    catch (PDOException $e){
-        echo "Connection Failed";
-    }
+    include "../utils/dbconn.php";
 
     $applicationDetails =  file_get_contents("php://input");
     $applicationDetails = json_decode($applicationDetails);
