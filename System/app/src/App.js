@@ -46,7 +46,7 @@ export default function App() {
         $.ajax (
             {
                 type: "GET",
-                url: "http://localhost:8000/src/session/sessionRequest.php",
+                url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/session/sessionRequest.php",
                 xhrFields: {
                     withCredentials: true, // Ensure cookies are sent with the request
                 },
@@ -80,7 +80,7 @@ export function sessionDestroy () {
     return new Promise((resolve) => {
         $.ajax({
             type: "GET",
-            url: "http://localhost:8000/src/session/sessionDestroy.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/session/sessionDestroy.php",
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
