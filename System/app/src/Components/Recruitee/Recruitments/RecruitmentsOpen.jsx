@@ -1,6 +1,7 @@
 import { useState, useEffect, use } from "react";
 import $ from 'jquery'
 import { useNavigate } from "react-router";
+import { getFile } from "../../../utils/getFile";
 
 export default function RecruitmentsOpen(props) {
     const [recruitments, setRecruitments] = useState([])
@@ -60,14 +61,13 @@ export default function RecruitmentsOpen(props) {
                         <p className="card-text fs-5">Open Date : <span>{recruitment.datePublished}</span></p>
                         <p className="card-text fs-5">Last Date : <span>{recruitment.appLastDate}</span></p>
                         <div className="divButtons">
-                            <button href="#" className="btn rounded-2 buttonSubmit">View Full Advertisement</button>
+                            <button onClick={() => {getFile(recruitment.recruitmentID, "recruitments")}} href="#" className="btn rounded-2 buttonSubmit">View Full Advertisement</button>
                             {appliedRecruitments.findIndex( r => r === recruitment.recruitmentID) >=  0 
                                 ? 
                                     <button disabled className=" btn buttonSubmit accept">Applied!</button> : 
                                     <button id="apply" onClick={() => {navigate("/content/apply",  {state: {recruitmentID: recruitment.recruitmentID, 
                                                                                                     postName: recruitment.postName}, replace: true})}} 
                                             className="btn buttonSubmit">Apply</button>
-                            
                             }
                             
                         </div>

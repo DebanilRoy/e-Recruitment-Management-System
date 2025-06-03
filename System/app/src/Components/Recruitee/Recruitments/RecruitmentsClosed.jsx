@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import $ from 'jquery'
+import { getFile } from "../../../utils/getFile";
+
 export default function RecruitmentsClosed () {
     const [closedRecruitments, setClosedRecruitments] = useState([]);
     
@@ -47,7 +49,7 @@ export default function RecruitmentsClosed () {
                         <p className="card-text fs-5">Open Date : <span>{recruitment.datePublished}</span></p>
                         <p className="card-text fs-5">Last Date : <span>{recruitment.appLastDate}</span></p>
                         <div className="divButtons">
-                            <button href="#" className="btn rounded-2 buttonSubmit">View Full Advertisement</button>                               
+                            <button onClick={() => {getFile(recruitment.recruitmentID, "recruitments")}} href="#" className="btn rounded-2 buttonSubmit">View Full Advertisement</button>                               
                         </div>
 
                     </div>))}

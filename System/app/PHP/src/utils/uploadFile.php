@@ -12,5 +12,4 @@
         
         move_uploaded_file($filepath, ("../../uploads/" . $paths[$filetype] . "/" . $basename));
     }
-
 ?>

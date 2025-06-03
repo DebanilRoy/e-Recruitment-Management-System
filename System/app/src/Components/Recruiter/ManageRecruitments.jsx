@@ -3,6 +3,7 @@ import $ from 'jquery'
 import { useConfirmModal } from "../../Context/modalContext";
 import { useNotification } from "../../Context/notificationContext";
 import { getFile } from "../../utils/getFile";
+
 export default function ManageRecruitments() {
     const [recruitments, setRecruitments] = useState([])
     const [recruitmentInfo, setRecruitmentInfo] = useState(null)
@@ -13,7 +14,7 @@ export default function ManageRecruitments() {
     function getRecruitments() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/manageRecruitments/getRecruitments.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/manageRecruitments/getRecruitments.php",
             xhrFields: {
                 withCredentials: true
             },
@@ -38,7 +39,7 @@ export default function ManageRecruitments() {
         
         $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/manageRecruitments/saveRecruitmentInfo.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/manageRecruitments/saveRecruitmentInfo.php",
             data: formdata,
             processData: false,
             contentType: false,

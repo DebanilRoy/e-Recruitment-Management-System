@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import $ from 'jquery'
+import { SHA256 } from 'crypto-js' 
 import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
 import { useRecruitments } from "../../Context/recruitmentsContext";
 import { useConfirmModal } from "../../Context/modalContext";
+import { getFile } from "../../utils/getFile"
 
 export default function VerifyApplications() {
 //    const [recruitmentID, setRecruitmentID] = useState(null);
@@ -115,7 +117,7 @@ export default function VerifyApplications() {
                             <div>
                                 <p>Application ID: <span>{applicationBio.applicationID.toUpperCase()}</span></p>                         
                                 <p>Name: <span>{applicationBio.applicantName}</span></p>                        
-                                <p>Category: <span><a href="">{applicationBio.category}</a></span></p>                            
+                                <p>Category: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "category")}} className="offerFileLink">{applicationBio.category}</span></p>                            
                                 <p>Mobile: <span>{applicationBio.mobile}</span></p>                          
                                 <p>Address: <br/>
                                     <span>{applicationBio.addressFirstLine}</span>
@@ -127,8 +129,8 @@ export default function VerifyApplications() {
                             
                             <div>
                                 <p>Rank: <span>{applicationBio.rank}</span></p>
-                                <p>Date of Birth: <span>{applicationBio.dob}</span></p>
-                                <p>Qualification: <span><a href="">{applicationBio.qualification}</a></span></p>
+                                <p>Date of Birth: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "dob")}} className="offerFileLink">{applicationBio.dob}</span></p>
+                                <p>Qualification: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "qualification")}} className="offerFileLink">{applicationBio.qualification}</span></p>
                                 <p>Email: <span>{applicationBio.email}</span></p>
                                 <p>City: <span>{applicationBio.city}</span></p>
                                 <p>District: <span>{applicationBio.district}</span></p>

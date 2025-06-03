@@ -2,7 +2,7 @@
     include "../session/session.php";
     include "../utils/dbconn.php";
 
-    $stat = $conn->prepare(" CALL get_recruitments_manage();");
+    $stat = $conn->prepare("CALL get_recruitments_manage();");
 
     $stat->execute();
     $result = $stat->fetchAll(PDO::FETCH_ASSOC);
