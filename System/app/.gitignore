@@ -3,11 +3,11 @@
 
 /PHP/uploads/documents/*/*
 /PHP/uploads/appointments/*
-/PHP/uploads/recruitment/*
+/PHP/uploads/recruitments/*
 
 !/PHP/uploads/documents/*/.gitkeep
 !/PHP/uploads/appointments/.gitkeep
-!/PHP/uploads/recruitment/.gitkeep
+!/PHP/uploads/recruitments/.gitkeep
 
 !/PHP/path/sessions/.gitkeep
 

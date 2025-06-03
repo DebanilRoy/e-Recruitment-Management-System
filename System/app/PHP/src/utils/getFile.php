@@ -1,7 +1,7 @@
 <?php
     include "../session/session.php";
 
-    $paths = ["recruitment" => "recruitment",
+    $paths = ["recruitments" => "recruitments",
                   "appointments" => "appointments",
                   "photo" => "documents/photo",
                   "dob" => "documents/dob",

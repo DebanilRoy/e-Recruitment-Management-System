@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import $ from 'jquery'
-import { useConfirmModal } from '../../../Context/modalContext'
-import { useNotification } from '../../../Context/notificationContext'
+import { useConfirmModal } from '../../../Context/modalContext';
+import { useNotification } from '../../../Context/notificationContext';
+import { getFile } from '../../../utils/getFile';
 
 export default function ApplicationsOpen() {
     const [applications, setApplications] = useState([])
@@ -68,7 +69,7 @@ export default function ApplicationsOpen() {
                                     <p className="card-text fs-5">Location: <span>{application.location}</span></p>
                                     <p className="card-text fs-5">Submission Date: <span>{application.submissionDate}</span></p>
                                     <div className="divButtons">
-                                        <button type="button" className="btn rounded-2 buttonSubmit">View Full Advertisement</button>
+                                        <button onClick={() => {getFile(application.recruitmentID, "recruitments")}} type="button" className="btn rounded-2 buttonSubmit">View Full Advertisement</button>
                                         <button onClick={() => {setApplicationStatus(application)}} type="button" className="btn rounded-2 buttonSubmit">Status</button>
                                     </div>
                                 </div>
@@ -108,7 +109,6 @@ export default function ApplicationsOpen() {
                             </div>
                             
                             <div>
-                                <button type="button" className="btn btn-light mt-2 rounded-2 buttonSubmit">View Full Advertisement</button>
                                 <button onClick={() => {cancelApplication(applicationStatus.applicationID)}} type="button" className="btn btn-light mt-2 rounded-2 buttonSubmit">Cancel Application</button>
                             </div>
                         </div>

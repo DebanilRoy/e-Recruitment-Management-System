@@ -122,7 +122,8 @@ export default function AddSubjects () {
                             <h4 className="">Subjects</h4>
                             {subjects.map((subject) =>
                                 (<input disabled={recruitmentDetails.isPublished ? true: false} key={subject.key} name="subject[]" type="text" value={subject.subjectName}
-                                    onClick={() => addCol(subject.key)} 
+                                    onfocus
+                                    onFocus={() => addCol(subject.key)} 
                                     onChange={(event) => updateSubject(subject.key, event.target.value)} 
                                     onBlur={() => deleteCol(subject.key)} 
                                     id="" placeholder="Subject Name" 

@@ -309,6 +309,11 @@ td {
 
 .anchorRegistration {
     padding-left: 47px;
+    cursor: pointer;
+}
+
+.anchorRegistration:hover {
+    text-decoration: underline !important;
 }
 
 .anchorForgotPassword {
@@ -1419,10 +1424,6 @@ td.subResTdInput {
 
 .sendAppointDiv {
     width: 100%;
-}
-
-.checkbox {
-    margin-top: 20px;
 }
 
 .verifyApplInfoCol2 {

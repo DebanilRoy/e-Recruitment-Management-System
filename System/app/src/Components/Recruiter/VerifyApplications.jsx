@@ -161,14 +161,12 @@ export default function VerifyApplications() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {applications.map(application => (<tr key={applications.applicationID} className="">
+                                {applications.map(application => (<tr key={applications.applicationID} className={+ application.isVerified ? (application.verifyStatus === 1 ? "success" : "error") : null}>
                                     <td className="align-middle text-center verifyApplCheckbox">
-                                        <div className="d-inline-block form-check p-0 m-0">
-                                            <input  disabled={(application.isVerified === 1) && true} status={(application.verifyStatus === 1) ? "verified": "rejected"} 
+                                            {!application.isVerified && <input status={(application.verifyStatus === 1) ? "verified": "rejected"} 
                                                     onClick={(event) => {updateCheckedApplications(event, application.applicationID)}}
-                                                    className="form-check-input m-0 checkbox" type="checkbox" 
-                                                    id={application.applicationID} aria-label="..."/>
-                                        </div>
+                                                    className="form-check-input m-0" type="checkbox" 
+                                                    id={application.applicationID} aria-label="..."/>}
                                     </td>
                                     <td className="rank">{application.rank}</td>
                                     <td className=""><span onClick={() => {getApplicationBio(application.applicationID)}}>{application.applicationID.toUpperCase()}</span></td>

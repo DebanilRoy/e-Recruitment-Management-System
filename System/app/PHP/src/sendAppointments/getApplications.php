@@ -12,8 +12,7 @@
                                             ap.dob,
                                             ap.category,
                                             a.verifyStatus,
-                                            app.offerStatus,
-                                            app.offerFileName
+                                            app.offerStatus
                                     FROM applications a 
                                     INNER JOIN applicants ap ON ap.applicantID = a.applicantID
                                     INNER JOIN ranklist r ON r.applicationID = a.applicationID

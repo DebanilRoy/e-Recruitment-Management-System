@@ -196,23 +196,27 @@ export default function SendAppointment() {
                                             }                                          
                                         }
                                         
-                                        return (<tr className={getClassLabel(application.offerStatus) + " " + ((!getClassLabel(application.offerStatus) ? (classname) : null))}>
-                                            <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } className="align-middle text-center checkboxSendAppointment">
-                                                {(application.offerStatus === null) && (<input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"
-                                                        disabled={(!recruitmentData.remaining && !checkedApplications.includes(application.applicationID) || (classname === "disabled")) ? true : false}/>)} 
-                                            </td>
-                                            <td className="rank">{application.rank}</td>
-                                            <td className="">{application.applicationID.toUpperCase()}</td>
-                                            <td className="">{application.applicantName}</td>
-                                            <td className="">{application.applicantID}</td>
-                                            <td className="">{application.dob}</td>
-                                            <td className="">{application.category}</td>
-                                            <td className="">{(application.offerStatus === null) ? (
-                                                <input  disabled={(!recruitmentData.remaining && !checkedApplications.includes(application.applicationID) || (classname === "disabled")) ? true : false} 
-                                                        className="appntLetterUpload" type="file" 
-                                                        id={application.applicationID} 
-                                                        required={checkedApplications.includes(application.applicationID)}/>) : (<span onClick={() => {getFile(application.offerFileName, "appointments")}} className="offerFileLink">View Offer</span>) }</td>
-                                        </tr>
+                                        return (
+                                            <tr className={getClassLabel(application.offerStatus) + " " + ((!getClassLabel(application.offerStatus) ? (classname) : null))}>
+                                                <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } 
+                                                    className="align-middle text-center checkboxSendAppointment">
+                                                    {(application.offerStatus === null) 
+                                                        && ((application.category === "GEN" ? vacancyCount["GEN"] > 0 : vacancyCount[application.category] > 0 || vacancyCount["GEN"] > 0 
+                                                        && !checkedApplications.includes(application.applicationID) || !(classname === "disabled"))) 
+                                                        && <input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"/>} 
+                                                </td>
+                                                <td className="rank">{application.rank}</td>
+                                                <td className="">{application.applicationID.toUpperCase()}</td>
+                                                <td className="">{application.applicantName}</td>
+                                                <td className="">{application.applicantID}</td>
+                                                <td className="">{application.dob}</td>
+                                                <td className="">{application.category}</td>
+                                                <td className="">{(application.offerStatus === null) ? (
+                                                    <input  disabled={(!recruitmentData.remaining && !checkedApplications.includes(application.applicationID) || (classname === "disabled")) ? true : false} 
+                                                            className="appntLetterUpload" type="file" 
+                                                            id={application.applicationID} 
+                                                            required={checkedApplications.includes(application.applicationID)}/>) : (<span onClick={() => {getFile(application.offerFileName, "appointments")}} className="offerFileLink">View Offer</span>) }</td>
+                                            </tr>
                                                 )
                                                 
                                     }

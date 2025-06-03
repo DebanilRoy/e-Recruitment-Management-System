@@ -100,9 +100,7 @@ export default function Login() {
                                 
                             <div className="m-0 divLoginBoxFooter">
                                 <a onClick={() => navigate("/registration", {replace:true})} className="d-inline-block float-start text-decoration-none anchorRegistration"
-                                    >Registration</a>
-                                <a className="d-inline-block float-end text-decoration-none anchorForgotPassword"
-                                        href="">Forgot Password</a>                
+                                    >Registration</a>             
                             </div>
                         </div>
                     </form>
