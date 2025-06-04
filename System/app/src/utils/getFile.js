@@ -8,7 +8,7 @@ export function getFile(filename, filetype) {
         xhrFields: {
             responseType: 'blob'
         },
-        success: (data, jqXHR) => {
+        success: (data, textStatus, jqXHR) => {
             const blob = new Blob([data], { type: jqXHR.getResponseHeader("Content-Type") });
             const fileURL = URL.createObjectURL(blob)
 

@@ -18,8 +18,7 @@
     foreach ($applications as $application) {
         $id = increment($prevID);
         array_push($final, ["appointmentID" => $id,
-                                            "applicationID" => $application,
-                                            "offerFileName" => hash("sha256", $application)]);
+                                            "applicationID" => $application]);
         $prevID = $id;
     }
 
