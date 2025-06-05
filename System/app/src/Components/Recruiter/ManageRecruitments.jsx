@@ -158,7 +158,7 @@ export default function ManageRecruitments() {
                             
                             <div id="file" className="">
                                 <label htmlFor="" className="d-inline-block">Full Advertisement</label>
-                                <p onClick={() => {getFile(recruitmentInfo.advertFileName, "recruitment")}}>View</p>
+                                <p onClick={() => {getFile(recruitmentInfo.recruitmentID, "recruitment")}}>View</p>
                                 <input type="file" id={recruitmentInfo.recruitmentID} className=""
                                         />
                                 </div>

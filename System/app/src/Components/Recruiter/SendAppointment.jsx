@@ -18,20 +18,61 @@ export default function SendAppointment() {
 
     const confirmModal = useConfirmModal()
 
-    
     useEffect(() => {
-        getRecruitments()
+        getRecruitments()       
+        
     }, [])
 
+    
+    
     if (recruitmentDetails) {
-        var vacancyCount = {GEN: recruitmentDetails.vacancyGEN, 
-                            SC: recruitmentDetails.vacancySC, 
-                            ST: recruitmentDetails.vacancyST, 
-                            OBC: recruitmentDetails.vacancyOBC
-    }}
+        var vacancyCount = {
+            GEN: recruitmentDetails.vacancyGEN, 
+            SC: recruitmentDetails.vacancySC, 
+            ST: recruitmentDetails.vacancyST, 
+            OBC: recruitmentDetails.vacancyOBC
+        }   
+    } 
 
-    console.log(vacancyCount)
+    const appRender = applications.map(application => {
 
+            if (application.isVerified === 0 || application.verifyStatus === -1 || ["rejected", "lapsed"].includes(application.offerStatus) ) {
+                return {...application, isRowEnabled: false}
+            }
+
+            else {
+                if (vacancyCount[application.category] > 0 ) {
+                    vacancyCount[application.category]--
+                }
+
+                else if (application.category !== "GEN" && vacancyCount[application.category] > 0 ) {
+                    vacancyCount[application.category]--
+                    
+                }
+
+                else {
+                    if (vacancyCount["GEN"] > 0) {
+                        vacancyCount["GEN"]--
+                    }
+
+                    else {
+                        return {...application, isEnabled: false}
+                    }
+                }
+
+                if (["open", "accepted"].includes(application.offerStatus)) {
+                    return {...application, isEnabled: false}
+                }
+
+                else {
+                    return {...application, isEnabled: true}
+                }
+                
+            }                                             
+        })
+    
+    console.log(appRender)
+    
     function getRecruitmentData(event) {
         $.ajax({
             type: "POST",
@@ -111,15 +152,8 @@ export default function SendAppointment() {
         (event.target.checked) ? setCheckedApplications(prev => ([...prev, applicationID])) : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
     }
 
-    function decrementVacancy (category) {
-        vacancyCount[category] > 0 && vacancyCount[category]--
-
-        vacancyCount[category] != "GEN" 
-            && vacancyCount[category] == 0 
-                && vacancyCount["GEN"] > 0
-                    && vacancyCount["GEN"]-- 
-    }
     
+
     return (
         <>
             <div className="bodyDiv">
@@ -186,41 +220,14 @@ export default function SendAppointment() {
                                 </thead>
                                 <tbody>
                                     {
-                                    applications.map(application => {
+                                    appRender.map(application => {
                                         console.log(application.applicationID)
-                                        console.log(vacancyCount)
-                                        var classname = null;
-                                        
-                                        if (application.verifyStatus === -1 || ["rejected", "lapsed"].includes(application.offerStatus) ) {
-                                            console.log("Reject disabled")
-                                            classname = "disabled"
-                                        }
-
-                                        else {
-                                            if (application.category === "GEN") {
-                                                (vacancyCount["GEN"] > 0) 
-                                                    ? vacancyCount[application.category]-- 
-                                                    : console.log("Reject vacancy GEN"); classname = "disabled" 
-                                            }
-
-                                            else {
-                                                vacancyCount[application.category] > 0 
-                                                    ? vacancyCount[application.category]--     
-                                                    : (vacancyCount["GEN"] > 0  
-                                                        ? vacancyCount["GEN"]-- 
-                                                        : classname = "disabled")
-                                            }                                          
-                                        }
                                         
                                         return (
-                                            <tr className={getClassLabel(application.offerStatus) + " " + ((!getClassLabel(application.offerStatus) ? (classname) : null))}>
+                                            <tr className={getClassLabel(application.offerStatus) + " " + ((!application.offerStatus && !application.isEnabled) ? "disabled" : "")}>
                                                 <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } 
                                                     className="align-middle text-center checkboxSendAppointment">
-                                                    {(application.offerStatus === null)
-                                                        && (classname != "disabled") 
-                                                        && (application.category === "GEN" && (vacancyCount["GEN"] > 0) || (vacancyCount[application.category] > 0 || vacancyCount["GEN"] > 0) 
-                                                        && !checkedApplications.includes(application.applicationID) || !(classname === "disabled")) 
-                                                        && <input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"/>} 
+                                                    {application.isEnabled && <input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"/>} 
                                                 </td>
                                                 <td className="rank">{application.rank}</td>
                                                 <td className="">{application.applicationID.toUpperCase()}</td>
@@ -230,12 +237,9 @@ export default function SendAppointment() {
                                                 <td className="">{application.category}</td>
                                                 <td className="">
                                                     { (application.offerStatus === null) 
-                                                        ?   (   (classname != "disabled")
-                                                                && (application.category === "GEN" && (vacancyCount["GEN"] > 0) || (vacancyCount[application.category] > 0 || vacancyCount["GEN"] > 0) 
-                                                                && !checkedApplications.includes(application.applicationID) || !(classname === "disabled")) 
-                                                                && <input className="appntLetterUpload" type="file" id={application.applicationID} required />
-                                                            ) 
-                                                        
+                                                        ?   application.isEnabled
+                                                                && <input className="appntLetterUpload" type="file" id={application.applicationID} required={checkedApplications.includes(application.applicationID)} />
+                                                             
                                                         :   (<span onClick={() => {getFile(SHA256(application.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span>) }</td>
                                             </tr>
                                                 )

@@ -79,7 +79,7 @@ function SidebarRecruiter(props) {
                     <div className="horizontalLine"></div>
                     <NavLink to="/content/sendappointments" className={({isActive}) => "btn border-0 text-start navLinkButton " + (isActive ? "active" : "")}>Send Appointments</NavLink>
                     <div className="horizontalLine"></div>
-                    <NavLink to="/content/manageappointments" className={({isActive}) => "btn border-0 text-start navLinkButton " + (isActive ? "active" : "")}>Manage Appointments</NavLink>
+                    <NavLink to="/content/viewsentappointments" className={({isActive}) => "btn border-0 text-start navLinkButton " + (isActive ? "active" : "")}>View Sent Appointments</NavLink>
                 </div>
             </div>
         </>

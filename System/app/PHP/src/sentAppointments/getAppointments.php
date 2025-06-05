@@ -4,7 +4,7 @@
 
     $recruitmentID = json_decode(file_get_contents("php://input"));
 
-    $stat = $conn->prepare("CALL get_appointments(:recruitmentID)");
+    $stat = $conn->prepare("CALL get_appointments_view(:recruitmentID)");
 
     $stat->execute([":recruitmentID" => $recruitmentID]);
 

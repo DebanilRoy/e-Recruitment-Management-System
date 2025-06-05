@@ -19,7 +19,7 @@ import SubmitResults from './Recruiter/SubmitResults'
 import CreateRankList from './Recruiter/CreateRankList'
 import VerifyApplications from './Recruiter/VerifyApplications'
 import SendAppointment from './Recruiter/SendAppointment'
-
+import ViewSentAppointments from './Recruiter/ViewSentAppointments'
 import RecruitmentsProvider from '../Context/recruitmentsContext'
 import { useUser } from '../Context/userContext'
 
@@ -48,7 +48,8 @@ export default function Content(props) {
         {path: "submitresults", element: <SubmitResults/>},
         {path: "createranklist", element: <CreateRankList/>},
         {path: "verifyapplications", element: <VerifyApplications/>},
-        {path: "sendappointments", element: <SendAppointment/>}
+        {path: "sendappointments", element: <SendAppointment/>},
+        {path: "viewsentappointments", element: <ViewSentAppointments/>}
     ])
 
     const pathname = useLocation().pathname

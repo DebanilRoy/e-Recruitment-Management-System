@@ -11,6 +11,7 @@
                                             a.applicantID,
                                             ap.dob,
                                             ap.category,
+                                            a.isVerified,
                                             a.verifyStatus,
                                             app.offerStatus
                                     FROM applications a 

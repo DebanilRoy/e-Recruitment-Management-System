@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
+import $ from 'jquery'
+import { SHA256 } from "crypto-js";
+import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
 import { useRecruitments } from "../../Context/recruitmentsContext";
+import { getFile } from "../../utils/getFile";
 
 export default function ViewSentAppointments() {
     const [recruitmentData, setRecruitmentData] = useState({})
@@ -15,7 +19,7 @@ export default function ViewSentAppointments() {
         $.ajax({
             type: "POST",
             url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/sentAppointments/getAppointments.php",
-            data: JSON.stringify($(event.target).find("input#recruitmentID").val()),
+            data: JSON.stringify($(event.target).find("select").val()),
             success: (data) => {
                 setAppointments(data)
             },
@@ -25,15 +29,48 @@ export default function ViewSentAppointments() {
         })
     }
 
+    function getRecruitmentData(event) {
+        $.ajax({
+            type: "POST",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/sendAppointments/getRecruitmentDetails.php",
+            data: JSON.stringify($(event.target).find("select").val()),
+            success: (data) => {
+                setRecruitmentData({...data, remaining: (data['vacancytotal'] - (data['open'] + data['accepted']))})
+            },
+            error: () => {
+                console.log("Error")
+            }
+        })
+    }
+
+    function getClassLabel(status) {
+        switch (status) {
+            case "open":
+                return "offerOpen"
+            
+            case "accepted":
+                return "offerAccepted"
+            
+            case "rejected":
+                return "offerRejectedLapsed"
+
+            case "lapsed":
+                return "offerRejectedLapsed"
+
+            default:
+                break;
+        }
+    }
+
     return (
         <>
             <div className="bodyDiv">
                 <div className="ps-2 py-2 rounded-2 bodyHeadingDiv">
-                    <p className="mb-0 bodyHeading">Send Appointment</p>
+                    <p className="mb-0 bodyHeading">View Sent Appointments</p>
                 </div>
                 <div className="pt-2 ps-2">
                     <div className="divRecruitmentInfo">
-                        <form onSubmit={(event) => {getRecruitmentDetails(event); getRecruitmentData(event); getApplications(event)}}>
+                        <form onSubmit={(event) => {getRecruitmentDetails(event); getRecruitmentData(event); getAppointments(event)}}>
                             <RecruitmentIDSearchBar>
                                 {recruitments.map(recruitment => 
                                     (
@@ -69,7 +106,7 @@ export default function ViewSentAppointments() {
                     </div>
                     
                     {recruitmentDetails && (
-                        <form onSubmit={(event) => sendAppointment(event)}>
+                        <>
                             <table className="table tableSendAppointment">
                                 <thead>
                                     <tr>
@@ -79,7 +116,6 @@ export default function ViewSentAppointments() {
                                         </td>
                                     </tr>
                                     <tr className="">
-                                        <th className=""></th>
                                         <th className="rank">Rank</th>
                                         <th className="subResAppltnID">ApplicationID</th>
                                         <th className="subResApplntName">Applicant Name</th>
@@ -91,21 +127,17 @@ export default function ViewSentAppointments() {
                                 </thead>
                                 <tbody>
                                     {
-                                    applications.map(application => {
-                                                                               
+                                    appointments.map(appointment => {                          
                                         return (
-                                            <tr className={getClassLabel(application.offerStatus) + " " + ((!getClassLabel(application.offerStatus) ? (classname) : null))}>
-                                                <td className="rank">{application.rank}</td>
-                                                <td className="">{application.applicationID.toUpperCase()}</td>
-                                                <td className="">{application.applicantName}</td>
-                                                <td className="">{application.applicantID}</td>
-                                                <td className="">{application.dob}</td>
-                                                <td className="">{application.category}</td>
-                                                <td className="">{(application.offerStatus === null) ? (
-                                                    <input  disabled={(!recruitmentData.remaining && !checkedApplications.includes(application.applicationID) || (classname === "disabled")) ? true : false} 
-                                                            className="appntLetterUpload" type="file" 
-                                                            id={application.applicationID} 
-                                                            required={checkedApplications.includes(application.applicationID)}/>) : (<span onClick={() => {getFile(application.offerFileName, "appointments")}} className="offerFileLink">View Offer</span>) }</td>
+                                            <tr className={getClassLabel(appointment.offerStatus) + " " + ((!getClassLabel(appointment.offerStatus) ? (classname) : null))}>
+                                                <td className="rank">{appointment.rank}</td>
+                                                <td className="">{appointment.applicationID.toUpperCase()}</td>
+                                                <td className="">{appointment.applicantName}</td>
+                                                <td className="">{appointment.applicantID}</td>
+                                                <td className="">{appointment.dob}</td>
+                                                <td className="">{appointment.category}</td>
+                                                <td className="">
+                                                <span onClick={() => {getFile(SHA256(appointment.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span></td>
                                             </tr>
                                                 )
                                                 
@@ -115,9 +147,7 @@ export default function ViewSentAppointments() {
                                     }
                                 </tbody>
                             </table>
-
-                            <button name="" id="" className="btn buttonPrimary">Send Appointment</button>
-                        </form>
+                        </>
                     )}
                 </div>
             </div>
