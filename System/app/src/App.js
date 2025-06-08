@@ -15,6 +15,7 @@ export default function App() {
     const setUserID = context.setUserID
 
     document.getElementById('root').className = ["/"].includes(window.location.pathname) ? "root loginPage" : "root";
+    document.getElementById('root').style.display = ["/registration"].includes(window.location.pathname) ? "block" : "grid"
 
     const routes = useRoutes(
         !isLogin ? [

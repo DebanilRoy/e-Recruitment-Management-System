@@ -7,7 +7,7 @@ import { useUser } from '../Context/userContext';
 
 export default function Login() {
     const [credentials, setCredentials] = useState({accType: "Applicant", email: "", pwd: ""});
-    const [loginCode, setLoginCode] = useState();
+    const [loginCode, setLoginCode] = useState(null);
 
     const setIsLogin = useUser().setIsLogin
     const setAccType = useUser().setAccType
@@ -55,7 +55,6 @@ export default function Login() {
         switch (loginCode) {
             default: 
                 return null;
-
             case -1:
                 return ("Details not Entered!")
                 
@@ -66,49 +65,32 @@ export default function Login() {
 
     return (
         <>
-                <div className="text-center divLoginPageHeading">
-                    <h1 className="erms headerHeading">e - Recruitment Management System</h1>
-                </div>
-                <div className="divLoginBox">
-                    <form name="loginForm" action="http://localhost:8000/src/login.php" method="post" onSubmit={(event) => loginFormSubmit(event)}>
-                        <div className="mx-2 py-4 loginBox">
-                            <div className="row justify-content-between m-0 mb-3">
-                                <div className="col-6 pb-1 ps-5 fs-4 pe-0">
-                                    <p className="text-decoration-underline m-0">Sign In</p>
-                                </div>
-                            
-                                <div className="col-6 pe-5">
-                                    <select onChange={(event) => updateData(event)} id="accType" name="accountType" className="form-select float-end loginTypeBox">
-                                        <option>Applicant</option>
-                                        <option>Recruiter</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <label className="form-label fs-4 px-5 pt-3">Applicant ID/Email/Phone</label>
-                            <div className="px-4 py-2 px-5">
-                                <input onChange={(event) => {updateData(event)}} value={credentials.email} id="email" type="text" name="email" 
-                                        className="form-control-lg w-100" />
-                            </div>
-                            <label className="form-label fs-4 px-5 pt-3">Password</label>
-                            <div className="px-4 py-2 px-5">
-                                <input onChange={(event) => {updateData(event)}} value={credentials.pwd} id="pwd" type="password" name="pwd" 
-                                        className="form-control-lg w-100" />
-                            </div>
-                            <p className="px-4 py-2 px-5 m-0" >{loginError()}</p>
-                            <button className="btn btn-light btn-lg m-5 mt-3">Submit</button>
-                                
-                            <div className="m-0 divLoginBoxFooter">
-                                <a onClick={() => navigate("/registration", {replace:true})} className="d-inline-block float-start text-decoration-none anchorRegistration"
-                                    >Registration</a>             
-                            </div>
-                        </div>
-                    </form>
-                    
-                </div>
-
-            <div>
+            <div className="text-center divLoginPageHeading">
+                <h1 className="erms headerHeading">e - Recruitment Management System</h1>
             </div>
+            
+            <form className="loginBox" name="" method="post" onSubmit={(event) => loginFormSubmit(event)}>
+                <p className="fs-5">Sign In</p>
+
+                <select onChange={(event) => updateData(event)} id="accType" name="accountType" className="form-select float-end ">
+                    <option>Applicant</option>
+                    <option>Recruiter</option>
+                </select>
+
+                <label className="form-label fs-5">Applicant ID/Email/Phone</label>
+                <input onChange={(event) => {updateData(event)}} value={credentials.email} id="email" type="text" name="email" className="form-control fs-5" />
+
+                <label className="form-label fs-5">Password</label>
+                <input onChange={(event) => {updateData(event)}} value={credentials.pwd} id="pwd" type="password" name="pwd" 
+                            className="form-control fs-5" />
+
+                <p className="loginError">{loginError()}</p>
+                
+                <button className="btn buttonSubmit">Submit</button>   
+
+                <Link to="/registration"  className="anchorRegistration">Registration</Link>             
+
+            </form>
         </> 
     ) 
 }

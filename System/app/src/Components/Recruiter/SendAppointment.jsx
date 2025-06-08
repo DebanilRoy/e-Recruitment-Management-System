@@ -6,6 +6,7 @@ import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
 import { useRecruitments } from "../../Context/recruitmentsContext";
 import { getFile } from "../../utils/getFile";
 import { useConfirmModal } from "../../Context/modalContext";
+import { useNotification } from "../../Context/notificationContext";
 
 export default function SendAppointment() {
     const context = useUser();
@@ -18,13 +19,12 @@ export default function SendAppointment() {
 
     const confirmModal = useConfirmModal()
 
+    const Notification = useNotification()
+
     useEffect(() => {
         getRecruitments()       
-        
     }, [])
 
-    
-    
     if (recruitmentDetails) {
         var vacancyCount = {
             GEN: recruitmentDetails.vacancyGEN, 
@@ -70,9 +70,7 @@ export default function SendAppointment() {
                 
             }                                             
         })
-    
-    console.log(appRender)
-    
+        
     function getRecruitmentData(event) {
         $.ajax({
             type: "POST",
@@ -124,6 +122,10 @@ export default function SendAppointment() {
                 contentType: false,
                 success: () => {
                     setCheckedApplications([])
+                    Notification("Appointment Sent", "success")
+                },
+                error: () => {
+                    Notification("Error: Appointment could not be sent", "error")
                 }
             })
         }
@@ -151,8 +153,6 @@ export default function SendAppointment() {
     function updateCheckedApplications(event, applicationID) {
         (event.target.checked) ? setCheckedApplications(prev => ([...prev, applicationID])) : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
     }
-
-    
 
     return (
         <>
@@ -220,33 +220,32 @@ export default function SendAppointment() {
                                 </thead>
                                 <tbody>
                                     {
-                                    appRender.map(application => {
-                                        console.log(application.applicationID)
-                                        
-                                        return (
-                                            <tr className={getClassLabel(application.offerStatus) + " " + ((!application.offerStatus && !application.isEnabled) ? "disabled" : "")}>
-                                                <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } 
-                                                    className="align-middle text-center checkboxSendAppointment">
-                                                    {application.isEnabled && <input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"/>} 
-                                                </td>
-                                                <td className="rank">{application.rank}</td>
-                                                <td className="">{application.applicationID.toUpperCase()}</td>
-                                                <td className="">{application.applicantName}</td>
-                                                <td className="">{application.applicantID}</td>
-                                                <td className="">{application.dob}</td>
-                                                <td className="">{application.category}</td>
-                                                <td className="">
-                                                    { (application.offerStatus === null) 
-                                                        ?   application.isEnabled
-                                                                && <input className="appntLetterUpload" type="file" id={application.applicationID} required={checkedApplications.includes(application.applicationID)} />
-                                                             
-                                                        :   (<span onClick={() => {getFile(SHA256(application.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span>) }</td>
-                                            </tr>
-                                                )
-                                                
-                                    }
-                                    
-                                    )
+                                        appRender.map(application => {
+                                            console.log(application.applicationID)
+                                            
+                                            return (
+                                                <tr className={getClassLabel(application.offerStatus) + " " + ((!application.offerStatus && !application.isEnabled) ? "disabled" : "")}>
+                                                    <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } 
+                                                        className="align-middle text-center checkboxSendAppointment">
+                                                        {application.isEnabled && <input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"/>} 
+                                                    </td>
+                                                    <td className="rank">{application.rank}</td>
+                                                    <td className="">{application.applicationID.toUpperCase()}</td>
+                                                    <td className="">{application.applicantName}</td>
+                                                    <td className="">{application.applicantID}</td>
+                                                    <td className="">{application.dob}</td>
+                                                    <td className="">{application.category}</td>
+                                                    <td className="">
+                                                        { (application.offerStatus === null) 
+                                                            ?   application.isEnabled
+                                                                    && <input className="appntLetterUpload" type="file" id={application.applicationID} required={checkedApplications.includes(application.applicationID)} />
+                                                                    
+                                                            :   (<span onClick={() => {getFile(SHA256(application.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span>) 
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
                                     }
                                 </tbody>
                             </table>
