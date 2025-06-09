@@ -127,23 +127,20 @@ export default function ViewSentAppointments() {
                                 </thead>
                                 <tbody>
                                     {
-                                    appointments.map(appointment => {                          
-                                        return (
-                                            <tr className={getClassLabel(appointment.offerStatus) + " " + ((!getClassLabel(appointment.offerStatus) ? (classname) : null))}>
-                                                <td className="rank">{appointment.rank}</td>
-                                                <td className="">{appointment.applicationID.toUpperCase()}</td>
-                                                <td className="">{appointment.applicantName}</td>
-                                                <td className="">{appointment.applicantID}</td>
-                                                <td className="">{appointment.dob}</td>
-                                                <td className="">{appointment.category}</td>
-                                                <td className="">
-                                                <span onClick={() => {getFile(SHA256(appointment.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span></td>
-                                            </tr>
-                                                )
-                                                
-                                    }
-                                    
-                                    )
+                                        appointments.map(appointment => {                          
+                                            return (
+                                                <tr className={getClassLabel(appointment.offerStatus) + " " + ((!getClassLabel(appointment.offerStatus) ? (classname) : null))}>
+                                                    <td className="rank">{appointment.rank}</td>
+                                                    <td className="">{appointment.applicationID.toUpperCase()}</td>
+                                                    <td className="">{appointment.applicantName}</td>
+                                                    <td className="">{appointment.applicantID}</td>
+                                                    <td className="">{appointment.dob}</td>
+                                                    <td className="">{appointment.category}</td>
+                                                    <td className="">
+                                                    <span onClick={() => {getFile(SHA256(appointment.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span></td>
+                                                </tr>
+                                            )                                                
+                                        })
                                     }
                                 </tbody>
                             </table>

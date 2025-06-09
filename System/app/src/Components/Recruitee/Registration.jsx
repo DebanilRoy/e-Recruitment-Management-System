@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { useConfirmModal } from '../../Context/modalContext'
 import { useNotification } from '../../Context/notificationContext'
 import { SHA256 } from 'crypto-js'
@@ -126,17 +126,18 @@ export default function Registration() {
 
     useEffect(()=> {
         document.body.style.overflow = "auto";
-        document.getElementById("root").style.display = "block";
     }, [])
 
     return (
         !isAccountChecked ? 
         
         <>
-            <div className="p-1 pt-1 pb-2 text-center">
-                <h1 id="headerRegistration" className="d-inline-block headerHeading">e - Recruitment Management System</h1>
-            </div>
-            
+            <Link to="/">
+                <div className="p-1 pt-1 pb-2 text-center">
+                    <h1 id="headerRegistration" className="d-inline-block headerHeading">e - Recruitment Management System</h1>
+                </div>
+            </Link>
+
             <div className="p-3 rounded-2 bg-white">
                 <div className="w-100 ps-2 py-2 rounded-2 bodyHeadingDiv">
                     <span className="mb-0 bodyHeading">Registration</span>

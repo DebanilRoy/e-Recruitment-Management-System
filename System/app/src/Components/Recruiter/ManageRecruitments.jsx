@@ -110,7 +110,7 @@ export default function ManageRecruitments() {
                             <div className="">
                                 {(!recruitment.isPublished) && (<button onClick={() => {publish(recruitment.recruitmentID)}} href="#" className="btn buttonSubmit">Publish</button>)}
                                 <button onClick={() => {setRecruitmentInfo(recruitment)}} 
-                                        className=" btn buttonSubmit">Edit</button>
+                                        className="btn buttonSubmit">Edit</button>
                             </div>
                         </div>
                     ))}
@@ -168,29 +168,29 @@ export default function ManageRecruitments() {
                             <div id="vacancies">
                                 <div className="">
                                     <label htmlFor="" className="">Total</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyTotal", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="" 
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyTotal", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyTotal" 
                                             className={recruitmentInfo.vacancyTotal === (recruitmentInfo.vacancyGEN + recruitmentInfo.vacancySC + recruitmentInfo.vacancyST + recruitmentInfo.vacancyOBC) ? "correct" : "incorrect"}
                                             value={recruitmentInfo.vacancyTotal}/>
                                 </div>
                                 
                                 <div className="">
                                     <label htmlFor="" className="d-inline-block">GEN</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyGEN", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="" className=""
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyGEN", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyGEN" className=""
                                             value={recruitmentInfo.vacancyGEN}/>
                                 </div>
                                 <div className="">
                                     <label htmlFor="" className="d-inline-block">SC</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancySC", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="" className=""
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancySC", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancySC" className=""
                                             value={recruitmentInfo.vacancySC}/>
                                 </div>
                                 <div className="">
                                     <label htmlFor="" className="d-inline-block">ST</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyST", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="" className=""
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyST", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyST" className=""
                                             value={recruitmentInfo.vacancyST}/>
                                 </div>
                                 <div className="">
                                     <label htmlFor="" className="d-inline-block">OBC</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyOBC", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="" className=""
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyOBC", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyOBC" className=""
                                             value={recruitmentInfo.vacancyOBC}/>
                                 </div>
                             </div>

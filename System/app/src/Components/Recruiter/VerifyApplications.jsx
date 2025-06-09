@@ -3,7 +3,8 @@ import $ from 'jquery'
 import { SHA256 } from 'crypto-js' 
 import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
 import { useRecruitments } from "../../Context/recruitmentsContext";
-import { useConfirmModal } from "../../Context/modalContext";
+import { useConfirmModal } from "../../Context/modalContext"
+import { useNotification } from "../../Context/notificationContext";
 import { getFile } from "../../utils/getFile"
 
 export default function VerifyApplications() {
@@ -17,6 +18,8 @@ export default function VerifyApplications() {
     const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
 
     const confirmModal = useConfirmModal()
+
+    const Notification = useNotification()
 
     useEffect(() => {
         getRecruitments()
@@ -70,8 +73,8 @@ export default function VerifyApplications() {
             url: process.env.REACT_APP_BACKEND_BASE_URL + "/src//verifyApplications/verifyApplications.php",
             data: JSON.stringify([(event.nativeEvent.submitter.name === "verify" ? "verify" : "reject"), checkedApplications]),
             success: (data) => {
-                console.log("Success")
-                
+                action === "verify" ? Notification("Applications verified", "success") 
+                                    : Notification("Applications Reject", "success")
             }
         })}
     }
