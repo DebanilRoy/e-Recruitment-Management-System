@@ -33,9 +33,7 @@ export default function ApplicationsOpen() {
             error: () => {
                 $("#null_applications").show()
                 setApplications([])
-                
                 setApplicationStatus(null)
-
             }
         })
     }
@@ -79,8 +77,10 @@ export default function ApplicationsOpen() {
                                     <p className="card-text fs-5">Location: <span>{application.location}</span></p>
                                     <p className="card-text fs-5">Submission Date: <span>{application.submissionDate}</span></p>
                                     <div className="divButtons">
-                                        <button onClick={() => {getFile(application.recruitmentID, "recruitments")}} type="button" className="btn rounded-2 buttonSubmit">View Full Advertisement</button>
-                                        <button onClick={() => {setApplicationStatus(application)}} type="button" className="btn rounded-2 buttonSubmit">Status</button>
+                                        <button onClick={() => {getFile(application.recruitmentID, "recruitments")}} type="button" 
+                                                className="btn rounded-2 buttonSubmit">View Full Advertisement</button>
+                                        <button onClick={() => {setApplicationStatus(application)}} type="button" 
+                                                className="btn rounded-2 buttonSubmit">Status</button>
                                     </div>
                                 </div>
                         )) : null}
@@ -89,10 +89,13 @@ export default function ApplicationsOpen() {
                     {(applicationStatus !== null) && (
                         <div id="status" className="card cardApplicationStatus">
                             <div>
-                                <h2 className="d-inline-block card-title mb-2 text-center bottomp">{applicationStatus.applicationID.toUpperCase()}</h2>
-                                <svg onClick={() => {setApplicationStatus(null)}} xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" 
-                                className="btn bi bi-x-lg float-end sideBarCloseButton" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                <h2 className="d-inline-block card-title mb-2 text-center bottomp">
+                                    {applicationStatus.applicationID.toUpperCase()}</h2>
+                                <svg onClick={() => {setApplicationStatus(null)}} xmlns="http://www.w3.org/2000/svg" 
+                                    width="40" height="40" fill="currentColor"
+                                    className="btn bi bi-x-lg float-end sideBarCloseButton" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 
+                                            5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                                 </svg>
                             </div>
                 
@@ -102,24 +105,29 @@ export default function ApplicationsOpen() {
                             <p className="">Location : <span>{applicationStatus.location}</span></p>
                             <p className="">Open Date : <span>{applicationStatus.datePublished}</span></p>
                             <p className="">Close Date : <span>{applicationStatus.appLastDate}</span></p>
-
-                            
-
+                           
                             <div className="statusDiv">
                                 <h4>Status</h4>
                                 <p>Application: </p><span className="green">{"Submitted".toUpperCase()}</span>
                                 <p>Rank List: </p><span className={applicationStatus.isFrozen ? "green" : "yellow"}>
                                                         {applicationStatus.isFrozen ? "Generated".toUpperCase(): "PENDING"}</span>
                                 <p>Verification: </p><span className={  applicationStatus.isVerified ? 
-                                                                            (applicationStatus.verifyStatus ? "green" : "red") : "yellow"}>
+                                                                            (applicationStatus.verifyStatus 
+                                                                                ? "green" : "red") : "yellow"}>
                                                                                 {  applicationStatus.isVerified ? 
-                                                                                        (applicationStatus.verifyStatus ? "VERIFIED" : "REJECTED") : "PENDING"}</span>
-                                <p>Offer: </p><span className={applicationStatus.isVerified ? (applicationStatus.appStatus === ("rejected" || "lapsed") ? "red" : "green") : "yellow"}>{applicationStatus.isVerified ? (applicationStatus.appStatus ? applicationStatus.appStatus.toUpperCase() : "NO OFFERS") : "PENDING"}</span>
+                                                                                    (applicationStatus.verifyStatus 
+                                                                                        ? "VERIFIED" : "REJECTED") 
+                                                                                            : "PENDING"}</span>
+                                <p>Offer: </p><span className={applicationStatus.isVerified ? 
+                                    (applicationStatus.appStatus === ("rejected" || "lapsed") ? "red" : "green") : "yellow"}>
+                                    {applicationStatus.isVerified ? (applicationStatus.appStatus 
+                                        ? applicationStatus.appStatus.toUpperCase() : "NO OFFERS") : "PENDING"}</span>
                                 <p></p>
                             </div>
                             
                             <div>
-                                <button onClick={() => {cancelApplication(applicationStatus.applicationID)}} type="button" className="btn btn-light mt-2 rounded-2 buttonSubmit">Cancel Application</button>
+                                <button onClick={() => {cancelApplication(applicationStatus.applicationID)}} type="button" 
+                                        className="btn btn-light mt-2 rounded-2 buttonSubmit">Cancel Application</button>
                             </div>
                         </div>
                     )}

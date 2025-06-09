@@ -29,9 +29,10 @@ export default function RecruitmentsOpen(props) {
                 
                 serverRecruitments.map(recruitment => 
                     {
-                        recruitments.push({ recruitmentID: recruitment.recruitmentID, postName: recruitment.postName, salary: recruitment.salary,
-                                            location: recruitment.location, 
-                                            datePublished: recruitment.datePublished, appLastDate: recruitment.appLastDate})
+                        recruitments.push(
+                            { recruitmentID: recruitment.recruitmentID, postName: recruitment.postName, 
+                                salary: recruitment.salary, location: recruitment.location, 
+                                datePublished: recruitment.datePublished, appLastDate: recruitment.appLastDate})
                     }
                 )
 
