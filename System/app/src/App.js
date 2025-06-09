@@ -1,5 +1,5 @@
+// Importing Dependencies
 import { useEffect } from "react";
-
 import $ from 'jquery'
 import Login from './Components/Login'
 import Registration from "./Components/Recruitee/Registration";
@@ -10,11 +10,16 @@ import { useUser } from "./Context/userContext";
 import { useRoutes } from "react-router";
 
 export default function App() {
+    
+    // React state variables
+    
     const context = useUser()
     const [isLogin, setIsLogin] = [context.isLogin, context.setIsLogin]
     const setUserID = context.setUserID
 
     document.getElementById('root').className = ["/"].includes(window.location.pathname) ? "root loginPage" : "root";
+
+    // React Router paths
 
     const routes = useRoutes(
         !isLogin ? [
@@ -36,12 +41,16 @@ export default function App() {
         ]   
     )
         
+    // useEffect for calling sessionRequest() on page load
+
     useEffect(() => {
         if (!['/', '/registration'].includes(window.location.pathname)) {
             sessionRequest()
         }
     }, [isLogin]);
     
+    // Request session data
+
     function sessionRequest () {
         $.ajax (
             {
@@ -75,6 +84,8 @@ export default function App() {
             </Notification>
     )  
 }
+
+// Destroy Session
 
 export function sessionDestroy () {
     return new Promise((resolve) => {

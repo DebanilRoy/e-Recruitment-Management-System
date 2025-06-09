@@ -1,9 +1,13 @@
+// Import Dependencies
+
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { Routes, Route, Link, useNavigate } from 'react-router';   
 import { SHA256 } from 'crypto-js';
 import $ from 'jquery'
 import { useUser } from '../Context/userContext';
+
+// Component 'Login'
 
 export default function Login() {
     const [credentials, setCredentials] = useState({accType: "Applicant", email: "", pwd: ""});
@@ -13,6 +17,8 @@ export default function Login() {
     const setAccType = useUser().setAccType
     
     const navigate = useNavigate();
+
+    // Backend API Call for Login
 
     function loginFormSubmit(event) {
         event.preventDefault()

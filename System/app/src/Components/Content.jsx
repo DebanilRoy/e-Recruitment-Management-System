@@ -1,4 +1,9 @@
+// Import Dependencies
+
 import { useLocation, useRoutes } from 'react-router'
+import { useUser } from '../Context/userContext'
+
+// Import Components
 
 import Sidebar from './Sidebar'
 import Header from './Header'
@@ -21,12 +26,15 @@ import VerifyApplications from './Recruiter/VerifyApplications'
 import SendAppointment from './Recruiter/SendAppointment'
 import ViewSentAppointments from './Recruiter/ViewSentAppointments'
 import RecruitmentsProvider from '../Context/recruitmentsContext'
-import { useUser } from '../Context/userContext'
+
+// 'Content' Component
 
 export default function Content(props) { 
     const accType = useUser().accType
 
     document.getElementById('root').className = "root";
+    
+    // React Router paths
     
     const routes = useRoutes(
         (accType === "applicant") ? [
