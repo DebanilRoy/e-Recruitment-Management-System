@@ -6,6 +6,8 @@
 
     $recruitmentID = json_decode($recruitmentInfo)->recruitmentID;
 
+    // Saves Recruitment Advertisement Document in backend storage
+    
     if (isset($_FILES[$recruitmentID])) {
         $filepath = "../../uploads/" . "recruitment/" . hash("sha256" , $recruitmentID);
         if (file_exists($filepath . ".jpg")) {

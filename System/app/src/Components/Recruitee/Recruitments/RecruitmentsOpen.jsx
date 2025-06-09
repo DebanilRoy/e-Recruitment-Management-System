@@ -1,7 +1,11 @@
+// Import Dependencies
+
 import { useState, useEffect, use } from "react";
 import $ from 'jquery'
 import { useNavigate } from "react-router";
 import { getFile } from "../../../utils/getFile";
+
+// Main Component
 
 export default function RecruitmentsOpen(props) {
     const [recruitments, setRecruitments] = useState([])
@@ -9,6 +13,8 @@ export default function RecruitmentsOpen(props) {
 
     const navigate = useNavigate()
 
+    // Retrives recruitment data from backend
+    
     function getRecruitments() {
         $.ajax({
             type: "POST",

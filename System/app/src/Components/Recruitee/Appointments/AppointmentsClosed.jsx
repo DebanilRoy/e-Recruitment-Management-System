@@ -1,9 +1,15 @@
+// Import Dependencies
+
 import { useState, useEffect } from "react";
 import $ from 'jquery'
+
+//Main Component
 
 export default function AppointmentsClosed() {
     const [closedAppointments, setClosedAppointments] = useState([]);
 
+    // Retrieve closed applications data from backend
+    
     function getClosedAppointments() {
         $.ajax({
             type: "POST",

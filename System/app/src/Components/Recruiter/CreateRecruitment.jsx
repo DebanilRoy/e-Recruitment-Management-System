@@ -1,7 +1,11 @@
+// Import Dependencies
+
 import { useState } from "react"
 import { useConfirmModal } from "../../Context/modalContext";
 import { useNotification } from "../../Context/notificationContext";
 import $ from 'jquery'
+
+// Main Component
 
 export default function CreateRecruitment(props) {
     const [recruitmentInput, setRecruitmentInput] = useState({  postName: null,
@@ -13,11 +17,17 @@ export default function CreateRecruitment(props) {
                                                                 vacancyST: null, 
                                                                 vacancyOBC: null,
                                                                 datePublished: null,
-                                                                appLastDate: null});
+                                                                appLastDate: null
+                                                            });
     
+    
+    // Getting context components
+
     const Confirm = useConfirmModal()
     const Notification = useNotification()
     
+    // Backend call to create recruitment
+
     async function createRecruitment(event) {
         event.preventDefault()
         const confirm = await Confirm("Are you sure you want to create the Recruitment?")
@@ -44,10 +54,14 @@ export default function CreateRecruitment(props) {
         return empty
     }
 
+    // Updates state varible as per change in input component
+
     function updateData(event, data) {
         setRecruitmentInput(prev => ({...prev, [event.target.id] : data}))
     }
 
+    // Blocks scrolling in certain input components
+    
     function scrollBlock(event) {
         let classname = event.target.name;
         if(classname && classname.includes("phonenumber")){

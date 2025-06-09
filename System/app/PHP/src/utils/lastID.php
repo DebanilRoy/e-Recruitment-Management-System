@@ -1,4 +1,7 @@
 <?php   
+
+    // Retrieves the last inserted ID 
+    
     function lastID ($type) {
         global $conn;
 

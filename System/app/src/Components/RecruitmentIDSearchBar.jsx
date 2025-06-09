@@ -1,3 +1,5 @@
+// Recruitment Search Bar Component
+
 export default function RecruitmentIDSearchBar({children}) {
     return (
         <>

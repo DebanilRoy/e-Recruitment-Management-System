@@ -1,9 +1,15 @@
+// Import Dependencies
+
 import { useEffect, useState } from "react"
 import $ from 'jquery'
 import { getFile } from "../../../utils/getFile";
 
+// Main Component
+
 export default function RecruitmentsClosed () {
     const [closedRecruitments, setClosedRecruitments] = useState([]);
+    
+    // Retrieve closed recruitments data from backend
     
     function getClosedRecruitments() {
         $.ajax({

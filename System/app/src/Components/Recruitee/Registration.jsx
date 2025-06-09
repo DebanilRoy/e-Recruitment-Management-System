@@ -1,3 +1,5 @@
+// Import Dependencies
+
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useConfirmModal } from '../../Context/modalContext'
@@ -5,6 +7,8 @@ import { useNotification } from '../../Context/notificationContext'
 import { SHA256 } from 'crypto-js'
 import regex from '../../utils/regex'
 import $ from 'jquery'
+
+// Export functions for input format checks
 
 export function updateData(event, setDetails) {
     console.log("Update data called")
@@ -41,6 +45,8 @@ export function pinCodeCheck(event, setDetails) {
     }
 }
 
+// Main Component
+
 export default function Registration() {
     const [applicantDetails, setApplicantDetails] = useState({firstName: "", lastName: "", mobile: "", alternateMobile: ""})
     const [password, setPassword] = useState({password : "", repassword: ""})
@@ -54,7 +60,13 @@ export default function Registration() {
     const [isAccountChecked, setIsAccountChecked] = useState(false);
 
     const navigate = useNavigate()
+
+    // Getting context components
+
+    const confirmModal = useConfirmModal();
     const Notification = useNotification();
+
+    // Sets the photo preview
 
     function setPreview(event) {
         try {
@@ -67,12 +79,14 @@ export default function Registration() {
         }
     }
 
+    // Sets the file to react state variable
+
     function setFile(event, setState) {
         setState(event.target.files[0])
     }
 
-    const confirmModal = useConfirmModal();
-    
+    // Backend call to check whether credentials are available to make an account
+
     async function accountCheck(event) {
         event.preventDefault()
         const confirm = await confirmModal("Are you sure you want to Register?")
@@ -91,6 +105,8 @@ export default function Registration() {
         )
     }
 
+    // Backend call to register
+    
     async function register(event) {
         event.preventDefault()    
         const confirm = await confirmModal("Are you sure you want to Register?")
@@ -120,6 +136,8 @@ export default function Registration() {
         }))
     }
 
+    // Sets react state variable for password
+
     function updatePassword(event) {
         setPassword(prevData => ({...prevData, [event.target.id]: event.target.value}))
     }
@@ -131,6 +149,8 @@ export default function Registration() {
     return (
         !isAccountChecked ? 
         
+        // Applicant details form
+
         <>
             <Link to="/">
                 <div className="p-1 pt-1 pb-2 text-center">
@@ -148,20 +168,20 @@ export default function Registration() {
                         <div className="fs-5 divFirstName" >
                             <label htmlFor="" className="form-label">First Name</label>
                             <input onChange={(event) => {firstNameCheck(event, setApplicantDetails)}}
-                                    type="text" name="" id="firstName" value={applicantDetails.firstName.toUpperCase()}
+                                    type="text" id="firstName" value={applicantDetails.firstName.toUpperCase()}
                                     className={"form-control fs-5 border regFormText"}/>
                         </div>
                         <div className="fs-5 divLastName" >
                             <label htmlFor="" className="form-label">Last Name</label>
                             <input  onChange={(event) => {lastNamecheck(event, setApplicantDetails)}}
-                                    type="text" name="" id="lastName" value={applicantDetails.lastName.toUpperCase()} 
+                                    type="text" id="lastName" value={applicantDetails.lastName.toUpperCase()} 
                                     className="form-control fs-5 border regFormText"/>
                         </div>
                         <div className="fs-5 divFileInput">
                             <div className="divPhotoInput">
                                 <label className="d-block">Photo</label>
                                 <label htmlFor="photo" className="form-label labelPhoto">Upload</label>
-                                <input onChange={(event) => {setPreview(event); setFile(event, setPhoto)}} type="file" accept="image/*" name="" id="photo"
+                                <input onChange={(event) => {setPreview(event); setFile(event, setPhoto)}} type="file" accept="image/*" id="photo"
                                         />
                                 <img src={photoPreview} width="200" height="200"/>
                                 
@@ -187,13 +207,13 @@ export default function Registration() {
                         
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">Date of Birth</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="date" name="" id="dob" value={applicantDetails.dob}
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="date" id="dob" value={applicantDetails.dob}
                                     className="form-control fs-5 border regFormText"/>
                         </div>
                         <div className="w-50 fs-5">
                             <label htmlFor="" className="form-label">Email</label>
                             <input onChange={(event) => {(regex.emailRx.test(event.target.value) ? setAllowSubmit(true) : setAllowSubmit(false)); updateData(event, setApplicantDetails )}}
-                                   type="email" name="" id="email" value={applicantDetails.email}
+                                   type="email" id="email" value={applicantDetails.email}
                                    className={(applicantDetails.email && regex.emailRx.test(applicantDetails.email) ? "accept " : "") + (applicantDetails.email && !regex.emailRx.test(applicantDetails.email) ? "reject " : "") + "form-control fs-5 border regFormText"}/>
                         </div>
                         <div className="fs-5">
@@ -236,37 +256,37 @@ export default function Registration() {
 
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">Address Line 1</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="addressFirstLine" className="form-control fs-5 border regFormText"
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" id="addressFirstLine" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.addressFirstLine}/>
                         </div>
 
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">Address Line 2</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="addressSecondLine" className="form-control fs-5 border regFormText"
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" id="addressSecondLine" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.addressSecondLine}/>
                         </div>
                     
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">City</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="city" className="form-control fs-5 border regFormText"
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" id="city" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.city || ""}/>
                         </div>
 
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">District</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="district" className="form-control fs-5 border regFormText"
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" id="district" className="form-control fs-5 border regFormText"
                                 value={applicantDetails.district}/>
                         </div>
 
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">State</label>
-                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" name="" id="state" className="form-control fs-5 border regFormText"
+                            <input onChange={(event) => {updateData(event, setApplicantDetails)}} type="text" id="state" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.state}/>
                         </div>
 
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">Pin Code</label>
-                            <input onChange={(event) => {pinCodeCheck(event, setApplicantDetails)}} type="text" name="" id="pinCode" className="form-control fs-5 border regFormText"
+                            <input onChange={(event) => {pinCodeCheck(event, setApplicantDetails)}} type="text" id="pinCode" className="form-control fs-5 border regFormText"
                                     value={applicantDetails.pinCode}/>
                         </div>
 
@@ -278,6 +298,8 @@ export default function Registration() {
             </div>
         </> : 
         
+        // Set password form
+
         <>
             <div className="p-1 pt-1 pb-2 text-center">
                 <h1 id="headerRegistration" className="d-inline-block headerHeading">e - Recruitment Management System</h1>
@@ -289,19 +311,19 @@ export default function Registration() {
                 </div>
 
                 <div className="pt-2 ps-2">
-                    <form onSubmit={(event) => {register(event)}} action="" className="formPassword">               
+                    <form onSubmit={(event) => {register(event)}} className="formPassword">               
                         <div>
                             <div className="fs-5" >
                                 <label htmlFor="" className="form-label">Password</label>
                                 <input onChange={(event) => {updatePassword(event, regex.firstNameRx)}}
-                                        type="password" name="" id="password" value={password.password}
+                                        type="password" id="password" value={password.password}
                                         className={(password.password && regex.passwordRx.test(password.password) ? "accept " : "") + (password.password && !regex.passwordRx.test(password.password) ? "reject " : "") + " form-control fs-5 border regFormText"}/>
                             </div>
 
                             <div className="fs-5" >
                                 <label htmlFor="" className="form-label">Re-enter Password</label>
                                 <input onChange={(event) => {updatePassword(event, regex.firstNameRx)}}
-                                        type="password" name="" id="repassword" value={password.repassword}
+                                        type="password" id="repassword" value={password.repassword}
                                         className={(password.repassword && regex.passwordRx.test(password.repassword) && password.repassword === password.password ? "accept " : "") + (password.repassword && (!regex.passwordRx.test(password.repassword) || password.repassword !== password.password ? "reject " : "")) + "form-control fs-5 border regFormText"}/>
                             </div>
 

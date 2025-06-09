@@ -1,9 +1,12 @@
+// Import Dependencies
 import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router'
 import { useUser } from '../../Context/userContext'
 import { useNotification } from '../../Context/notificationContext'
 import { useConfirmModal } from '../../Context/modalContext'
 import $ from 'jquery'
+
+// Main Component
 
 export default function Apply() {
     const spaceRx = /\s/
@@ -16,10 +19,16 @@ export default function Apply() {
     const { recruitmentID, postName } = useLocation().state
 
     const navigate = useNavigate()
+    
+    // Getting context components
+
     const Confirm = useConfirmModal()
     const notification = useNotification()
 
-    function getApplicantData(ID) {
+
+    // Retrives applicant data from backend
+
+    function getApplicantData() {
         $.ajax({
             type: "POST",
             url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/apply/getApplicantData.php",
@@ -37,16 +46,20 @@ export default function Apply() {
 
     useEffect(() => getApplicantData(), [])
 
+    // Updates state variable as per change in input component
+
     function updateData(event) {
         setApplicantDetails(prevData => ({...prevData, [event.target.id]: event.target.value}))
     }
     
+    // Backend call to submit application
+
     async function submitApplication(event) {
         event.preventDefault()
         const confirm = await Confirm("Are you sure you want to submit the Application?")
         confirm && $.ajax({
             type: "POST",
-            url: "http://localhost:8000/src/apply/submitApplication.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/apply/submitApplication.php",
             data: JSON.stringify(applicantDetails),
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
@@ -63,11 +76,15 @@ export default function Apply() {
         
     }
 
+    // Checks the input for proper format
+    
     function inputCheck(event, regex) {    
         if (regex.test(event.key)) {
             event.preventDefault();
         }
     }
+
+    // Checks the phone number input for proper format
 
     function phoneNumberCheck(event) {
         if (["Backspace", "Tab"].includes(event.key)) {
@@ -79,10 +96,14 @@ export default function Apply() {
         }
     }
 
+    // Changes input characters to uppercase
+
     function upperCase(event) {
         if (!nameRx.test(event.target.value))
             event.target.value = event.target.value.toUpperCase();
     }
+
+    // Block scrolling in certain input components
 
     function scrollBlock(event) {
         let classname = event.target.name;
@@ -111,56 +132,55 @@ export default function Apply() {
                 <div className="pt-2 ps-2">  
                     <form onSubmit={(event) => {submitApplication(event)}} action="" className="formApply">
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Applicant ID</label>
-                                <input disabled type="text" name="" id="name" value={applicantDetails.applicantID}  
+                                <label className="form-label d-block">Applicant ID</label>
+                                <input disabled type="text" id="name" value={applicantDetails.applicantID}  
                                 className="form-control fs-5 applyFormText"/>
                             </div>                           
                             <div className="fs-5" >
-                                <label htmlFor="" className="form-label d-block">First Name</label>
+                                <label className="form-label d-block">First Name</label>
                                 <input  disabled onChange={(event) => {upperCase(event)}} 
                                         onKeyDown={(event) => {inputCheck(event, nameRx)}} 
-                                        type="text" name="" id="" value={applicantDetails.firstName}
+                                        type="text" value={applicantDetails.firstName}
                                         className="form-control fs-5 applyFormText"/>
                             </div>
                             <div className="fs-5" >
-                                <label htmlFor="" className="form-label d-block">Last Name</label>
+                                <label className="form-label d-block">Last Name</label>
                                 <input  disabled onChange={(event) => {upperCase(event)}} 
                                         onKeyDown={(event) => {inputCheck(event, nameRx)}} 
-                                        type="text" name="" id="" value={applicantDetails.lastName} 
+                                        type="text" value={applicantDetails.lastName} 
                                         className="form-control fs-5 applyFormText"/>
                             </div>
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Date of Birth</label>
-                                <input  disabled type="date" name="" id="" value={applicantDetails.dob}
+                                <label className="form-label d-block">Date of Birth</label>
+                                <input  disabled type="date" value={applicantDetails.dob}
                                         className="form-control fs-5 applyFormText"/>
                             </div>
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Email</label>
+                                <label className="form-label d-block">Email</label>
                                 <input  disabled onKeyDown={(event) => {inputCheck(event, spaceRx)}} 
-                                        
-                                        type="email" name="" id="" value={applicantDetails.email}
+                                        type="email" value={applicantDetails.email}
                                         className="form-control fs-5 applyFormText"/>
                             </div>
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Mobile Number</label>
+                                <label className="form-label d-block">Mobile Number</label>
                                 <input  disabled onKeyDown={(event) => {phoneNumberCheck(event, numberRx)}} 
                                         onFocus={(event) => {addScrollBlock(event)}} 
                                         onBlur={() => {deleteScrollBlock()}} 
-                                        type="number" maxLength={10} name="phonenumber" id="" value={applicantDetails.mobile}
+                                        type="number" maxLength={10} name="phonenumber" value={applicantDetails.mobile}
                                         className="form-control fs-5 applyFormText"/>
                             </div>
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Alternate Mobile Number</label>
+                                <label className="form-label d-block">Alternate Mobile Number</label>
                                 <input onKeyDown={(event) => {phoneNumberCheck(event)}} 
                                         onChange={(event) => {updateData(event)}}
                                         onFocus={(event) => {addScrollBlock(event)}}
                                         onBlur={() => {deleteScrollBlock()}}
-                                        type="number" name="phonenumber" id="" value={applicantDetails.alternateMobile || ""}
+                                        type="number" name="phonenumber" value={applicantDetails.alternateMobile || ""}
                                         className="form-control fs-5 applyFormText"/>
                             </div>
                             
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Qualification</label>
+                                <label className="form-label d-block">Qualification</label>
                                 <select disabled className="form-control fs-5 applyFormText" value={applicantDetails.qualification}>
                                     <option value="">12th</option>
                                     <option value="">Graduate</option>
@@ -170,7 +190,7 @@ export default function Apply() {
                             </div>
             
                             <div id="category" className="fs-5">
-                                <label htmlFor=""  className="form-label d-block">Category</label>
+                                <label  className="form-label d-block">Category</label>
                                 <select disabled className="form-control fs-5 applyFormText" value={applicantDetails.category}>
                                     <option value="">GEN</option>
                                     <option value="">SC</option>
@@ -180,43 +200,43 @@ export default function Apply() {
                             </div>
 
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Address Line 1</label>
-                                <input  onChange={(event) => {updateData(event)}} type="text" name="" id="addressFirstLine" 
+                                <label className="form-label d-block">Address Line 1</label>
+                                <input  onChange={(event) => {updateData(event)}} type="text" id="addressFirstLine" 
                                         className="form-control fs-5 applyFormText"
                                         value={applicantDetails.addressFirstLine}/>
                             </div>
 
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Address Line 2</label>
-                                <input onChange={(event) => {updateData(event)}} type="text" name="" id="" 
+                                <label className="form-label d-block">Address Line 2</label>
+                                <input onChange={(event) => {updateData(event)}} type="text" 
                                        className="form-control fs-5 applyFormText"
                                        value={applicantDetails.addressSecondLine}/>
                             </div>
                         
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">City</label>
-                                <input onChange={(event) => {updateData(event)}} type="text" name="" id="city" 
+                                <label className="form-label d-block">City</label>
+                                <input onChange={(event) => {updateData(event)}} type="text" id="city" 
                                        className="form-control fs-5 applyFormText"
                                        value={applicantDetails.city || ""}/>
                             </div>
 
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">District</label>
-                                <input onChange={(event) => {updateData(event)}} type="text" name="" id="" 
+                                <label className="form-label d-block">District</label>
+                                <input onChange={(event) => {updateData(event)}} type="text" 
                                     className="form-control fs-5 applyFormText"
                                     value={applicantDetails.district}/>
                             </div>
 
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">State</label>
-                                <input onChange={(event) => {updateData(event)}} type="text" name="" id="" 
+                                <label className="form-label d-block">State</label>
+                                <input onChange={(event) => {updateData(event)}} type="text" 
                                     className="form-control fs-5 applyFormText"
                                         value={applicantDetails.state}/>
                             </div>
 
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Pin Code</label>
-                                <input onChange={(event) => {updateData(event)}} type="text" name="" id="" 
+                                <label className="form-label d-block">Pin Code</label>
+                                <input onChange={(event) => {updateData(event)}} type="text" 
                                     className="form-control fs-5 applyFormText"
                                         value={applicantDetails.pinCode}/>
                             </div>

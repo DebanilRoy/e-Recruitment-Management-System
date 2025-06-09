@@ -1,7 +1,11 @@
+// Import Dependencies
+
 import { useEffect, useState, formData } from "react"
 import { useRecruitments } from "../../Context/recruitmentsContext";
 import { useNotification } from "../../Context/notificationContext";
 import $ from 'jquery'
+
+// Main Component
 
 export default function AddSubjects () {
     const [subjects, setSubjects] = useState([]);
@@ -9,12 +13,15 @@ export default function AddSubjects () {
 
     const { recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails } = useRecruitments()
 
+    // Getting context components
+
     const Notification = useNotification()
 
-    console.log(subjects)
     useEffect(() => {
         getRecruitments()
     }, [])
+
+    // Backend call to retrieve subjects data
 
     function getSubjects(event) {
         event.preventDefault()
@@ -46,11 +53,15 @@ export default function AddSubjects () {
         return subjects.some(subject => subject.key === key  && subject.subjectName === "")
     }
 
+    // Adds an object in the subjects state variable array
+
     function addCol (key) {
         if (isEmpty(key)) {
             setSubjects(prevSubjects => [...prevSubjects, {key: crypto.randomUUID(), subjectID: "", subjectName: "", priority: ""}])
         }
     }
+
+    // Deletes object from the subjects state variable array
 
     function deleteCol(key) {
         if (subjects.length !== 1 && isEmpty(key)) {
@@ -58,11 +69,15 @@ export default function AddSubjects () {
         }
     }
 
+    // Updates state variable as per change in input component
+
     function updateSubject(key, subjectName) {
         setSubjects(prevSubjects => prevSubjects.map(subject => subject.key === key ? ({...subject, subjectName: subjectName}) : subject))
     }
 
-    function handleSubmit(event) {
+    // Backend call to save subjects
+    
+    function saveSubjects(event) {
         event.preventDefault()
             
         const finalSubjects = subjects.map(({key, ...rest}, index) => ({...rest, priority: index + 1})).slice(0, -1)
@@ -117,7 +132,7 @@ export default function AddSubjects () {
                         </div>) : null}                          
                     </div>
                                      
-                    {(recruitmentDetails) && (<form method="post" onSubmit={(event) => {handleSubmit(event)}} className="">
+                    {(recruitmentDetails) && (<form method="post" onSubmit={(event) => {saveSubjects(event)}} className="">
                         <div className="divModifySubjects">
                             <h4 className="">Subjects</h4>
                             {subjects.map((subject) =>
@@ -126,11 +141,11 @@ export default function AddSubjects () {
                                     onFocus={() => addCol(subject.key)} 
                                     onChange={(event) => updateSubject(subject.key, event.target.value)} 
                                     onBlur={() => deleteCol(subject.key)} 
-                                    id="" placeholder="Subject Name" 
+                                    placeholder="Subject Name" 
                                     className="form-control"/>))}
                         
                             <div className="">
-                                <button disabled={recruitmentDetails.isPublished ? true : false} name="" id="" className="btn buttonSubmit">Save</button>
+                                <button disabled={recruitmentDetails.isPublished ? true : false} className="btn buttonSubmit">Save</button>
                             </div>    
                         </div>
 

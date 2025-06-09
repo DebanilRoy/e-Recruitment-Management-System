@@ -1,3 +1,5 @@
+// Import Dependencies
+
 import { useState, useEffect } from "react";
 import $ from 'jquery'
 import { SHA256 } from "crypto-js";
@@ -5,15 +7,21 @@ import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
 import { useRecruitments } from "../../Context/recruitmentsContext";
 import { getFile } from "../../utils/getFile";
 
+// Main Component
+
 export default function ViewSentAppointments() {
     const [recruitmentData, setRecruitmentData] = useState({})
     const [appointments, setAppointments] = useState([]);
     
+    // Getting context state components and functions
+
     const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
     
     useEffect(() => {
         getRecruitments()
     }, [])
+
+    // Retrieve appointments data from backend
 
     function getAppointments(event) {
         $.ajax({
@@ -29,6 +37,8 @@ export default function ViewSentAppointments() {
         })
     }
 
+    // Retrieve recruitments data from backend
+
     function getRecruitmentData(event) {
         $.ajax({
             type: "POST",
@@ -42,6 +52,8 @@ export default function ViewSentAppointments() {
             }
         })
     }
+
+    // Returns class label as per application status
 
     function getClassLabel(status) {
         switch (status) {
@@ -84,21 +96,21 @@ export default function ViewSentAppointments() {
                         {recruitmentDetails && (
                             <>
                                 <div className="divRecruitmentDetailsLabel">
-                                    <p className="">Post Name : <span className="">{recruitmentDetails.postName}</span></p>
-                                    <p className="">Location : <span className="">{recruitmentDetails.location}</span></p>
-                                    <p className="">Total Applications : <span className="">{recruitmentDetails.applicationCount}</span></p>
-                                    <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancyTotal}</span></p>
-                                    <p className="">GEN : <span className="">{recruitmentDetails.vacancyGEN}</span></p>
-                                    <p className="">SC : <span className="">{recruitmentDetails.vacancySC}</span></p>
-                                    <p className="">ST : <span className="">{recruitmentDetails.vacancyST}</span></p>
-                                    <p className="">OBC : <span className="">{recruitmentDetails.vacancyOBC}</span></p>
+                                    <p>Post Name : <span>{recruitmentDetails.postName}</span></p>
+                                    <p>Location : <span>{recruitmentDetails.location}</span></p>
+                                    <p>Total Applications : <span>{recruitmentDetails.applicationCount}</span></p>
+                                    <p>Total Vacancies : <span>{recruitmentDetails.vacancyTotal}</span></p>
+                                    <p>GEN : <span>{recruitmentDetails.vacancyGEN}</span></p>
+                                    <p>SC : <span>{recruitmentDetails.vacancySC}</span></p>
+                                    <p>ST : <span>{recruitmentDetails.vacancyST}</span></p>
+                                    <p>OBC : <span>{recruitmentDetails.vacancyOBC}</span></p>
                                 </div>
                 
                                 <div className="divAppointmentsDetails">
-                                    <p className="fs-5">Appointments Open  : <span className="">{recruitmentData.open}</span></p>
-                                    <p className="fs-5">Appointments Accepted  : <span className="">{recruitmentData.accepted}</span></p>
-                                    <p className="fs-5">Appointments Rejected : <span className="">{recruitmentData.rejected_lapsed}</span></p>
-                                    <p className="fs-5">Remaining Vacancies : <span className="">{recruitmentData.remaining}</span></p>
+                                    <p className="fs-5">Appointments Open  : <span>{recruitmentData.open}</span></p>
+                                    <p className="fs-5">Appointments Accepted  : <span>{recruitmentData.accepted}</span></p>
+                                    <p className="fs-5">Appointments Rejected : <span>{recruitmentData.rejected_lapsed}</span></p>
+                                    <p className="fs-5">Remaining Vacancies : <span>{recruitmentData.remaining}</span></p>
                                 </div>
                             </>
                         )}
@@ -111,17 +123,17 @@ export default function ViewSentAppointments() {
                                 <thead>
                                     <tr>
                                         <td colSpan="8">
-                                            <input type="text" name="" id="" placeholder="Search Application"
+                                            <input type="text" placeholder="Search Application"
                                                 className="form-control tableSearchBar"/>
                                         </td>
                                     </tr>
-                                    <tr className="">
+                                    <tr>
                                         <th className="rank">Rank</th>
                                         <th className="subResAppltnID">ApplicationID</th>
                                         <th className="subResApplntName">Applicant Name</th>
                                         <th className="subResApplntID">ApplicantID</th>
                                         <th className="subResDob">Date of Birth</th>
-                                        <th className="">Category</th>
+                                        <th>Category</th>
                                         <th className="appointment">Appointment Letter</th>
                                     </tr>
                                 </thead>
@@ -131,12 +143,12 @@ export default function ViewSentAppointments() {
                                             return (
                                                 <tr className={getClassLabel(appointment.offerStatus) + " " + ((!getClassLabel(appointment.offerStatus) ? (classname) : null))}>
                                                     <td className="rank">{appointment.rank}</td>
-                                                    <td className="">{appointment.applicationID.toUpperCase()}</td>
-                                                    <td className="">{appointment.applicantName}</td>
-                                                    <td className="">{appointment.applicantID}</td>
-                                                    <td className="">{appointment.dob}</td>
-                                                    <td className="">{appointment.category}</td>
-                                                    <td className="">
+                                                    <td>{appointment.applicationID.toUpperCase() ?? ""}</td>
+                                                    <td>{appointment.applicantName}</td>
+                                                    <td>{appointment.applicantID}</td>
+                                                    <td>{appointment.dob}</td>
+                                                    <td>{appointment.category}</td>
+                                                    <td>
                                                     <span onClick={() => {getFile(SHA256(appointment.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span></td>
                                                 </tr>
                                             )                                                

@@ -1,3 +1,5 @@
+// Import Dependencies
+
 import { useEffect, useState } from "react"
 import { useUser } from "../../Context/userContext"
 import $ from 'jquery'
@@ -8,6 +10,8 @@ import { getFile } from "../../utils/getFile";
 import { useConfirmModal } from "../../Context/modalContext";
 import { useNotification } from "../../Context/notificationContext";
 
+// Main component
+
 export default function SendAppointment() {
     const context = useUser();
     const userID = context.userID
@@ -15,15 +19,20 @@ export default function SendAppointment() {
     const [applications, setApplications] = useState([]);
     const [checkedApplications, setCheckedApplications] = useState([])
     
+    // Getting context variables and functions
+
     const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
 
-    const confirmModal = useConfirmModal()
+    // Getting context components
 
+    const confirmModal = useConfirmModal()
     const Notification = useNotification()
 
     useEffect(() => {
         getRecruitments()       
     }, [])
+
+    // Sets 'isEnabled' variable as per status of application and availability of vacancies 
 
     if (recruitmentDetails) {
         var vacancyCount = {
@@ -34,43 +43,45 @@ export default function SendAppointment() {
         }   
     } 
 
-    const appRender = applications.map(application => {
+    const applicationRender = applications.map(application => {
 
-            if (application.isVerified === 0 || application.verifyStatus === -1 || ["rejected", "lapsed"].includes(application.offerStatus) ) {
-                return {...application, isRowEnabled: false}
+        if (application.isVerified === 0 || application.verifyStatus === -1 || ["rejected", "lapsed"].includes(application.offerStatus) ) {
+            return {...application, isRowEnabled: false}
+        }
+
+        else {
+            if (vacancyCount[application.category] > 0 ) {
+                vacancyCount[application.category]--
+            }
+
+            else if (application.category !== "GEN" && vacancyCount[application.category] > 0 ) {
+                vacancyCount[application.category]--
+                
             }
 
             else {
-                if (vacancyCount[application.category] > 0 ) {
-                    vacancyCount[application.category]--
-                }
-
-                else if (application.category !== "GEN" && vacancyCount[application.category] > 0 ) {
-                    vacancyCount[application.category]--
-                    
+                if (vacancyCount["GEN"] > 0) {
+                    vacancyCount["GEN"]--
                 }
 
                 else {
-                    if (vacancyCount["GEN"] > 0) {
-                        vacancyCount["GEN"]--
-                    }
-
-                    else {
-                        return {...application, isEnabled: false}
-                    }
-                }
-
-                if (["open", "accepted"].includes(application.offerStatus)) {
                     return {...application, isEnabled: false}
                 }
+            }
 
-                else {
-                    return {...application, isEnabled: true}
-                }
-                
-            }                                             
-        })
+            if (["open", "accepted"].includes(application.offerStatus)) {
+                return {...application, isEnabled: false}
+            }
+
+            else {
+                return {...application, isEnabled: true}
+            }
+            
+        }                                             
+    })
         
+    // Retrieves recruitment data from backend
+
     function getRecruitmentData(event) {
         $.ajax({
             type: "POST",
@@ -84,11 +95,13 @@ export default function SendAppointment() {
             }
         })
     }
-  
+
     function updateVacancyCounter(event) {
         setRecruitmentData(prev => ({...prev, remaining: (event.target.checked) ? (prev.remaining - 1) : (prev.remaining + 1)}))
     }
     
+    // Retrieves applications data from backend
+
     function getApplications(event) {
         $.ajax({
             type: "POST",
@@ -102,6 +115,8 @@ export default function SendAppointment() {
             }
         })
     }
+
+    // Backend call to send appointment
 
     async function sendAppointment(event) {
         event.preventDefault()
@@ -131,6 +146,8 @@ export default function SendAppointment() {
         }
     }
   
+    // Returns class label as per status of application
+
     function getClassLabel(status) {
         switch (status) {
             case "open":
@@ -149,6 +166,8 @@ export default function SendAppointment() {
                 break;
         }
     }
+    
+    // Updates state variable for checked applications 
     
     function updateCheckedApplications(event, applicationID) {
         (event.target.checked) ? setCheckedApplications(prev => ([...prev, applicationID])) : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
@@ -176,21 +195,21 @@ export default function SendAppointment() {
                         {recruitmentDetails && (
                             <>
                                 <div className="divRecruitmentDetailsLabel">
-                                    <p className="">Post Name : <span className="">{recruitmentDetails.postName}</span></p>
-                                    <p className="">Location : <span className="">{recruitmentDetails.location}</span></p>
-                                    <p className="">Total Applications : <span className="">{recruitmentDetails.applicationCount}</span></p>
-                                    <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancyTotal}</span></p>
-                                    <p className="">GEN : <span className="">{recruitmentDetails.vacancyGEN}</span></p>
-                                    <p className="">SC : <span className="">{recruitmentDetails.vacancySC}</span></p>
-                                    <p className="">ST : <span className="">{recruitmentDetails.vacancyST}</span></p>
-                                    <p className="">OBC : <span className="">{recruitmentDetails.vacancyOBC}</span></p>
+                                    <p>Post Name : <span >{recruitmentDetails.postName}</span></p>
+                                    <p>Location : <span >{recruitmentDetails.location}</span></p>
+                                    <p>Total Applications : <span >{recruitmentDetails.applicationCount}</span></p>
+                                    <p>Total Vacancies : <span >{recruitmentDetails.vacancyTotal}</span></p>
+                                    <p>GEN : <span >{recruitmentDetails.vacancyGEN}</span></p>
+                                    <p>SC : <span >{recruitmentDetails.vacancySC}</span></p>
+                                    <p>ST : <span >{recruitmentDetails.vacancyST}</span></p>
+                                    <p>OBC : <span >{recruitmentDetails.vacancyOBC}</span></p>
                                 </div>
                 
                                 <div className="divAppointmentsDetails">
-                                    <p className="fs-5">Appointments Open  : <span className="">{recruitmentData.open}</span></p>
-                                    <p className="fs-5">Appointments Accepted  : <span className="">{recruitmentData.accepted}</span></p>
-                                    <p className="fs-5">Appointments Rejected : <span className="">{recruitmentData.rejected_lapsed}</span></p>
-                                    <p className="fs-5">Remaining Vacancies : <span className="">{recruitmentData.remaining}</span></p>
+                                    <p className="fs-5">Appointments Open  : <span >{recruitmentData.open}</span></p>
+                                    <p className="fs-5">Appointments Accepted  : <span >{recruitmentData.accepted}</span></p>
+                                    <p className="fs-5">Appointments Rejected : <span >{recruitmentData.rejected_lapsed}</span></p>
+                                    <p className="fs-5">Remaining Vacancies : <span >{recruitmentData.remaining}</span></p>
                                 </div>
                             </>
                         )}
@@ -203,24 +222,24 @@ export default function SendAppointment() {
                                 <thead>
                                     <tr>
                                         <td colSpan="8">
-                                            <input type="text" name="" id="" placeholder="Search Application"
+                                            <input type="text" id="" placeholder="Search Application"
                                                 className="form-control tableSearchBar"/>
                                         </td>
                                     </tr>
-                                    <tr className="">
-                                        <th className=""></th>
+                                    <tr>
+                                        <th></th>
                                         <th className="rank">Rank</th>
                                         <th className="subResAppltnID">ApplicationID</th>
                                         <th className="subResApplntName">Applicant Name</th>
                                         <th className="subResApplntID">ApplicantID</th>
                                         <th className="subResDob">Date of Birth</th>
-                                        <th className="">Category</th>
+                                        <th>Category</th>
                                         <th className="appointment">Appointment Letter</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {
-                                        appRender.map(application => {
+                                        applicationRender.map(application => {
                                             console.log(application.applicationID)
                                             
                                             return (
@@ -230,12 +249,12 @@ export default function SendAppointment() {
                                                         {application.isEnabled && <input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"/>} 
                                                     </td>
                                                     <td className="rank">{application.rank}</td>
-                                                    <td className="">{application.applicationID.toUpperCase()}</td>
-                                                    <td className="">{application.applicantName}</td>
-                                                    <td className="">{application.applicantID}</td>
-                                                    <td className="">{application.dob}</td>
-                                                    <td className="">{application.category}</td>
-                                                    <td className="">
+                                                    <td>{application.applicationID.toUpperCase()}</td>
+                                                    <td>{application.applicantName}</td>
+                                                    <td>{application.applicantID}</td>
+                                                    <td>{application.dob}</td>
+                                                    <td>{application.category}</td>
+                                                    <td>
                                                         { (application.offerStatus === null) 
                                                             ?   application.isEnabled
                                                                     && <input className="appntLetterUpload" type="file" id={application.applicationID} required={checkedApplications.includes(application.applicationID)} />
@@ -250,7 +269,7 @@ export default function SendAppointment() {
                                 </tbody>
                             </table>
 
-                            <button name="" id="" className="btn buttonPrimary">Send Appointment</button>
+                            <button className="btn buttonPrimary">Send Appointment</button>
                         </form>
                     )}
                 </div>

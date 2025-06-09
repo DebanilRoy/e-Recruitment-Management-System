@@ -1,8 +1,7 @@
 // Import Dependencies
 
-import React from 'react'
-import { useState, useEffect, useContext } from 'react'
-import { Routes, Route, Link, useNavigate } from 'react-router';   
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router';   
 import { SHA256 } from 'crypto-js';
 import $ from 'jquery'
 import { useUser } from '../Context/userContext';
@@ -12,6 +11,8 @@ import { useUser } from '../Context/userContext';
 export default function Login() {
     const [credentials, setCredentials] = useState({accType: "Applicant", email: "", pwd: ""});
     const [loginCode, setLoginCode] = useState(null);
+
+    // Getting context variables
 
     const setIsLogin = useUser().setIsLogin
     const setAccType = useUser().setAccType
@@ -53,9 +54,13 @@ export default function Login() {
         })
     }
 
+    // Updates React State variable as per change in input elements
+
     function updateData(event) {
         setCredentials(prev => ({...prev, [event.target.id] : event.target.value}))
     }
+
+    // Returns Login Error Message Based on Login Code
 
     function loginError() {
         switch (loginCode) {

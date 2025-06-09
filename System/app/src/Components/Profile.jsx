@@ -1,3 +1,5 @@
+// Import Dependencies
+
 import { useEffect, useState } from "react";
 import $ from 'jquery'
 import { useUser } from "../Context/userContext";
@@ -6,10 +8,14 @@ import { updateData } from "../utils/inputCheck";
 import { phoneNumberCheck } from "../utils/inputCheck";
 import { pinCodeCheck } from "../utils/inputCheck";
 
+// Main Component
+
 export default function Profile () {
     const userID = useUser().userID
     const [profile, setProfile] = useState({firstName: "", lastName: "", mobile: null, alternateMobile: null})
     const [editView, setEditView] = useState(false);
+
+    // Retrieves profile details from backend
 
     function getProfile() {
         $.ajax({
@@ -29,6 +35,8 @@ export default function Profile () {
     }
 
     useEffect(() => getProfile(), [])
+
+    // Backend call to edit profile
 
     function editProfile(event) {
         event.preventDefault();
@@ -57,19 +65,19 @@ export default function Profile () {
                     <form onSubmit={(event) => {}} action="" className="formProfile">                                              
                         <div>
                             <div id="email" className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Email</label>
+                                <label className="form-label d-block">Email</label>
                                 <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}}
-                                        type="email" name="" id="email" value={profile.email}
+                                        type="email" id="email" value={profile.email}
                                         className={"form-control fs-5 " + (editView && (regex.emailRx.test(profile.email) ? " accept" : " reject"))}/>
                             </div>
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Mobile Number</label>
+                                <label className="form-label d-block">Mobile Number</label>
                                 <input  disabled={!editView} onChange={(event) => {phoneNumberCheck(event, setProfile)}}
                                         type="number" maxLength={10} name="phonenumber" id="mobile" value={profile.mobile}
                                         className={"form-control fs-5 " + (editView && (profile.mobile && regex.numberRx.test(profile.mobile) ? " accept" : " reject"))}/>
                             </div>
                             <div className="fs-5">
-                                <label htmlFor="" className="form-label d-block">Alternate Mobile Number</label>
+                                <label className="form-label d-block">Alternate Mobile Number</label>
                                 <input disabled={!editView} onChange={(event) => {phoneNumberCheck(event, setProfile)}}
                                         type="number" name="phonenumber" id="alternateMobile" value={profile.alternateMobile || ""}
                                         className={"form-control fs-5 " + (editView && (profile.alternateMobile && regex.numberRx.test(profile.alternateMobile) ? " accept" : " reject"))}/>
@@ -97,10 +105,10 @@ export default function Profile () {
                             }
                         </div>
 
-                        <h4 className="">Qualification and Category</h4>
+                        <h4 class>Qualification and Category</h4>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Qualification</label>
+                            <label className="form-label d-block">Qualification</label>
                             <select disabled={!editView} className="form-control fs-5" 
                                 onChange={(event) => {updateData(event, setProfile)}}
                                 id="qualification"
@@ -113,11 +121,10 @@ export default function Profile () {
                         </div>
         
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Category</label>
+                            <label className="form-label d-block">Category</label>
                             <select disabled={!editView} className="form-control fs-5" 
                                 onChange={(event) => {console.log(event); updateData(event, setProfile)}}
-                                id="category"
-                                >
+                                id="category">
                                 <option value="GEN">GEN</option>
                                 <option value="SC">SC</option>
                                 <option value="ST">ST</option>
@@ -125,45 +132,45 @@ export default function Profile () {
                             </select>
                         </div>
 
-                        <h4 className="">Address</h4>
+                        <h4 class>Address</h4>
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Address Line 1</label>
-                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" name="" id="addressFirstLine" 
+                            <label className="form-label d-block">Address Line 1</label>
+                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" id="addressFirstLine" 
                                     className="form-control fs-5"
                                     value={profile.addressFirstLine}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Address Line 2</label>
-                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" name="" id="addressSecondLine" 
+                            <label className="form-label d-block">Address Line 2</label>
+                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" id="addressSecondLine" 
                                     className="form-control fs-5"
                                     value={profile.addressSecondLine}/>
                         </div>
                     
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">City</label>
-                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" name="" id="city" 
+                            <label className="form-label d-block">City</label>
+                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" id="city" 
                                     className="form-control fs-5"
                                     value={profile.city || ""}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">District</label>
-                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" name="" id="district" 
+                            <label className="form-label d-block">District</label>
+                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" id="district" 
                                     className="form-control fs-5"
                                 value={profile.district}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">State</label>
-                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" name="" id="state" 
+                            <label className="form-label d-block">State</label>
+                            <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}} type="text" id="state" 
                                     className="form-control fs-5"
                                     value={profile.state}/>
                         </div>
 
                         <div className="fs-5">
-                            <label htmlFor="" className="form-label d-block">Pin Code</label>
-                            <input disabled={!editView} onChange={(event) => {pinCodeCheck(event, setProfile)}} type="text" name="" id="pinCode" 
+                            <label className="form-label d-block">Pin Code</label>
+                            <input disabled={!editView} onChange={(event) => {pinCodeCheck(event, setProfile)}} type="text" id="pinCode" 
                                     className="form-control fs-5"
                                     value={profile.pinCode}/>
                         </div>

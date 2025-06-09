@@ -1,22 +1,32 @@
+// Import Dependencies
+
 import { useEffect, useState } from "react"
 import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar"
 import $ from 'jquery'
 import { useConfirmModal } from "../../Context/modalContext";
 import { useRecruitments } from "../../Context/recruitmentsContext";
 
+// Main component
+
 export default function CreateRankList() {
     const [subjects, setSubjects] = useState([]);
     const [rankList, setRankList] = useState([]);
     const [recruitmentData, setRecruitmentData] = useState({});
 
-    const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
-    const confirmModal = useConfirmModal()
+    // Getting context variables and functions
 
+    const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
+
+    // Getting context components
+
+    const confirmModal = useConfirmModal()
     
     useEffect(() => {
         getRecruitments();
     }, [])
     
+    // Retrieves recruitment data from backend
+
     function getRecruitmentData(event) {
         event.preventDefault()
         const form = $(event.target)
@@ -33,6 +43,8 @@ export default function CreateRankList() {
         })
     }
     
+    // Retrieves subjects data from backend
+
     function getSubjects(event) {
         $.ajax({
             type: "POST",
@@ -46,6 +58,8 @@ export default function CreateRankList() {
         })
     }
     
+    // Retrieves rank list from backend
+
     function getRankList(event) {
         console.log("getRankList")
         $.ajax({
@@ -61,6 +75,8 @@ export default function CreateRankList() {
         })
     }
 
+    // Backend call to update rank list
+
     function updateRankList() {
         $.ajax({
             type: "POST",
@@ -75,6 +91,8 @@ export default function CreateRankList() {
         })
     }
 
+    // Backend call to freeze rank list
+    
     async function freezeRankList() {
         const freezeConfirm = await confirmModal("Are you sure you want to Freeze the Rank List?");
         if (freezeConfirm) {
@@ -127,7 +145,7 @@ export default function CreateRankList() {
                                     <td style={{width: "100%"}} colSpan={(subjects.length > 0) ? (6 + subjects.length) : (6)}>
                                         <button onClick={(event) => updateRankList(event)} 
                                                 className="btn rankListUpdate">Update Rank List</button>
-                                        <input type="text" name="" id="" placeholder="Search Rank" className="float-end form-control rounded-0 tableSearchBar"/>
+                                        <input type="text" placeholder="Search Rank" className="float-end form-control rounded-0 tableSearchBar"/>
                                     </td>
                                 </tr>
                                 <tr className="">

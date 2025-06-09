@@ -1,6 +1,8 @@
 <?php
     include "../session/session.php";
 
+    // Associative array for mapping filepath
+
     $paths = ["recruitments" => "recruitments",
                   "appointments" => "appointments",
                   "photo" => "documents/photo",
@@ -10,11 +12,17 @@
                   "address" => "documents/address"];
 
     $filerequest = json_decode(file_get_contents("php://input"));
+    
     [$fileref, $filetype] = [$filerequest->filename, $filerequest->filetype];
 
-    $filepath = "../../uploads/" . $paths[$filetype] . "/" . $fileref;
-    $filesearch = glob($filepath . ".*");
+    // Creating complete filepath for storing document
 
+    $filepath = "../../uploads/" . $paths[$filetype] . "/" . $fileref;
+
+    // Checking if file by the same name already exists
+
+    $filesearch = glob($filepath . ".*");
+    
     if (!empty($filesearch)) {
         $file = $filesearch[0];
     }
@@ -24,7 +32,11 @@
         exit;
     }
 
+
     if (file_exists($file)) {
+
+        // Saving file in backend storage
+        
         $mimeType = mime_content_type($file);
         header("Content-Type: " . $mimeType);
         header("Content-Disposition: attachment; filename=\"" . basename($file) . "\"");

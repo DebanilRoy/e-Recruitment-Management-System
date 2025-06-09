@@ -1,14 +1,22 @@
+// Import Dependencies
+
 import { useEffect, useState } from "react"
 import { useConfirmModal } from "../../../Context/modalContext"
 import { useNotification } from "../../../Context/notificationContext"
 import { getFile } from "../../../utils/getFile"
 import $ from 'jquery'
 
+// Main Component
+
 export default function AppointmentsOpen() {
     const [appointments, setAppointments] = useState([])
-    
+
+    // Getting context components
+
     const Confirm = useConfirmModal()
     const notification = useNotification()
+
+    // Retrives appointments data from backend
 
     function getAppointments() {
         $.ajax({
@@ -28,6 +36,8 @@ export default function AppointmentsOpen() {
         })
     }
     
+    // Backend call to accept an appointment
+
     async function accept(appointmentID) {
         const confirm = await Confirm("Are you sure you want to accept the offer?")
         confirm &&
@@ -45,6 +55,8 @@ export default function AppointmentsOpen() {
         })
     }
 
+    // Backend call to reject an appointment
+
     async function reject(appointmentID) {
         const confirm = await Confirm("Are you sure you want to reject the offer?")
         confirm && $.ajax({
@@ -60,7 +72,6 @@ export default function AppointmentsOpen() {
             }
         })
     }
-    
     
     useEffect(() => {
         getAppointments()
@@ -82,9 +93,10 @@ export default function AppointmentsOpen() {
                             <p className="card-text fs-5">Location: <span>{appointment.location}</span></p>
                             <p className="card-text fs-5">Offer Date: <span>{appointment.offerDate}</span></p>
                             <p className="card-text fs-5">Offer Deadline: <span>{appointment.offerLastDate}</span></p>
-                            <button /*onClick={() => {getFile()}}*/ type="button" className="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Appointment Letter</button>
+                            <button onClick={() => {getFile(appointment.appointmentID, "recruitments")}} type="button" className="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Appointment Letter</button>
                             
                             <br/>
+
                             <div className="d-flex justify-content-between">
                                 {(appointment.offerStatus === "open") && (
                                     <>
@@ -100,7 +112,6 @@ export default function AppointmentsOpen() {
 
                         </div>)) : (<p>No Open Offers</p>)
                     }
-                    
                 </div>
             </div>
         </>

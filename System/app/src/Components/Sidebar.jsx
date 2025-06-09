@@ -1,4 +1,4 @@
-import { useNavigate, Link, replace, NavLink } from "react-router"
+import { useNavigate, NavLink } from "react-router"
 import { useUser } from "../Context/userContext"
 
 export default Sidebar
@@ -51,8 +51,7 @@ function SidebarRecruitee() {
     )
 }
 
-function SidebarRecruiter(props) {
-    const navigate = useNavigate()
+function SidebarRecruiter() {
     return (
         <>
             <div id="sidebar" className="sideBar sideBarOpen">

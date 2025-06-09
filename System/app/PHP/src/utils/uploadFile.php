@@ -1,4 +1,7 @@
 <?php
+    
+    // Associative array for mapping filepath
+
     $paths = [  "recruitment" => "recruitment",
                 "appointments" => "appointments",
                 "photo" => "documents/photo",
@@ -7,6 +10,8 @@
                 "category" => "documents/category",
                 "address" => "documents/address"];
 
+    // Function for file uploading
+    
     function file_upload($filepath, $basename, $filetype) {
         global $paths;
         

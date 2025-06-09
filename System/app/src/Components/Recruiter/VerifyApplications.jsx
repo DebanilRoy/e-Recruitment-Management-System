@@ -1,3 +1,5 @@
+// Import Dependencies
+
 import { useEffect, useState } from "react"
 import $ from 'jquery'
 import { SHA256 } from 'crypto-js' 
@@ -7,23 +9,29 @@ import { useConfirmModal } from "../../Context/modalContext"
 import { useNotification } from "../../Context/notificationContext";
 import { getFile } from "../../utils/getFile"
 
+// Main Component
+
 export default function VerifyApplications() {
-//    const [recruitmentID, setRecruitmentID] = useState(null);
     const [openApplicationBio, setOpenApplicationBio] = useState(false);
     const [applicationBio, setApplicationBio] = useState({});
     const [applications, setApplications] = useState([]);
     const [applicationsData, setApplicationsData] = useState({});
     const [checkedApplications, setCheckedApplications] = useState([]);
 
+    // Getting context state components and functions
+
     const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
 
-    const confirmModal = useConfirmModal()
+    // Getting context components
 
+    const confirmModal = useConfirmModal()
     const Notification = useNotification()
 
     useEffect(() => {
         getRecruitments()
     }, [])
+
+    // Retrieves applications data from backend
 
     function getApplicationsData(event) {
         event.preventDefault()
@@ -37,6 +45,8 @@ export default function VerifyApplications() {
         })
     }
 
+    // Retrieves application data from backend
+
     function getApplications(event) {
         event.preventDefault()
         $.ajax({
@@ -48,6 +58,8 @@ export default function VerifyApplications() {
             }
         })
     }
+
+    // Retrieves application bio from backend
 
     function getApplicationBio(applicationID) {
         $.ajax({
@@ -62,6 +74,8 @@ export default function VerifyApplications() {
         })
     }
     
+    // Backend call to verify applications
+
     async function verifyApplications(event) {
         event.preventDefault()
         const action = event.nativeEvent.submitter.name === "verify" ? "verify" : "reject"
@@ -151,7 +165,7 @@ export default function VerifyApplications() {
                             <thead>
                                 <tr>
                                     <td colSpan="7">
-                                        <input type="text" name="" id="" placeholder="Search Rank" className="form-control tableSearchBar"/>
+                                        <input type="text" id="" placeholder="Search Rank" className="form-control tableSearchBar"/>
                                     </td>
                                 </tr>
                                 <tr>

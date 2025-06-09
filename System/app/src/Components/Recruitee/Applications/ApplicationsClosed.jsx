@@ -1,9 +1,15 @@
+// Import Dependencies
+
 import { useState, useEffect } from "react";
 import $ from 'jquery'
+
+// Main Component
 
 export default function ApplicationsClosed() {
     const [closedApplications, setClosedApplications] = useState([])
     const [applicationStatus, setApplicationStatus] = useState(null)
+    
+    // Retrives closed applications data from backend
     
     function getClosedApplications() {
         $.ajax({
@@ -55,7 +61,9 @@ export default function ApplicationsClosed() {
                         )) : null}
                         <p id="null_applications">No Cancelled applications!</p>
                     </div>
-                    {(applicationStatus !== null) && (<div id="status" className="d-inline-block card cardApplicationStatus open">
+                    {(applicationStatus !== null) && (
+                        
+                        <div id="status" className="d-inline-block card cardApplicationStatus open">
 
                             <div className="d-inline-block w-100">
                                 <h2 className="d-inline-block card-title mb-2 text-center bottomp">{applicationStatus.applicationID.toUpperCase()}</h2>

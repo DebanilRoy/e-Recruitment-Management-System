@@ -1,16 +1,24 @@
+// Import Dependencies
+
 import { useEffect, useState } from 'react'
 import $ from 'jquery'
 import { useConfirmModal } from '../../../Context/modalContext';
 import { useNotification } from '../../../Context/notificationContext';
 import { getFile } from '../../../utils/getFile';
 
+// Main Component
+
 export default function ApplicationsOpen() {
     const [applications, setApplications] = useState([])
     const [applicationStatus, setApplicationStatus] = useState(null)
 
+    // Getting context components
+
     const confirmModal = useConfirmModal()
     const notification = useNotification()
 
+    // Retrieves application data from backend
+    
     function getApplications() {
         $.ajax({
             type: "POST",
@@ -36,6 +44,8 @@ export default function ApplicationsOpen() {
         getApplications()
     }, [])
 
+    // Cancels an application
+    
     async function cancelApplication(applicationID) {
         const confirm = await confirmModal("Are you sure you want to Cancel the Application?")
         confirm && $.ajax({

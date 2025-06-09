@@ -4,6 +4,8 @@
 
     $recruitmentID = $_POST['recruitmentID'];
     
+    // MySQL prepared statement for retrieving recruitment details
+    
     $statDetails = $conn->prepare(  "SELECT r.postName, r.location, r.vacancyTotal, r.isFrozen,
                                     CAST( CASE WHEN SUM(CASE WHEN a.recruitmentID = '$recruitmentID' 
                                     THEN 1 ELSE NULL END) > 0 THEN SUM(CASE WHEN a.recruitmentID = '$recruitmentID' 

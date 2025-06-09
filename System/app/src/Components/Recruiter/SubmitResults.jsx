@@ -1,15 +1,24 @@
+// Import Dependencies
 import { useState, useEffect } from 'react'
-import RecruitmentIDSearchBar from '../RecruitmentIDSearchBar'
+import $ from 'jquery'
 import { useRecruitments } from '../../Context/recruitmentsContext'
 import { useNotification } from '../../Context/notificationContext'
 
-import $ from 'jquery'
+// Import Components
+
+import RecruitmentIDSearchBar from '../RecruitmentIDSearchBar'
+
+// Main Components
 
 export default function SubmitResults() {
     const [resultData, setResultData] = useState([]);
     const [subjects, setSubjects] = useState([])
 
+    // Getting context state components and functions
+
     const {recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails} = useRecruitments()
+
+    // Getting context components
 
     const Notification = useNotification()
 
@@ -17,7 +26,8 @@ export default function SubmitResults() {
         getRecruitments()
     }, [])
 
-    console.log(resultData)
+    // Retrieve subjects data from backend
+
     function getSubjects(event) {
         event.preventDefault()
         $.ajax({
@@ -30,6 +40,8 @@ export default function SubmitResults() {
         })
     }
 
+    // Retrieve results data from backend
+
     function getResults(event) {
         const form = $(event.target)
         $.ajax({
@@ -41,6 +53,8 @@ export default function SubmitResults() {
             }
         })
     }
+
+    // Backend call to save results
 
     function saveResults() {
         const sendData = {recruitmentID: recruitmentDetails.recruitmentID, 
@@ -68,16 +82,21 @@ export default function SubmitResults() {
         })
     }
 
+    // Updates react state as per change in input element
+
     function updateData(key, dataKey, data) {
         setResultData(prevData => prevData.map(application => (application.key === key) ? {...application, [dataKey]: data} : application))
     }
 
+    // Adds an object in the result state component
+
     function addRow(key) {
         if (checkRow(key)) {
-            const application = resultData.findIndex(application => application.key === key);
             setResultData([{key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: ""}, ...resultData]);
         }
     }
+    
+    // Deletes an object from the result state component
     
     function deleteRow(key) {
         if (checkRow(key)) {
@@ -85,6 +104,8 @@ export default function SubmitResults() {
         }
     }
 
+    // Checks if the row in focus is empty
+    
     function checkRow(key) {
         var isEmpty = true
         const application = resultData.findIndex(application => application.key === key);
@@ -121,11 +142,11 @@ export default function SubmitResults() {
                         </form>
                         
                         {(recruitmentDetails) ? (<div className="divRecruitmentDetailsLabel">
-                            <p className="">Post Name : <span className="">{recruitmentDetails.postName}</span></p>
-                            <p className="">Location : <span className="">{recruitmentDetails.location}</span></p>
-                            <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancyTotal}</span></p>
-                            <p className="">Total Applications : <span className="">{recruitmentDetails.applicationCount}</span></p>
-                            <p className="">Results Saved : <span className="">{recruitmentDetails.applicationCount}</span></p>
+                            <p>Post Name : <span>{recruitmentDetails.postName}</span></p>
+                            <p>Location : <span>{recruitmentDetails.location}</span></p>
+                            <p>Total Vacancies : <span>{recruitmentDetails.vacancyTotal}</span></p>
+                            <p>Total Applications : <span>{recruitmentDetails.applicationCount}</span></p>
+                            <p>Results Saved : <span>{recruitmentDetails.applicationCount}</span></p>
                         </div>) : null}
                     </div>
         
@@ -135,11 +156,11 @@ export default function SubmitResults() {
                                 <thead>
                                     <tr>
                                         <td colSpan={(subjects.length > 0) ? (4 + subjects.length) : (4)}>
-                                            <input type="text" name="" id="" placeholder="Search Result" 
+                                            <input type="text" placeholder="Search Result" 
                                                 className="form-control rounded-0 resultSearchBar"/>
                                         </td>
                                     </tr>
-                                    <tr className="">
+                                    <tr>
                                         <th className="subResAppltnID">ApplicationID</th>
                                         <th className="subResApplntName">Applicant Name</th>
                                         <th className="subResApplntID">ApplicantID</th>
@@ -158,9 +179,9 @@ export default function SubmitResults() {
                                                 <input  disabled={recruitmentDetails.isFrozen} value={application.applicationID.toUpperCase()} 
                                                         onChange={ (event) => {updateData(application.key, "applicationID", event.target.value.toLowerCase())}} 
                                                         type="text" placeholder="ApplicationID" className="form-control"/></td>
-                                            <td className="">{application.applicantName}</td>
-                                            <td className="">{application.applicantID}</td>
-                                            <td className="">{application.dob}</td>
+                                            <td>{application.applicantName}</td>
+                                            <td>{application.applicantID}</td>
+                                            <td>{application.dob}</td>
                                             {(subjects.length > 0) && (subjects.map(subject => (
                                                 <td className={"subresTdInput " + subject.subjectName}>
                                                     <input disabled={recruitmentDetails.isFrozen} value={application[subject.subjectName]} 
@@ -180,7 +201,7 @@ export default function SubmitResults() {
                                     <button onClick={() => {saveResults()}} className="btn fs-5 buttonPrimary">Save</button>
                                 </div> :
                                 <div className="d-inline-block fs-5 mb-3 me-3 regFormDiv">
-                                    <p className="">Rank List Frozen</p>
+                                    <p>Rank List Frozen</p>
                                 </div>}
                             </div>
                         </>
