@@ -12,7 +12,11 @@ import { pinCodeCheck } from "../utils/inputCheck";
 
 export default function Profile () {
     const userID = useUser().userID
-    const [profile, setProfile] = useState({firstName: "", lastName: "", mobile: null, alternateMobile: null})
+    const [profile, setProfile] = useState({firstName: "", 
+                                            lastName: "", mobile: null, 
+                                            alternateMobile: null
+                                        })
+
     const [editView, setEditView] = useState(false);
 
     // Retrieves profile details from backend
@@ -68,19 +72,28 @@ export default function Profile () {
                                 <label className="form-label d-block">Email</label>
                                 <input disabled={!editView} onChange={(event) => {updateData(event, setProfile)}}
                                         type="email" id="email" value={profile.email}
-                                        className={"form-control fs-5 " + (editView && (regex.emailRx.test(profile.email) ? " accept" : " reject"))}/>
+                                        className={"form-control fs-5 " + 
+                                            (editView 
+                                                && (regex.emailRx.test(profile.email) 
+                                                    ? " accept" : " reject"))}/>
                             </div>
                             <div className="fs-5">
                                 <label className="form-label d-block">Mobile Number</label>
                                 <input  disabled={!editView} onChange={(event) => {phoneNumberCheck(event, setProfile)}}
                                         type="number" maxLength={10} name="phonenumber" id="mobile" value={profile.mobile}
-                                        className={"form-control fs-5 " + (editView && (profile.mobile && regex.numberRx.test(profile.mobile) ? " accept" : " reject"))}/>
+                                        className={"form-control fs-5 " + 
+                                            (editView && (profile.mobile  
+                                                        && regex.numberRx.test(profile.mobile) 
+                                                            ? " accept" : " reject"))}/>
                             </div>
                             <div className="fs-5">
                                 <label className="form-label d-block">Alternate Mobile Number</label>
                                 <input disabled={!editView} onChange={(event) => {phoneNumberCheck(event, setProfile)}}
                                         type="number" name="phonenumber" id="alternateMobile" value={profile.alternateMobile || ""}
-                                        className={"form-control fs-5 " + (editView && (profile.alternateMobile && regex.numberRx.test(profile.alternateMobile) ? " accept" : " reject"))}/>
+                                        className={"form-control fs-5 " + (
+                                            editView && (profile.alternateMobile 
+                                                        && regex.numberRx.test(profile.alternateMobile) 
+                                                            ? " accept" : " reject"))}/>
                             </div>
                         </div>
 
@@ -95,11 +108,14 @@ export default function Profile () {
                         </div> 
 
                         <div className="divEditProfile">
-                            {!editView ? <button onClick={(event) => {event.preventDefault(); setEditView(!editView)}} className="btn buttonSubmit">Edit</button>
+                            {!editView ? <button onClick={(event) => {event.preventDefault(); setEditView(!editView)}} 
+                                className="btn buttonSubmit">Edit</button>
                                         : (
                                             <>
-                                                <button onClick={(event) => {editProfile(event)}} className="btn buttonSubmit">Save</button>
-                                                <button onClick={(event) => {event.preventDefault(); setEditView(!editView); getProfile()}} className="btn buttonSubmit">Cancel</button>
+                                                <button onClick={(event) => {editProfile(event)}} 
+                                                    className="btn buttonSubmit">Save</button>
+                                                <button onClick={(event) => {event.preventDefault(); setEditView(!editView); getProfile()}} 
+                                                    className="btn buttonSubmit">Cancel</button>
                                             </>
                                         )
                             }

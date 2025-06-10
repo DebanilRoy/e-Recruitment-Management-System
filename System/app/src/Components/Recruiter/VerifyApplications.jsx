@@ -94,7 +94,9 @@ export default function VerifyApplications() {
     }
 
     function updateCheckedApplications(event, applicationID) {
-        (event.target.checked) ? setCheckedApplications(prev => ([...prev, applicationID])) : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
+        (event.target.checked) 
+            ? setCheckedApplications(prev => ([...prev, applicationID])) 
+            : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
     }
 
     return (
@@ -105,36 +107,36 @@ export default function VerifyApplications() {
                 </div>
                 <div className="pt-2 ps-2">
 
-                <div className="divRecruitmentInfo"> 
-                    <form onSubmit={(event) => {getRecruitmentDetails(event); getApplications(event); getApplicationsData(event)}}>
-                        <RecruitmentIDSearchBar>
-                            {recruitments.map(recruitment => (
-                                recruitment.isFrozen && <option>{recruitment.recruitmentID}</option>
-                            ))}
-                        </RecruitmentIDSearchBar>
-                                                
-                        <button className="btn fs-5">Submit</button>
-                    </form>
-                    
-                    {(recruitmentDetails) ? (
-                        <div className="divRecruitmentDetailsLabel verifyApplicationsLabel">
-                            <p>Post Name : <span>{recruitmentDetails.postName}</span></p>
-                            <p>Location : <span>{recruitmentDetails.location}</span></p>
-                            <p>Total Vacancies : <span>{recruitmentDetails.vacancyTotal}</span></p>
-                            <p>Total Applications : <span>{applicationsData.applicationCount}</span></p>
-                            <p>Applications Checked : <span>{applicationsData.checked}</span></p>
-                            <p>Application Verified : <span>{applicationsData.verified}</span></p>
-                        </div>
-                    ) : null}
-                </div>     
-                    
-                    
+                    <div className="divRecruitmentInfo"> 
+                        <form onSubmit={(event) => {getRecruitmentDetails(event); getApplications(event); getApplicationsData(event)}}>
+                            <RecruitmentIDSearchBar>
+                                {recruitments.map(recruitment => (
+                                    recruitment.isFrozen && <option>{recruitment.recruitmentID}</option>
+                                ))}
+                            </RecruitmentIDSearchBar>
+                                                    
+                            <button className="btn fs-5">Submit</button>
+                        </form>
+                        
+                        {(recruitmentDetails) ? (
+                            <div className="divRecruitmentDetailsLabel verifyApplicationsLabel">
+                                <p>Post Name : <span>{recruitmentDetails.postName}</span></p>
+                                <p>Location : <span>{recruitmentDetails.location}</span></p>
+                                <p>Total Vacancies : <span>{recruitmentDetails.vacancyTotal}</span></p>
+                                <p>Total Applications : <span>{applicationsData.applicationCount}</span></p>
+                                <p>Applications Checked : <span>{applicationsData.checked}</span></p>
+                                <p>Application Verified : <span>{applicationsData.verified}</span></p>
+                            </div>
+                        ) : null}
+                    </div>        
+                
                     {openApplicationBio && (
                         <div id="bio" className="divVerifyApplBio divVerifyApplBioOpen">
                             <div>
                                 <p>Application ID: <span>{applicationBio.applicationID.toUpperCase()}</span></p>                         
                                 <p>Name: <span>{applicationBio.applicantName}</span></p>                        
-                                <p>Category: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "category")}} className="offerFileLink">{applicationBio.category}</span></p>                            
+                                <p>Category: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "category")}} 
+                                                    className="offerFileLink">{applicationBio.category}</span></p>                            
                                 <p>Mobile: <span>{applicationBio.mobile}</span></p>                          
                                 <p>Address: <br/>
                                     <span>{applicationBio.addressFirstLine}</span>
@@ -146,8 +148,10 @@ export default function VerifyApplications() {
                             
                             <div>
                                 <p>Rank: <span>{applicationBio.rank}</span></p>
-                                <p>Date of Birth: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "dob")}} className="offerFileLink">{applicationBio.dob}</span></p>
-                                <p>Qualification: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "qualification")}} className="offerFileLink">{applicationBio.qualification}</span></p>
+                                <p>Date of Birth: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "dob")}} 
+                                                        className="offerFileLink">{applicationBio.dob}</span></p>
+                                <p>Qualification: <span onClick={() => {getFile(SHA256(applicationBio.applicationID), "qualification")}} 
+                                                        className="offerFileLink">{applicationBio.qualification}</span></p>
                                 <p>Email: <span>{applicationBio.email}</span></p>
                                 <p>City: <span>{applicationBio.city}</span></p>
                                 <p>District: <span>{applicationBio.district}</span></p>
@@ -155,7 +159,8 @@ export default function VerifyApplications() {
                             </div>
                             <svg onClick={() => setOpenApplicationBio(false)} xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" 
                                 className="btn bi bi-x-lg float-end sideBarCloseButton" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 
+                                    8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                             </svg>
                         </div>
                     )}
@@ -178,19 +183,25 @@ export default function VerifyApplications() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {applications.map(application => (<tr key={applications.applicationID} className={+ application.isVerified ? (application.verifyStatus === 1 ? "success" : "error") : null}>
-                                    <td className="align-middle text-center verifyApplCheckbox">
-                                            {!application.isVerified && <input status={(application.verifyStatus === 1) ? "verified": "rejected"} 
-                                                    onClick={(event) => {updateCheckedApplications(event, application.applicationID)}}
-                                                    className="form-check-input m-0" type="checkbox" 
-                                                    id={application.applicationID} aria-label="..."/>}
-                                    </td>
-                                    <td className="rank">{application.rank}</td>
-                                    <td className=""><span onClick={() => {getApplicationBio(application.applicationID)}}>{application.applicationID.toUpperCase()}</span></td>
-                                    <td className="">{application.applicantName}</td>
-                                    <td className="">{application.applicantID}</td>
-                                    <td className="">{application.dob}</td>
-                                </tr>))}
+                                {applications.map(application => (
+                                    <tr key={applications.applicationID} 
+                                        className={application.isVerified ? (application.verifyStatus === 1 
+                                                    ? "success" : "error") : null}>
+                                        <td className="align-middle text-center verifyApplCheckbox">
+                                                {!application.isVerified && <input status={(application.verifyStatus === 1) ? "verified": "rejected"} 
+                                                        onClick={(event) => {updateCheckedApplications(event, application.applicationID)}}
+                                                        className="form-check-input m-0" type="checkbox" 
+                                                        id={application.applicationID} aria-label="..."/>}
+                                        </td>
+                                        <td className="rank">{application.rank}</td>
+                                        <td className="">
+                                            <span onClick={() => 
+                                                {getApplicationBio(application.applicationID)}}>{application.applicationID.toUpperCase()}</span></td>
+                                        <td className="">{application.applicantName}</td>
+                                        <td className="">{application.applicantID}</td>
+                                        <td className="">{application.dob}</td>
+                                    </tr>)
+                                )}
                             </tbody>
                         </table>
                         

@@ -44,7 +44,8 @@ export default function ManageRecruitments() {
         formdata.append("recruitmentInfo", JSON.stringify(recruitmentInfo))
         
         if ($(event.target).find('input[type="file"]#' + recruitmentInfo.recruitmentID)[0].files[0]) {
-            formdata.append(recruitmentInfo.recruitmentID, $(event.target).find('input[type="file"]#' + recruitmentInfo.recruitmentID)[0].files[0])
+            formdata.append(recruitmentInfo.recruitmentID, $(event.target).find('input[type="file"]#' 
+                                + recruitmentInfo.recruitmentID)[0].files[0])
         }
         
         $.ajax({
@@ -124,7 +125,9 @@ export default function ManageRecruitments() {
                             <p className="card-text fs-5">Open Date : <span>{dateFormat(recruitment.datePublished)}</span></p>
                             <p className="card-text fs-5">Last Date : <span>{dateFormat(recruitment.appLastDate)}</span></p>
                             <div>
-                                {(!recruitment.isPublished) && (<button onClick={() => {publish(recruitment.recruitmentID)}} href="#" className="btn buttonSubmit">Publish</button>)}
+                                {(!recruitment.isPublished) && (
+                                    <button onClick={() => {publish(recruitment.recruitmentID)}} 
+                                            className="btn buttonSubmit">Publish</button>)}
                                 <button onClick={() => {setRecruitmentInfo(recruitment)}} 
                                         className="btn buttonSubmit">Edit</button>
                             </div>
@@ -138,7 +141,8 @@ export default function ManageRecruitments() {
                             <h2 className="d-inline-block card-title mb-2 text-center bottomp">{recruitmentInfo.recruitmentID.toUpperCase()}</h2>
                             <svg onClick={() => {setRecruitmentInfo(null)}} xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" 
                             className="btn bi bi-x-lg float-end sideBarCloseButton" viewBox="0 0 16 16">
-                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 
+                                        5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                             </svg>
                         </div>
                                                
@@ -148,35 +152,39 @@ export default function ManageRecruitments() {
                             <h4>Basic Details</h4>
                             <div >
                                 <label htmlFor="" className="d-inline-block">Post Name</label>
-                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "postName", event.target.value)} } type="text" name="postName" 
+                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "postName", event.target.value)} } 
+                                        type="text" name="postName" 
                                         value={recruitmentInfo.postName}/>
                             </div>
                             <div>
                                 <label htmlFor="" className="d-inline-block">Salary</label>
-                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "salary", event.target.value)} } type="text" name="postName" 
+                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "salary", event.target.value)} } 
+                                        type="text" name="postName" 
                                         value={recruitmentInfo.salary}/>
                             </div>
                             <div>
                                 <label htmlFor="" className="d-inline-block">Location</label>
-                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "location", event.target.value)} } type="text" name="postName" 
+                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "location", event.target.value)} } 
+                                        type="text" name="postName" 
                                         value={recruitmentInfo.location}/>
                             </div>
                             <div>
                                 <label htmlFor="" className="d-inline-block">Open Date</label>
-                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "datePublished", event.target.value)} } type="date" name="postName" 
+                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "datePublished", event.target.value)} } 
+                                        type="date" name="postName" 
                                         value={recruitmentInfo.datePublished}/>
                             </div>
                             <div>
                                 <label htmlFor="" className="d-inline-block">Close Date</label>
-                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "appLastDate", event.target.value)} } type="date" name="postName" 
+                                <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "appLastDate", event.target.value)} } 
+                                        type="date" name="postName" 
                                         value={recruitmentInfo.appLastDate}/>
                             </div>
                             
                             <div id="file" >
                                 <label htmlFor="" className="d-inline-block">Full Advertisement</label>
                                 <p onClick={() => {getFile(recruitmentInfo.recruitmentID, "recruitment")}}>View</p>
-                                <input type="file" id={recruitmentInfo.recruitmentID} 
-                                        />
+                                <input type="file" id={recruitmentInfo.recruitmentID} />
                                 </div>
                             
                             <h4>Vacancies</h4>
@@ -184,29 +192,35 @@ export default function ManageRecruitments() {
                             <div id="vacancies">
                                 <div >
                                     <label htmlFor="" >Total</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyTotal", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyTotal" 
-                                            className={recruitmentInfo.vacancyTotal === (recruitmentInfo.vacancyGEN + recruitmentInfo.vacancySC + recruitmentInfo.vacancyST + recruitmentInfo.vacancyOBC) ? "correct" : "incorrect"}
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyTotal", 
+                                        event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyTotal" 
+                                            className={recruitmentInfo.vacancyTotal === (recruitmentInfo.vacancyGEN + recruitmentInfo.vacancySC 
+                                                        + recruitmentInfo.vacancyST + recruitmentInfo.vacancyOBC) ? "correct" : "incorrect"}
                                             value={recruitmentInfo.vacancyTotal}/>
                                 </div>
                                 
                                 <div >
                                     <label htmlFor="" className="d-inline-block">GEN</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyGEN", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyGEN" 
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyGEN", 
+                                        event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyGEN" 
                                             value={recruitmentInfo.vacancyGEN}/>
                                 </div>
                                 <div >
                                     <label htmlFor="" className="d-inline-block">SC</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancySC", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancySC" 
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancySC", 
+                                        event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancySC" 
                                             value={recruitmentInfo.vacancySC}/>
                                 </div>
                                 <div >
                                     <label htmlFor="" className="d-inline-block">ST</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyST", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyST" 
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyST", 
+                                        event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyST" 
                                             value={recruitmentInfo.vacancyST}/>
                                 </div>
                                 <div >
                                     <label htmlFor="" className="d-inline-block">OBC</label>
-                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyOBC", event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyOBC" 
+                                    <input onChange={(event) => {updateData(recruitmentInfo.recruitmentID, "vacancyOBC", 
+                                        event.target.value !== "" ? Number(event.target.value) : "")} } type="number" name="postName" id="vacancyOBC" 
                                             value={recruitmentInfo.vacancyOBC}/>
                                 </div>
                             </div>

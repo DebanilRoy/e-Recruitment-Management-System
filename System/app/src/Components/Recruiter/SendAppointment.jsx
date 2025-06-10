@@ -45,7 +45,8 @@ export default function SendAppointment() {
 
     const applicationRender = applications.map(application => {
 
-        if (application.isVerified === 0 || application.verifyStatus === -1 || ["rejected", "lapsed"].includes(application.offerStatus) ) {
+        if (application.isVerified === 0 || application.verifyStatus === -1 
+                || ["rejected", "lapsed"].includes(application.offerStatus) ) {
             return {...application, isRowEnabled: false}
         }
 
@@ -85,10 +86,12 @@ export default function SendAppointment() {
     function getRecruitmentData(event) {
         $.ajax({
             type: "POST",
-            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/sendAppointments/getRecruitmentDetails.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL 
+                + "/src/sendAppointments/getRecruitmentDetails.php",
             data: JSON.stringify($(event.target).find("select").val()),
             success: (data) => {
-                setRecruitmentData({...data, remaining: (data['vacancytotal'] - (data['open'] + data['accepted']))})
+                setRecruitmentData({...data, remaining: (data['vacancytotal'] 
+                    - (data['open'] + data['accepted']))})
             },
             error: () => {
                 console.log("Error")
@@ -97,7 +100,8 @@ export default function SendAppointment() {
     }
 
     function updateVacancyCounter(event) {
-        setRecruitmentData(prev => ({...prev, remaining: (event.target.checked) ? (prev.remaining - 1) : (prev.remaining + 1)}))
+        setRecruitmentData(prev => ({...prev, remaining: (event.target.checked) 
+                                        ? (prev.remaining - 1) : (prev.remaining + 1)}))
     }
     
     // Retrieves applications data from backend
@@ -170,7 +174,9 @@ export default function SendAppointment() {
     // Updates state variable for checked applications 
     
     function updateCheckedApplications(event, applicationID) {
-        (event.target.checked) ? setCheckedApplications(prev => ([...prev, applicationID])) : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
+        (event.target.checked) ? setCheckedApplications(prev => 
+            ([...prev, applicationID])) 
+                : setCheckedApplications(prev => prev.filter(appID => appID !== applicationID))
     }
 
     return (
@@ -243,10 +249,15 @@ export default function SendAppointment() {
                                             console.log(application.applicationID)
                                             
                                             return (
-                                                <tr className={getClassLabel(application.offerStatus) + " " + ((!application.offerStatus && !application.isEnabled) ? "disabled" : "")}>
-                                                    <td onChange={(event) => {updateVacancyCounter(event); updateCheckedApplications(event, application.applicationID)} } 
+                                                <tr className={getClassLabel(application.offerStatus) + " " 
+                                                    + ((!application.offerStatus && !application.isEnabled) ? "disabled" : "")}>
+                                                    
+                                                    <td onChange={(event) => {updateVacancyCounter(event); 
+                                                                                updateCheckedApplications(event, application.applicationID)} } 
                                                         className="align-middle text-center checkboxSendAppointment">
-                                                        {application.isEnabled && <input className="form-check-input align-middle m-0 checkbox" type="checkbox" id="checkboxNoLabel"/>} 
+                                                        {application.isEnabled && 
+                                                            <input className="form-check-input align-middle m-0 checkbox" 
+                                                            type="checkbox" id="checkboxNoLabel"/>} 
                                                     </td>
                                                     <td className="rank">{application.rank}</td>
                                                     <td>{application.applicationID.toUpperCase()}</td>
@@ -257,9 +268,13 @@ export default function SendAppointment() {
                                                     <td>
                                                         { (application.offerStatus === null) 
                                                             ?   application.isEnabled
-                                                                    && <input className="appntLetterUpload" type="file" id={application.applicationID} required={checkedApplications.includes(application.applicationID)} />
+                                                                    && <input className="appntLetterUpload" type="file" 
+                                                                              id={application.applicationID} 
+                                                                              required={checkedApplications.includes(application.applicationID)} />
                                                                     
-                                                            :   (<span onClick={() => {getFile(SHA256(application.applicationID).toString(), "appointments")}} className="offerFileLink">View Offer</span>) 
+                                                            :   (<span onClick={() => {getFile(SHA256(application.applicationID).toString(), 
+                                                                                                "appointments")}} 
+                                                                       className="offerFileLink">View Offer</span>) 
                                                         }
                                                     </td>
                                                 </tr>

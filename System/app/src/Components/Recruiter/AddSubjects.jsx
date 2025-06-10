@@ -11,7 +11,8 @@ export default function AddSubjects () {
     const [subjects, setSubjects] = useState([]);
     const [deletedSubjects, setDeletedSubjects] = useState([]);
 
-    const { recruitments, getRecruitments, recruitmentDetails, getRecruitmentDetails } = useRecruitments()
+    const { recruitments, getRecruitments, 
+            recruitmentDetails, getRecruitmentDetails } = useRecruitments()
 
     // Getting context components
 
@@ -27,7 +28,8 @@ export default function AddSubjects () {
         event.preventDefault()
         $.ajax({
             type: "POST",
-            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/createRecruitment/recruitmentDetails.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL 
+                    + "/src/createRecruitment/recruitmentDetails.php",
             xhrFields: {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
@@ -57,7 +59,8 @@ export default function AddSubjects () {
 
     function addCol (key) {
         if (isEmpty(key)) {
-            setSubjects(prevSubjects => [...prevSubjects, {key: crypto.randomUUID(), subjectID: "", subjectName: "", priority: ""}])
+            setSubjects(prevSubjects => [...prevSubjects, 
+                {key: crypto.randomUUID(), subjectID: "", subjectName: "", priority: ""}])
         }
     }
 
@@ -72,7 +75,8 @@ export default function AddSubjects () {
     // Updates state variable as per change in input component
 
     function updateSubject(key, subjectName) {
-        setSubjects(prevSubjects => prevSubjects.map(subject => subject.key === key ? ({...subject, subjectName: subjectName}) : subject))
+        setSubjects(prevSubjects => 
+            prevSubjects.map(subject => subject.key === key ? ({...subject, subjectName: subjectName}) : subject))
     }
 
     // Backend call to save subjects
@@ -125,27 +129,28 @@ export default function AddSubjects () {
                         </form>
                     
                         {(recruitmentDetails) ? (<div className="divRecruitmentDetailsLabel modifySubjectsLabel">
-                            <p className="">Post Name : <span className="">{recruitmentDetails.postName}</span></p>
-                            <p className="">Location : <span className="">{recruitmentDetails.location}</span></p>
-                            <p className="">Total Vacancies : <span className="">{recruitmentDetails.vacancyTotal}</span></p>
-                            <p className="">Application Close Date : <span className="">{recruitmentDetails.appLastDate}</span></p>
+                            <p>Post Name : <span>{recruitmentDetails.postName}</span></p>
+                            <p>Location : <span>{recruitmentDetails.location}</span></p>
+                            <p>Total Vacancies : <span>{recruitmentDetails.vacancyTotal}</span></p>
+                            <p>Application Close Date : <span>{recruitmentDetails.appLastDate}</span></p>
                         </div>) : null}                          
                     </div>
                                      
-                    {(recruitmentDetails) && (<form method="post" onSubmit={(event) => {saveSubjects(event)}} className="">
+                    {(recruitmentDetails) && (<form method="post" onSubmit={(event) => {saveSubjects(event)}}>
                         <div className="divModifySubjects">
-                            <h4 className="">Subjects</h4>
+                            <h4>Subjects</h4>
                             {subjects.map((subject) =>
-                                (<input disabled={recruitmentDetails.isPublished ? true: false} key={subject.key} name="subject[]" type="text" value={subject.subjectName}
-                                    onfocus
+                                (<input disabled={recruitmentDetails.isPublished ? true: false} key={subject.key} 
+                                    name="subject[]" type="text" value={subject.subjectName}
                                     onFocus={() => addCol(subject.key)} 
                                     onChange={(event) => updateSubject(subject.key, event.target.value)} 
                                     onBlur={() => deleteCol(subject.key)} 
                                     placeholder="Subject Name" 
                                     className="form-control"/>))}
                         
-                            <div className="">
-                                <button disabled={recruitmentDetails.isPublished ? true : false} className="btn buttonSubmit">Save</button>
+                            <div>
+                                <button disabled={recruitmentDetails.isPublished ? true : false} 
+                                        className="btn buttonSubmit">Save</button>
                             </div>    
                         </div>
 

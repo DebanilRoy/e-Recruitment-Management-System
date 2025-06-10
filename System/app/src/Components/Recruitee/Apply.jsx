@@ -36,10 +36,16 @@ export default function Apply() {
                 withCredentials: true, // Ensure cookies are sent with the request
             },
             success: (data) => {
-                setApplicantDetails({   applicantID: userID, recruitmentID: recruitmentID, email: data.email, mobile: data.mobile, alternateMobile: data.alternateMobile, 
-                                        firstName: data.firstName, lastName: data.lastName, dob: data.dob, qualification: data.qualification, category: data.category,
-                                        addressFirstLine: data.addressFirstLine, addressSecondLine: data.addressSecondLine,
-                                        city:data.city, district: data.district, state: data.state, pinCode: data.pinCode})
+                setApplicantDetails({   applicantID: userID, recruitmentID: recruitmentID, 
+                                        email: data.email, mobile: data.mobile, 
+                                        alternateMobile: data.alternateMobile, 
+                                        firstName: data.firstName, lastName: data.lastName, 
+                                        dob: data.dob, qualification: data.qualification, 
+                                        category: data.category,
+                                        addressFirstLine: data.addressFirstLine, 
+                                        addressSecondLine: data.addressSecondLine,
+                                        city:data.city, district: data.district, 
+                                        state: data.state, pinCode: data.pinCode})
             }
         })
     }

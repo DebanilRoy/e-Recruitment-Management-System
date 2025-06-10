@@ -49,7 +49,10 @@ export default function SubmitResults() {
             url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/addResult/getResults.php",
             data: form.serialize(),
             success: (results) => {
-                setResultData([{key: crypto.randomUUID(), applicationID: "", applicantName: "", applicantID: ""}, ...results[1].map(application => ({key: crypto.randomUUID(), ...application}))]);
+                setResultData([{key: crypto.randomUUID(), applicationID: "", 
+                                applicantName: "", applicantID: ""}, 
+                                ...results[1].map(application => 
+                                    ({key: crypto.randomUUID(), ...application}))]);
             }
         })
     }
@@ -134,7 +137,12 @@ export default function SubmitResults() {
                         <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getResults(event)}}>
                             <RecruitmentIDSearchBar>
                                 {recruitments.map(recruitment => 
-                                        recruitment.isPublished && (recruitment.appLastDate < (new Date().getFullYear() + '-' + (new Date().getMonth() + 1 < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + new Date().getDate())) && (<option>{recruitment.recruitmentID}</option>)
+                                        recruitment.isPublished 
+                                            && (recruitment.appLastDate 
+                                                < (new Date().getFullYear() + '-' + (new Date().getMonth() 
+                                                    + 1 < 10 ? "0" + (new Date().getMonth() + 1) 
+                                                             : (new Date().getMonth() + 1)) + '-' 
+                                                                + new Date().getDate())) && (<option>{recruitment.recruitmentID}</option>)
                                     )}
                             </RecruitmentIDSearchBar>
 
@@ -176,16 +184,20 @@ export default function SubmitResults() {
                                             onFocus={() => {addRow(application.key)}} 
                                             onBlur={() => {deleteRow(application.key)}}>
                                             <td className="subResTdInput">
-                                                <input  disabled={recruitmentDetails.isFrozen} value={application.applicationID.toUpperCase()} 
-                                                        onChange={ (event) => {updateData(application.key, "applicationID", event.target.value.toLowerCase())}} 
+                                                <input  disabled={recruitmentDetails.isFrozen} 
+                                                        value={application.applicationID.toUpperCase()} 
+                                                        onChange={ (event) => 
+                                                            {updateData(application.key, "applicationID", event.target.value.toLowerCase())}} 
                                                         type="text" placeholder="ApplicationID" className="form-control"/></td>
                                             <td>{application.applicantName}</td>
                                             <td>{application.applicantID}</td>
                                             <td>{application.dob}</td>
                                             {(subjects.length > 0) && (subjects.map(subject => (
                                                 <td className={"subresTdInput " + subject.subjectName}>
-                                                    <input disabled={recruitmentDetails.isFrozen} value={application[subject.subjectName]} 
-                                                        onChange={ (event) => {updateData(application.key, subject.subjectName, event.target.value)}} 
+                                                    <input disabled={recruitmentDetails.isFrozen} 
+                                                        value={application[subject.subjectName]} 
+                                                        onChange={ (event) => 
+                                                            {updateData(application.key, subject.subjectName, event.target.value)}} 
                                                         type="text" placeholder="Result" className="form-control"
                                                     />
                                                 </td>

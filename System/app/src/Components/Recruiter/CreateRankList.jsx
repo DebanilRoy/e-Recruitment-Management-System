@@ -118,10 +118,16 @@ export default function CreateRankList() {
                 </div>
                 <div className="pt-2 px-2">         
                     <div className="d-flex divRecruitmentInfo">                       
-                        <form onSubmit={(event) => {getSubjects(event); getRecruitmentDetails(event); getRecruitmentData(event); getRankList(event)}}>
+                        <form onSubmit={(event) => 
+                                {getSubjects(event); getRecruitmentDetails(event); 
+                                    getRecruitmentData(event); getRankList(event)}}>
                             <RecruitmentIDSearchBar>
                                 {recruitments.map(recruitment => 
-                                    recruitment.isPublished && (recruitment.appLastDate < (new Date().getFullYear() + '-' + (new Date().getMonth() + 1 < 10 ? "0" + (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + new Date().getDate())) && <option>{recruitment.recruitmentID}</option>
+                                    recruitment.isPublished 
+                                        && (recruitment.appLastDate < (new Date().getFullYear() + '-' 
+                                            + (new Date().getMonth() + 1 < 10 ? "0" + (new Date().getMonth() 
+                                                + 1) : (new Date().getMonth() + 1)) + '-' 
+                                                    + new Date().getDate())) && <option>{recruitment.recruitmentID}</option>
                                 )}
                             </RecruitmentIDSearchBar>                         
                             
@@ -179,7 +185,8 @@ export default function CreateRankList() {
                     {(recruitmentDetails) && (!recruitmentDetails.isFrozen ? (
                         <div className="w-100 mt-3 text-center">
                             <div className="d-inline-block fs-5 mb-3 me-3 regFormDiv">
-                                <button onClick={() => freezeRankList()} className="btn btn-light form-control fs-5 buttonPrimary buttonFreezeList">Freeze Rank List</button>
+                                <button onClick={() => freezeRankList()} 
+                                        className="btn btn-light form-control fs-5 buttonPrimary buttonFreezeList">Freeze Rank List</button>
                             </div>
                         </div>) :
                     

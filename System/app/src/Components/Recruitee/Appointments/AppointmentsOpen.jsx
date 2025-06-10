@@ -21,7 +21,8 @@ export default function AppointmentsOpen() {
     function getAppointments() {
         $.ajax({
             type: "POST",
-            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewAppointments/getAppointments.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + 
+                    "/src/viewAppointments/getAppointments.php",
             xhrFields: {
                 withCredentials: true
             },
@@ -43,7 +44,8 @@ export default function AppointmentsOpen() {
         confirm &&
         $.ajax({
             type: "POST",
-            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewAppointments/accept.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + 
+                    "/src/viewAppointments/accept.php",
             data: JSON.stringify(appointmentID),
             success: () => {
                 getAppointments()
@@ -61,7 +63,8 @@ export default function AppointmentsOpen() {
         const confirm = await Confirm("Are you sure you want to reject the offer?")
         confirm && $.ajax({
             type: "POST",
-            url: process.env.REACT_APP_BACKEND_BASE_URL + "/src/viewAppointments/reject.php",
+            url: process.env.REACT_APP_BACKEND_BASE_URL + 
+                    "/src/viewAppointments/reject.php",
             data: JSON.stringify(appointmentID),
             success: () => {
                 getAppointments()
@@ -93,20 +96,24 @@ export default function AppointmentsOpen() {
                             <p className="card-text fs-5">Location: <span>{appointment.location}</span></p>
                             <p className="card-text fs-5">Offer Date: <span>{appointment.offerDate}</span></p>
                             <p className="card-text fs-5">Offer Deadline: <span>{appointment.offerLastDate}</span></p>
-                            <button onClick={() => {getFile(appointment.appointmentID, "recruitments")}} type="button" className="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Appointment Letter</button>
+                            <button onClick={() => {getFile(appointment.appointmentID, "recruitments")}} type="button" 
+                                    className="btn btn-light mt-2 me-2 rounded-2 buttonSubmit">View Appointment Letter</button>
                             
                             <br/>
 
                             <div className="d-flex justify-content-between">
                                 {(appointment.offerStatus === "open") && (
                                     <>
-                                        <button onClick={() => {accept(appointment.appointmentID)}} className="btn btn-light mt-2 rounded-2 buttonSubmit accept">Accept</button>
-                                        <button onClick={() => {reject(appointment.appointmentID)}} className="btn btn-light mt-2 rounded-2 buttonSubmit reject">Reject</button>
+                                        <button onClick={() => {accept(appointment.appointmentID)}} 
+                                            className="btn btn-light mt-2 rounded-2 buttonSubmit accept">Accept</button>
+                                        <button onClick={() => {reject(appointment.appointmentID)}} 
+                                            className="btn btn-light mt-2 rounded-2 buttonSubmit reject">Reject</button>
                                     </>    
                                 )}
                             
                                 {(appointment.offerStatus !== "open") && (
-                                    <button disabled onClick={() => {accept(appointment.appointmentID)}} className="btn btn-light mt-2 rounded-2 buttonSubmit accept accepted">Accepted!</button>
+                                    <button disabled onClick={() => {accept(appointment.appointmentID)}} 
+                                            className="btn btn-light mt-2 rounded-2 buttonSubmit accept accepted">Accepted!</button>
                                 )}
                             </div>
 

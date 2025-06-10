@@ -109,31 +109,40 @@ export default function CreateRecruitment(props) {
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">Total Vacancies</label>
                             <input 
-                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} value={recruitmentInput.vacancyTotal}
-                                type="number" name="vacancyTotal" id="vacancyTotal" className={"form-control fs-5 " + (recruitmentInput.vacancyTotal ? (recruitmentInput.vacancyTotal === recruitmentInput.vacancyGEN + recruitmentInput.vacancySC + recruitmentInput.vacancyST + recruitmentInput.vacancyOBC ? "correct" : "incorrect") : "")}/>
+                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} 
+                                value={recruitmentInput.vacancyTotal}
+                                type="number" name="vacancyTotal" id="vacancyTotal" 
+                                className={"form-control fs-5 " + (recruitmentInput.vacancyTotal 
+                                    ? (recruitmentInput.vacancyTotal === recruitmentInput.vacancyGEN + recruitmentInput.vacancySC 
+                                        + recruitmentInput.vacancyST + recruitmentInput.vacancyOBC 
+                                            ? "correct" : "incorrect") : "")}/>
                         </div>
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">GEN Vacancies</label>
                             <input 
-                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} value={recruitmentInput.vacancyGEN}
+                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} 
+                                value={recruitmentInput.vacancyGEN}
                                 type="number" name="vacancyGEN" id="vacancyGEN" className="form-control fs-5"/>
                         </div>
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">SC Vacancies</label>
                             <input 
-                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} value={recruitmentInput.vacancySC}
+                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} 
+                                value={recruitmentInput.vacancySC}
                                 type="number" name="vacancySC" id="vacancySC" className="form-control fs-5"/>
                         </div>
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">ST Vacancies</label>
                             <input 
-                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value) )} value={recruitmentInput.vacancyST}
+                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value) )} 
+                                value={recruitmentInput.vacancyST}
                                 type="number" name="vacancyST" id="vacancyST" className="form-control fs-5"/>
                         </div>
                         <div className="fs-5">
                             <label htmlFor="" className="form-label">OBC Vacancies</label>
                             <input 
-                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} value={recruitmentInput.vacancyOBC}
+                                onChange={(event) => updateData(event, event.target.value === "" ? null : Number(event.target.value))} 
+                                value={recruitmentInput.vacancyOBC}
                                 type="number" name="vacancyOBC" id="vacancyOBC" className="form-control fs-5"/>
                         </div>
                         <div className="fs-5">
@@ -149,8 +158,10 @@ export default function CreateRecruitment(props) {
                                 type="date" name="appLastDate" id="appLastDate" className="form-control fs-5"/>
                         </div>
                         <div className="fs-5">
-                            <button disabled={isEmpty() || (recruitmentInput.vacancyTotal !== recruitmentInput.vacancyGEN + recruitmentInput.vacancySC + recruitmentInput.vacancyST + recruitmentInput.vacancyOBC)} 
-                                    name="" id="" className="btn fs-5 buttonSubmit">Create</button>
+                            <button disabled={isEmpty() || (recruitmentInput.vacancyTotal !== recruitmentInput.vacancyGEN 
+                                + recruitmentInput.vacancySC + recruitmentInput.vacancyST 
+                                    + recruitmentInput.vacancyOBC)} 
+                                        name="" id="" className="btn fs-5 buttonSubmit">Create</button>
                         </div>
                     </form>
                 </div>
