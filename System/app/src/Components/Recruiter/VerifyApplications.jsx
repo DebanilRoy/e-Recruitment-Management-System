@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import $ from 'jquery'
-import { SHA256 } from 'crypto-js' 
+import { SHA256 } from 'crypto-js'
 import RecruitmentIDSearchBar from "../RecruitmentIDSearchBar";
 import { useRecruitments } from "../../Context/recruitmentsContext";
 import { useConfirmModal } from "../../Context/modalContext"
@@ -87,8 +87,9 @@ export default function VerifyApplications() {
             url: process.env.REACT_APP_BACKEND_BASE_URL + "/src//verifyApplications/verifyApplications.php",
             data: JSON.stringify([(event.nativeEvent.submitter.name === "verify" ? "verify" : "reject"), checkedApplications]),
             success: (data) => {
-                action === "verify" ? Notification("Applications verified", "success") 
+                action === "verify" ? Notification("Applications verified", "success")
                                     : Notification("Applications Reject", "success")
+                setCheckedApplications([])
             }
         })}
     }

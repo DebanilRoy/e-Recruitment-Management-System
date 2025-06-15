@@ -18,16 +18,16 @@ print(f"Found {len(cards)} recruitment cards")
 # Look for the one with recruitmentID = R004
 target_card = None
 for card in cards:
-    if "R004" in card.text:
+    if "R006" in card.text:
         target_card = card
         break
 
 if not target_card:
-    print("Recruitment ID 'R004' not found.")
+    print("Recruitment ID 'R006' not found.")
     ChromeDriver.driver.quit()
     exit()
 
-print("Found card for recruitmentID: R004")
+print("Found card for recruitmentID: R006")
 
 # Click Edit button inside the card
 ChromeDriver.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", target_card)

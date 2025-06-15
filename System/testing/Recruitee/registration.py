@@ -53,7 +53,7 @@ if submit.get_attribute("disabled") == "true":
     print("Test Passed: Submit Button disabled on incorrect email field")
 email.clear()
 
-email.send_keys("email@email.com")
+email.send_keys("email2@email.com")
 if "accept" in email.get_attribute("class"):
     print("Test Passed: email correct field pattern caught")
 else:
@@ -72,7 +72,7 @@ else:
 
 # Example interactions
 dob.send_keys("1990-01-01")
-alternateMobile.send_keys("9123456780")
+alternateMobile.send_keys("9123256780")
 addressFirstLine.send_keys("123 Main St")
 addressSecondLine.send_keys("Apt 4B")
 city.send_keys("New York")

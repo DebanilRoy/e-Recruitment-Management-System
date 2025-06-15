@@ -8,11 +8,11 @@ link.click()
 print("Opened Manage Recruitments page")
 time.sleep(2)
 
-# 2. Select recruitmentID "R004"
-print("Selecting recruitment ID 'R004'...")
+# 2. Select recruitmentID "R006"
+print("Selecting recruitment ID 'R006'...")
 select_element = ChromeDriver.driver.find_element(ChromeDriver.By.TAG_NAME, "select")
 select_element.click()
-ChromeDriver.Select(select_element).select_by_visible_text("R004")
+ChromeDriver.Select(select_element).select_by_visible_text("R006")
 time.sleep(1)
 
 # 3. Click Submit
@@ -21,9 +21,9 @@ submit_button = ChromeDriver.driver.find_element(ChromeDriver.By.XPATH, "//butto
 submit_button.click()
 time.sleep(2)
 
-# 4. Check checkboxes for applicationIDs "DEF002" and "GHI003"
-print("Checking application rows for 'DEF002' and 'GHI003'...")
-target_ids = {"DEF002", "GHI003"}
+# 4. Check checkboxes for applicationIDs "APP103" and "APP104"
+print("Checking application rows for 'APP103' and 'APP104'...")
+target_ids = {"APP103", "APP104"}
 rows = ChromeDriver.driver.find_elements(ChromeDriver.By.TAG_NAME, "tr")
 
 for row in rows:

@@ -9,11 +9,11 @@ print("Opened Manage Recruitments page")
 
 time.sleep(2)
 
-# 2. Select recruitment ID "R004"
-print("Selecting recruitment ID 'R004'...")
+# 2. Select recruitment ID "R006"
+print("Selecting recruitment ID 'R006'...")
 select_element = ChromeDriver.driver.find_element(ChromeDriver.By.TAG_NAME, "select")
 select_element.click()
-ChromeDriver.Select(select_element).select_by_visible_text("R004")
+ChromeDriver.Select(select_element).select_by_visible_text("R006")
 time.sleep(1)
 
 # 3. Click Submit
@@ -38,11 +38,11 @@ print("Reloading page...")
 ChromeDriver.driver.refresh()
 time.sleep(3)
 
-# 6. Select recruitment ID "R004" and Submitting
-print("Selecting recruitment ID 'R004'...")
+# 6. Select recruitment ID "R006" and Submitting
+print("Selecting recruitment ID 'R006'...")
 select_element = ChromeDriver.driver.find_element(ChromeDriver.By.TAG_NAME, "select")
 select_element.click()
-ChromeDriver.Select(select_element).select_by_visible_text("R004")
+ChromeDriver.Select(select_element).select_by_visible_text("R006")
 time.sleep(1)
 
 print("Submitting form...")

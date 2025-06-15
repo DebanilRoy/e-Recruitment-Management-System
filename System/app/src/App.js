@@ -17,8 +17,10 @@ export default function App() {
     const [isLogin, setIsLogin] = [context.isLogin, context.setIsLogin]
     const setUserID = context.setUserID
 
-    document.getElementById('root').className = ["/"].includes(window.location.pathname) ? "root loginPage" : "root";
-    document.getElementById('root').style.display = ["/registration"].includes(window.location.pathname) ? "block" : "grid"
+    document.getElementById('root').className = ["/"].includes(window.location.pathname) 
+                                                    ? "root loginPage" : "root";
+    document.getElementById('root').style.display = ["/registration"].includes(window.location.pathname) 
+                                                    ? "block" : "grid"
 
     // React Router paths
 

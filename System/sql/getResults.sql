@@ -1,28 +1,28 @@
-SELECT	
-	GROUP_CONCAT(DISTINCT
-		CONCAT(
-			'MAX(CASE WHEN s.subjectName = "', subjectName, '" THEN 1 ELSE NULL END) AS "', subjectName , '"'
-		) ORDER BY priority ASC
+CREATE DEFINER=`root`@`localhost` 
+PROCEDURE `get_results`(IN recruitmentID VARCHAR(12))
+BEGIN
+	SELECT GROUP_CONCAT(
+	DISTINCT CONCAT("MAX(CASE WHEN subjects.subjectID = '", s.subjectID, "' 
+							  THEN results.result ELSE 0 END) 
+							  AS '", s.subjectName, "'")
+		ORDER BY s.priority ASC
 	) INTO @pivot_query
-FROM subjects WHERE recruitmentID = "R001";
+	FROM subjects s
+	WHERE s.recruitmentID = recruitmentID;
 
-SET @sql = CONCAT ( 'SELECT r.applicationID, CONCAT(ap.firstName, "", ap.lastName) AS "applicantName" , a.applicationID, ap.dob, ',
-	@pivot_query,
-	'FROM results r
-	LEFT JOIN subjects s ON r.subjectID = s.subjectID
-	INNER JOIN application a ON r.applicationID = a.applicationID INNER JOIN applicants ap ON a.applicantID = ap.applicantID
-    
-    GROUP BY r.applicationID ');
+	SET @sql = CONCAT (
+	"SELECT applications.applicationID, 
+			CONCAT(applicants.firstName, ' ' , applicants.lastName) 
+				AS 'applicantName', 
+			applicants.applicantID, applicants.dob, ", @pivot_query,
+	"FROM applications applications 
+	JOIN applicants applicants ON applications.applicantID = applicants.applicantID
+    INNER JOIN results results ON applications.applicationID = results.applicationID 
+	INNER JOIN subjects subjects ON subjects.subjectID = results.subjectID
+    WHERE applications.recruitmentID = '", recruitmentID , "' 
+	GROUP BY applications.applicationID"); 
 
-PREPARE stmt FROM @sql;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
-/*
-SELECT	
-	GROUP_CONCAT(DISTINCT
-		CONCAT(
-			'MAX(CASE WHEN s.subjectName = "', subjectName, '" THEN 1 ELSE NULL END) AS '',subject, '''
-		)
-	) INTO @pivot_query
-FROM subjects;
+	PREPARE stmt FROM @sql;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+END

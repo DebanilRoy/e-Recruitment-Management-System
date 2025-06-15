@@ -10,11 +10,11 @@ print("Opened Manage Recruitments page")
 
 time.sleep(2)
 
-# Select recruitmentID "R004"
-print("Selecting recruitment ID 'R004'...")
+# Select recruitmentID "R006"
+print("Selecting recruitment ID 'R006'...")
 recruitment_select = ChromeDriver.driver.find_element(ChromeDriver.By.ID, "recruitmentID")
 recruitment_select.click()
-ChromeDriver.Select(recruitment_select).select_by_visible_text("R004")
+ChromeDriver.Select(recruitment_select).select_by_visible_text("R006")
 submit_button = ChromeDriver.driver.find_element(ChromeDriver.By.XPATH, "//button[contains(text(), 'Submit')]")
 submit_button.click()
 
@@ -37,7 +37,7 @@ print("Filling first result row...")
 rows = ChromeDriver.driver.find_elements(ChromeDriver.By.TAG_NAME, "tr")
 print(f"Rows: {len(rows)}")
 latest_row = rows[2]
-fill_result_row(latest_row, "MNO005")
+fill_result_row(latest_row, "APP103")
 
 time.sleep(2)
 
@@ -46,7 +46,7 @@ print("Waiting for new row to appear...")
 time.sleep(2)
 rows = ChromeDriver.driver.find_elements(ChromeDriver.By.TAG_NAME, "tr")
 new_latest_row = rows[2]
-fill_result_row(new_latest_row, "ABC001")
+fill_result_row(new_latest_row, "APP104")
 
 time.sleep(1)
 
